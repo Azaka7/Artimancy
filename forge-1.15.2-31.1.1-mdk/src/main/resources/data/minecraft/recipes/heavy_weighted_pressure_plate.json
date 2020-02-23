@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "P",
+    "R"
+  ],
+  "key": {
+    "P": {
+      "item": "artimancy:plate_iron"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "minecraft:heavy_weighted_pressure_plate"
+  }
+}
