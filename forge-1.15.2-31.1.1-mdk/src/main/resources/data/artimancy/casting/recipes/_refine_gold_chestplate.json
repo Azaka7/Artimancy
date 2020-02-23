@@ -1,0 +1,14 @@
+{
+  "type": "warforge:casting",
+  "input": {
+    "item": "minecraft:golden_chestplate"
+  },
+  "cast": {
+    "item": "artimancy:ingot_cast"
+  },
+  "result": {
+    "item": "minecraft:gold_ingot",
+    "count": "8"
+  },
+  "scale-output": true
+}

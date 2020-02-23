@@ -1,0 +1,6 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "artimancy:items/iron_plated_chestplate"
+    }
+}

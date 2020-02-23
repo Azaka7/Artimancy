@@ -1,0 +1,9 @@
+{
+  "type": "smelting",
+  "ingredient": {
+    "item": "minecraft:iron_ingot"
+  },
+  "result": "artimancy:steel_ingot",
+  "experience": 0.8,
+  "cookingtime": 200
+}

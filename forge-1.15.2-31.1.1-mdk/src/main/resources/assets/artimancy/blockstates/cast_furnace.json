@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "facing=north,lit=false": { "model": "artimancy:block/cast_furnace" },
+        "facing=south,lit=false": { "model": "artimancy:block/cast_furnace", "y": 180 },
+        "facing=west,lit=false":  { "model": "artimancy:block/cast_furnace", "y": 270 },
+        "facing=east,lit=false":  { "model": "artimancy:block/cast_furnace", "y": 90 },
+        "facing=north,lit=true": { "model": "artimancy:block/cast_furnace_lit" },
+        "facing=south,lit=true": { "model": "artimancy:block/cast_furnace_lit", "y": 180 },
+        "facing=west,lit=true":  { "model": "artimancy:block/cast_furnace_lit", "y": 270 },
+        "facing=east,lit=true":  { "model": "artimancy:block/cast_furnace_lit", "y": 90 }
+
+    }
+}

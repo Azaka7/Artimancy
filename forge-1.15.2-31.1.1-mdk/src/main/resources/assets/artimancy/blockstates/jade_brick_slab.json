@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "type=bottom": { "model": "artimancy:block/jade_brick_slab" },
+        "type=top": { "model": "artimancy:block/jade_brick_slab_top" },
+        "type=double": { "model": "artimancy:block/jade_brick" }
+    }
+}

@@ -1,0 +1,15 @@
+{
+    "parent": "artimancy:item/generic_shield",
+    "textures": {
+        "wood": "minecraft:block/spruce_planks",
+        "metal": "minecraft:block/gold_block"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "blocking": 1
+            },
+            "model": "artimancy:item/golden_tower_shield_blocking"
+        }
+    ]
+}

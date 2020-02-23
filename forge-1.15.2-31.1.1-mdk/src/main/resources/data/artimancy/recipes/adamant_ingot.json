@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "artimancy:adamant_shards"
+    },
+    {
+      "item": "artimancy:adamant_shards"
+    }
+  ],
+  "result": {
+    "item": "artimancy:adamant_ingot"
+  }
+}

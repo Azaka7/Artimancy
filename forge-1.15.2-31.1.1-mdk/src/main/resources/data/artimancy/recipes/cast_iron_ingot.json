@@ -1,0 +1,9 @@
+{
+  "type": "smelting",
+  "ingredient": {
+    "item": "artimancy:steel_ingot"
+  },
+  "result": "artimancy:cast_iron_ingot",
+  "experience": 0.8,
+  "cookingtime": 200
+}

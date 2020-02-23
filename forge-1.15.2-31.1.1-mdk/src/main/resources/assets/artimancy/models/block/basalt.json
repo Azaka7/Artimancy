@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "artimancy:block/basalt_top",
+        "side": "artimancy:block/basalt"
+    }
+}

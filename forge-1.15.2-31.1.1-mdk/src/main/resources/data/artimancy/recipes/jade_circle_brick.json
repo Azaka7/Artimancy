@@ -1,0 +1,17 @@
+{
+  "type": "crafting_shaped",
+  "group": "jade",
+  "pattern": [
+    "jj",
+    "jj"
+  ],
+  "key": {
+    "j": {
+      "item": "artimancy:jade_square_brick"
+    }
+  },
+  "result": {
+    "item": "artimancy:jade_circle_brick",
+    "count": 4
+  }
+}

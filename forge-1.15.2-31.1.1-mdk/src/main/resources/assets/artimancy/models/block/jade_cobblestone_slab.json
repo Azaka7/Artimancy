@@ -1,0 +1,8 @@
+{
+    "parent": "minecraft:block/slab",
+    "textures": {
+        "bottom": "artimancy:block/jade_cobblestone",
+        "top": "artimancy:block/jade_cobblestone",
+        "side": "artimancy:block/jade_cobblestone"
+    }
+}

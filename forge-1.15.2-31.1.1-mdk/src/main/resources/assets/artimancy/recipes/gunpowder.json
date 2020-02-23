@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "artimancy:mineral",
+      "data": 0
+    },
+    {
+      "item": "artimancy:mineral",
+      "data": 1
+    },
+    {
+      "item": "minecraft:coal",
+      "data": 1
+    }
+  ],
+  "result": {
+    "item": "minecraft:gunpowder",
+    "data": 0,
+    "count": 2
+  }
+}
