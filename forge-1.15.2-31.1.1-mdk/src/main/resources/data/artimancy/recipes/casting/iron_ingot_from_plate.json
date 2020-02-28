@@ -1,0 +1,16 @@
+{
+  "type": "artimancy:casting_recipe",
+  "ingredient": {
+    "item": "artimancy:plate_iron",
+    "amount": 1
+  },
+  "cast": {
+    "item": "artimancy:cast_ingot"
+  },
+  "result": {
+    "item": "minecraft:iron_ingot",
+    "count": 2
+  },
+  "experience": 0.0,
+  "cookingtime": 100
+}

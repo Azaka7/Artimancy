@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.block.ICustomItemBlock;
+import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
 import azaka7.artimancy.common.tileentity.CastFurnaceContainer;
 import azaka7.artimancy.common.tileentity.TileEntityCastFurnace;
 import net.minecraft.block.Block;
@@ -45,7 +46,6 @@ public class CommonHandler {
 	
 	public CommonHandler(Logger logger){
 		LOGGER = logger;
-		System.out.println("Loading common Handler");
 		castFurnaceContainerType = new ContainerType<CastFurnaceContainer>(CastFurnaceContainer::new) {
 			 public CastFurnaceContainer create(int windowId, PlayerInventory playerInv, net.minecraft.network.PacketBuffer extraData) {
 				 return CastFurnaceContainer.createNew(windowId, playerInv, extraData);
@@ -91,6 +91,7 @@ public class CommonHandler {
 
 	public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
 		IRecipeSerializer.register(Artimancy.MODID+":toggle_shaped_recipe", TOGGLE_SHAPED_SERIALIZER);
+		IRecipeSerializer.register(Artimancy.MODID+":casting_recipe", CastingRecipeSerializer.INSTANCE);
 	}
 	
 	public void blockDrops(BlockEvent.BreakEvent event){
@@ -117,7 +118,7 @@ public class CommonHandler {
 	private static final class ToggleShapedSerializer extends ShapedRecipe.Serializer{
 		
 		public ShapedRecipe read(ResourceLocation recipeId, JsonObject json) {
-			System.out.println("reading toggleable recipe");
+			Artimancy.instance().getLogger().debug("Loading toggleable recipe from json: "+recipeId+" ("+(removeVanillaRecipes ? "disabled" : "enabled")+")");
 	        ShapedRecipe main = super.read(recipeId, json) ;
 	        if(removeVanillaRecipes) {
 	        	ShapedRecipe nulled = new ShapedRecipe(main.getId(),main.getGroup(),main.getHeight(),main.getWidth(), main.getIngredients(), ItemStack.EMPTY){
@@ -132,22 +133,22 @@ public class CommonHandler {
 	      }
 		
 		public ShapedRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-			System.out.println("reading toggleable recipe");
-	    	  ShapedRecipe main = super.read(recipeId, buffer) ;
-		        if(removeVanillaRecipes) {
-		        	ShapedRecipe nulled = new ShapedRecipe(main.getId(),main.getGroup(),main.getHeight(),main.getWidth(), main.getIngredients(), ItemStack.EMPTY){
-		        		@Override
-		        		public boolean isDynamic() {
-		        		      return true;
-		        		}
-		        		
-		        		public IRecipeSerializer<?> getSerializer() {
-		        		      return CommonHandler.TOGGLE_SHAPED_SERIALIZER;
-		        		}
-		        	};
-		        	return nulled;
-		        }
-				return main;
+			Artimancy.instance().getLogger().debug("Loading toggleable recipe from packet: "+recipeId+" ("+(removeVanillaRecipes ? "disabled" : "enabled")+")");
+			ShapedRecipe main = super.read(recipeId, buffer) ;
+			if(removeVanillaRecipes) {
+				ShapedRecipe nulled = new ShapedRecipe(main.getId(),main.getGroup(),main.getHeight(),main.getWidth(), main.getIngredients(), ItemStack.EMPTY){
+					@Override
+					public boolean isDynamic() {
+						return true;
+					}
+					
+					public IRecipeSerializer<?> getSerializer() {
+						return CommonHandler.TOGGLE_SHAPED_SERIALIZER;
+					}
+				};
+				return nulled;
+			}
+			return main;
 	      }
 	}
 

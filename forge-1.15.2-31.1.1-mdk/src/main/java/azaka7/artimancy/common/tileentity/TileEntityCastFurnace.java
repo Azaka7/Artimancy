@@ -5,8 +5,7 @@ import java.util.List;
 import javax.annotation.Nullable;
 
 import azaka7.artimancy.Artimancy;
-import azaka7.artimancy.common.CastingRecipeHandler;
-import azaka7.artimancy.common.CastingRecipeHandler.CastingRecipe;
+import azaka7.artimancy.common.crafting.CastingRecipe;
 import azaka7.artimancy.common.block.BlockCastFurnace;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -31,7 +30,7 @@ import net.minecraftforge.common.util.LazyOptional;
 public class TileEntityCastFurnace extends LockableTileEntity implements ITickableTileEntity, ISidedInventory
 {
 
-	public static final IRecipeType<? extends CastingRecipeHandler.CastingRecipe> RECIPE_TYPE = IRecipeType.register(Artimancy.MODID+"_casting");
+	public static final IRecipeType<CastingRecipe> CAST_RECIPE_TYPE = IRecipeType.register(Artimancy.MODID+"_casting");
 	
 	public TileEntityCastFurnace() {
 		super(Artimancy.instance().getCastFurnaceType());
@@ -42,12 +41,17 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 	private static final int[] SLOTS_TOP = new int[] {0};
     private static final int[] SLOTS_BOTTOM = new int[] {2, 1};
     private static final int[] SLOTS_SIDES = new int[] {1};
+    
+    private CastingRecipe lastRecipe = null;
 	
     
     private FurnaceTiming timing;
     private String furnaceCustomName;
     
-	private NonNullList<ItemStack> furnaceItemStacks = NonNullList.<ItemStack>withSize(4, ItemStack.EMPTY);
+    /**
+     * main_input, secondary_input, cast, fuel, main_result, secondary_result
+     */
+	private NonNullList<ItemStack> furnaceItemStacks = NonNullList.<ItemStack>withSize(6, ItemStack.EMPTY);
 
 	public FurnaceTiming getTiming() {
 		return timing;
@@ -194,8 +198,9 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 
         if (!this.world.isRemote)
         {
-            ItemStack itemstack = this.furnaceItemStacks.get(1);
+            ItemStack itemstack = this.furnaceItemStacks.get(3);
 
+            
             if (this.isBurning() || !itemstack.isEmpty() && !((ItemStack)this.furnaceItemStacks.get(0)).isEmpty())
             {
                 if (!this.isBurning() && this.canSmelt())
@@ -209,12 +214,12 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
                         if (!itemstack.isEmpty())
                         {
                             Item item = itemstack.getItem();
-                            itemstack.shrink(1);
+                            itemstack.shrink(3);
 
                             if (itemstack.isEmpty())
                             {
                                 ItemStack item1 = item.getContainerItem(itemstack);
-                                this.furnaceItemStacks.set(1, item1);
+                                this.furnaceItemStacks.set(3, item1);
                             }
                         }
                     }
@@ -268,90 +273,66 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
     
 	private boolean canSmelt()
     {
-    	ItemStack input = this.furnaceItemStacks.get(0);
-    	ItemStack cast = this.furnaceItemStacks.get(3);
-    	if(input.isEmpty() || cast.isEmpty()){
-    		//System.out.println("no cast");
+    	ItemStack input1 = this.furnaceItemStacks.get(0);
+    	ItemStack cast = this.furnaceItemStacks.get(2);
+    	if(input1.isEmpty() || cast.isEmpty()){
     		return false;
     	}
     	
-    	@SuppressWarnings("unchecked")
-		List<CastingRecipeHandler.CastingRecipe> recipes = this.world.getRecipeManager().getRecipes((IRecipeType<CastingRecipeHandler.CastingRecipe>)RECIPE_TYPE, this, this.world);
-        recipes.sort(CastingRecipeHandler.RECIPE_SORT);
-        //CastingRecipe recipe = null;
-        for(CastingRecipeHandler.CastingRecipe rec : recipes) {
-        	if(rec.matches(input, cast)) {
-        		//TODO save this recipe to instance (temporary/no nbt) so lookup doesn't always have to happen again when doing smelting actions.
-        		return true; 
+		List<CastingRecipe> recipes = this.world.getRecipeManager().getRecipes((IRecipeType<CastingRecipe>)CAST_RECIPE_TYPE, this, this.world);
+        
+        if(lastRecipe != null && lastRecipe.matches(this, getWorld())) {
+        	return true;
+        } else { 
+        	lastRecipe = null;
+        	for(CastingRecipe rec : recipes) {
+        		if(rec.matches(this, this.getWorld())) {
+        			lastRecipe = rec;
+        			return true; 
+        		}
         	}
         }
         return false;
-        /*if (recipe == null)
-        {
-    		//System.out.println("no recipe");
-            return false;
-        }
-        else
-        {
-            ItemStack newOutput = recipe.getOutput(input);
-            
-            if (newOutput.isEmpty() || input.getCount() < recipe.getInputCost())
-            {
-        		//System.out.println("no output / not enough input");
-                return false;
-            }
-            else
-            {
-                ItemStack inOutput = this.furnaceItemStacks.get(2);
-
-                if (inOutput.isEmpty() && newOutput.getCount() <= 64)
-                {
-            		//System.out.println("canSmelt");
-                    return true;
-                }
-                else if (!inOutput.isItemEqual(newOutput))
-                {
-            		//System.out.println("ouput mismatch");
-                    return false;
-                }
-                else if (inOutput.getCount() + newOutput.getCount() <= this.getInventoryStackLimit() && inOutput.getCount() + newOutput.getCount() <= inOutput.getMaxStackSize())  // Forge fix: make furnace respect stack sizes in furnace recipes
-                {
-            		//System.out.println("canSmelt");
-                    return true;
-                }
-                else
-                {
-            		//System.out.println("canSmelt, with less output");
-                    return inOutput.getCount() + newOutput.getCount() <= newOutput.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
-                }
-            }
-        }*/
     }
 
     /**
-     * Turn one item from the furnace source stack into the appropriate smelted item in the furnace result stack
+     * Turn items from the furnace source stacks into the appropriate smelted items in the furnace result stack
      */
     public void smeltItem()
     {
         if (this.canSmelt())
         {
 
-        	ItemStack input = this.furnaceItemStacks.get(0);
-        	ItemStack cast = this.furnaceItemStacks.get(3);
-            CastingRecipe recipe = CastingRecipeHandler.instance().getRecipeFor(input, cast);
-            ItemStack newOutput = recipe.getOutput(input);
-            ItemStack inOutput = this.furnaceItemStacks.get(2);
+        	ItemStack input1 = this.furnaceItemStacks.get(0);
+        	ItemStack input2 = this.furnaceItemStacks.get(1);
+        	
+        	//this.canSmelt() updates this.lastRecipe, making it safe to access here
+            ItemStack newOutput = lastRecipe.getCraftingResult(this);
+            ItemStack newOutput2 = lastRecipe.getSecondaryResult(this);
+            
+            ItemStack inOutput = this.furnaceItemStacks.get(4);
+            ItemStack inOutput2 = this.furnaceItemStacks.get(5);
 
             if (inOutput.isEmpty())
             {
-                this.furnaceItemStacks.set(2, newOutput.copy());
+                this.furnaceItemStacks.set(4, newOutput.copy());
             }
             else if (inOutput.getItem() == newOutput.getItem())
             {
                 inOutput.grow(newOutput.getCount());
             }
+            
+            if (inOutput2.isEmpty())
+            {
+                this.furnaceItemStacks.set(5, newOutput2.copy());
+            }
+            else if (inOutput2.getItem() == newOutput2.getItem())
+            {
+                inOutput2.grow(newOutput2.getCount());
+            }
 
-            input.shrink(recipe.getInputCost());
+            input1.shrink(lastRecipe.getIngredient1Amount());
+            input2.shrink(lastRecipe.getIngredient2Amount());
         }
     }
 
@@ -359,7 +340,8 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
      * Returns the number of ticks that the supplied fuel item will keep the furnace burning, or 0 if the item isn't
      * fuel
      */
-    public static int getItemBurnTime(ItemStack stack)
+    @SuppressWarnings("deprecation")
+	public static int getItemBurnTime(ItemStack stack)
     {
     	if (stack.isEmpty()) {
             return 0;

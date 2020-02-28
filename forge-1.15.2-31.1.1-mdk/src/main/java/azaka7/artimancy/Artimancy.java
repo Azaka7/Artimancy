@@ -4,7 +4,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import azaka7.artimancy.client.ClientHandler;
-import azaka7.artimancy.common.CastingRecipeHandler;
 import azaka7.artimancy.common.CommonHandler;
 import azaka7.artimancy.common.ModBlocks;
 import net.minecraft.block.Block;
@@ -32,7 +31,7 @@ public class Artimancy
 {
     public static final String MODID = "artimancy";
     public static final String NAME = "Artimancy";
-    public static final String VERSION = "1.0.5a";
+    public static final String VERSION = "0.1.1.2a";
 
     private static final Logger LOGGER = LogManager.getLogger();
     
@@ -80,8 +79,6 @@ public class Artimancy
     public void commonInit(final FMLCommonSetupEvent event)
     {
     	LOGGER.debug("Artimancy Common Init");
-    	
-    	CastingRecipeHandler.instance().registerModRecipes();
 		
     }
 
@@ -108,5 +105,9 @@ public class Artimancy
 
 	public TileEntityType<?> getCastFurnaceType() {
 		return common_proxy.getCastFurnaceType();
+	}
+
+	public Logger getLogger() {
+		return LOGGER;
 	}
 }

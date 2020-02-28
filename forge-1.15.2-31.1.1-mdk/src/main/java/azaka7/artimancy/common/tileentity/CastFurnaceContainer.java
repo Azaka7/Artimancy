@@ -1,7 +1,7 @@
 package azaka7.artimancy.common.tileentity;
 
 import azaka7.artimancy.Artimancy;
-import azaka7.artimancy.common.CastingRecipeHandler;
+import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
@@ -21,7 +21,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 
     public CastFurnaceContainer(int screenID, PlayerInventory playerInventory)
     {
-    	this(screenID, playerInventory, new Inventory(4), new FurnaceTiming());
+    	this(screenID, playerInventory, new Inventory(6), new FurnaceTiming());
     }
     
     public CastFurnaceContainer(int screenID, PlayerInventory playerInventory, IInventory furnaceInventory, FurnaceTiming times)
@@ -30,11 +30,13 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
     	
         this.tileFurnace = furnaceInventory;
         this.timing = times == null ? new FurnaceTiming() : times;
-        
-        this.addSlot(new Slot(furnaceInventory, 0, 56, 17));
-        this.addSlot(new BurnFuelSlot(this,furnaceInventory, 1, 56, 53));
-        this.addSlot(new SlotCastingOutput(playerInventory.player, furnaceInventory, 2, 116, 35));
-        this.addSlot(new Slot(furnaceInventory, 3, 84, 35));
+
+        this.addSlot(new Slot(furnaceInventory, 0, 56, 17)); //input1
+        this.addSlot(new Slot(furnaceInventory, 1, 33, 17)); //input2
+        this.addSlot(new Slot(furnaceInventory, 2, 84, 35)); //cast
+        this.addSlot(new BurnFuelSlot(this,furnaceInventory, 3, 56, 53)); //fuel
+        this.addSlot(new SlotCastingOutput(playerInventory.player, furnaceInventory, 4, 116, 35)); //output1
+        this.addSlot(new SlotCastingOutput(playerInventory.player, furnaceInventory, 5, 143, 35)); //output2
 
         for (int i = 0; i < 3; ++i)
         {
@@ -111,53 +113,47 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if (index == 2)
+            if (index >= 0 && index <=5)
             {
-                if (!this.mergeItemStack(itemstack1, 4, 40, true))
+                if (!this.mergeItemStack(itemstack1, 6, 42, true))
                 {
                     return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
-            }
-            else if (index != 3 && index != 1 && index != 0)
-            {
-                if (CastingRecipeHandler.instance().isValidInput(itemstack1))//!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
+            } else {
+                if (CastingRecipeSerializer.INSTANCE.isValidInput(itemstack1))//!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
                 {
-                    if (!this.mergeItemStack(itemstack1, 0, 1, false))
+                    if (!this.mergeItemStack(itemstack1, 0, 2, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
                 else if (TileEntityCastFurnace.isItemFuel(itemstack1))
                 {
-                    if (!this.mergeItemStack(itemstack1, 1, 2, false))
-                    {
-                        return ItemStack.EMPTY;
-                    }
-                }
-                else if (!itemstack1.isEmpty() && CastingRecipeHandler.instance().isValidCast(itemstack1))//itemstack1.getItem() == ModItems.instance().cast)
-                {
                     if (!this.mergeItemStack(itemstack1, 3, 4, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (index >= 4 && index < 31)
+                else if (!itemstack1.isEmpty() && CastingRecipeSerializer.INSTANCE.isValidCast(itemstack1))//itemstack1.getItem() == ModItems.instance().cast)
                 {
-                    if (!this.mergeItemStack(itemstack1, 30, 39, false))
+                    if (!this.mergeItemStack(itemstack1, 2, 3, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (index >= 31 && index < 40 && !this.mergeItemStack(itemstack1, 4, 31, false))
+                else if (index >= 6 && index < 33)
+                {
+                    if (!this.mergeItemStack(itemstack1, 33, 42, false))
+                    {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                else if (index >= 33 && index < 42 && !this.mergeItemStack(itemstack1, 4, 31, false))
                 {
                     return ItemStack.EMPTY;
                 }
-            }
-            else if (!this.mergeItemStack(itemstack1, 4, 40, false))
-            {
-                return ItemStack.EMPTY;
             }
 
             if (itemstack1.isEmpty())
