@@ -1,21 +1,22 @@
 package azaka7.artimancy.common.tileentity;
 
-import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nullable;
 
 import azaka7.artimancy.Artimancy;
-import azaka7.artimancy.common.crafting.CastingRecipe;
 import azaka7.artimancy.common.block.BlockCastFurnace;
+import azaka7.artimancy.common.crafting.CastingRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.IRecipeHelperPopulator;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -25,33 +26,40 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class TileEntityCastFurnace extends LockableTileEntity implements ITickableTileEntity, ISidedInventory
+public class CastFurnaceTileEntity extends LockableTileEntity implements ITickableTileEntity, ISidedInventory, IRecipeHelperPopulator
 {
 
 	public static final IRecipeType<CastingRecipe> CAST_RECIPE_TYPE = IRecipeType.register(Artimancy.MODID+"_casting");
 	
-	public TileEntityCastFurnace() {
+	public CastFurnaceTileEntity() {
 		super(Artimancy.instance().getCastFurnaceType());
 		timing = new FurnaceTiming(0, 0, 0, 0);
-		//TODO make sure new IRecipeType for casting works
 	}
 
-	private static final int[] SLOTS_TOP = new int[] {0};
-    private static final int[] SLOTS_BOTTOM = new int[] {2, 1};
-    private static final int[] SLOTS_SIDES = new int[] {1};
-    
-    private CastingRecipe lastRecipe = null;
-	
+	private static final int[] SLOTS_TOP = new int[] {0,1};
+    private static final int[] SLOTS_BOTTOM = new int[] {4,5};
+    private static final int[] SLOTS_SIDES = new int[] {2,3};
     
     private FurnaceTiming timing;
-    private String furnaceCustomName;
+    private String customName;
     
     /**
      * main_input, secondary_input, cast, fuel, main_result, secondary_result
      */
-	private NonNullList<ItemStack> furnaceItemStacks = NonNullList.<ItemStack>withSize(6, ItemStack.EMPTY);
+	private NonNullList<ItemStack> items = NonNullList.<ItemStack>withSize(6, ItemStack.EMPTY);
+	
+	private CastingRecipe lastValidRecipe = null;
+	
+	public CastingRecipe getCurrentRecipe() {
+		if(lastValidRecipe != null && lastValidRecipe.matches(this, this.world)) {
+			return lastValidRecipe;
+		}
+		Optional<CastingRecipe> opt = this.world.getRecipeManager().getRecipe(CAST_RECIPE_TYPE, this, this.world);
+		return opt.isPresent() ? opt.get() : null;
+	}
 
 	public FurnaceTiming getTiming() {
 		return timing;
@@ -59,12 +67,12 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 	
 	@Override
 	public int getSizeInventory() {
-		return this.furnaceItemStacks.size();
+		return this.items.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		for (ItemStack itemstack : this.furnaceItemStacks)
+		for (ItemStack itemstack : this.items)
         {
             if (!itemstack.isEmpty())
             {
@@ -77,45 +85,47 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		return this.furnaceItemStacks.get(index);
+		return this.items.get(index);
 	}
 
 	@Override
 	public ItemStack decrStackSize(int index, int count)
     {
-        return ItemStackHelper.getAndSplit(this.furnaceItemStacks, index, count);
+        return ItemStackHelper.getAndSplit(this.items, index, count);
     }
 	
 	@Override
     public ItemStack removeStackFromSlot(int index)
     {
-        return ItemStackHelper.getAndRemove(this.furnaceItemStacks, index);
+        return ItemStackHelper.getAndRemove(this.items, index);
     }
     
 	@Override
     public void setInventorySlotContents(int index, ItemStack stack)
     {
-        ItemStack itemstack = this.furnaceItemStacks.get(index);
-        boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
-        this.furnaceItemStacks.set(index, stack);
+        this.items.set(index, stack);
 
         if (stack.getCount() > this.getInventoryStackLimit())
         {
             stack.setCount(this.getInventoryStackLimit());
         }
 
-        if (index == 0 && !flag)
+        if (index >= 0 && index <=2)
         {
-            timing.setItemCookTime(this.getCookTime(stack));
-            timing.setCookTime(0);
-            this.markDirty();
+            timing.setItemCookTime(this.getItemCookTime());
+            if(timing.getItemCookTime() > 0) {
+            	timing.setCookTime(0);
+            	this.markDirty();
+            }
         }
-    }/**
-     * Get the name of this object. For players this returns their username
-     */
+    }
+	
+	/**
+    * Get the name of this object. For players this returns their username
+    */
     public ITextComponent getName()
     {
-        return this.hasCustomName() ? new StringTextComponent(this.furnaceCustomName) : new StringTextComponent(Artimancy.MODID+".container.cast_furnace");
+        return this.hasCustomName() ? new StringTextComponent(this.customName) : new TranslationTextComponent(Artimancy.MODID+".container.cast_furnace");
     }
 
     /**
@@ -123,29 +133,29 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
      */
     public boolean hasCustomName()
     {
-        return this.furnaceCustomName != null && !this.furnaceCustomName.isEmpty();
+        return this.customName != null && !this.customName.isEmpty();
     }
 
     public void setCustomInventoryName(String p_145951_1_)
     {
-        this.furnaceCustomName = p_145951_1_;
+        this.customName = p_145951_1_;
     }
 
     @Override
     public void read(CompoundNBT compound)
     {
         super.read(compound);
-        this.furnaceItemStacks = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
-        ItemStackHelper.loadAllItems(compound, this.furnaceItemStacks);
+        this.items = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        ItemStackHelper.loadAllItems(compound, this.items);
         timing.setBurnTime(compound.getInt("BurnTime"));
         timing.setItemBurnTime(compound.getInt("BurnTimeTotal"));
         timing.setCookTime(compound.getInt("CookTime"));
         timing.setItemCookTime(compound.getInt("CookTimeTotal"));
-        timing.setItemBurnTime(getItemBurnTime(this.furnaceItemStacks.get(1)));
+        timing.setItemBurnTime(getItemBurnTime(this.items.get(1)));
 
         if (compound.contains("CustomName"))
         {
-            this.furnaceCustomName = compound.getString("CustomName");
+            this.customName = compound.getString("CustomName");
         }
     }
 
@@ -157,11 +167,11 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
         compound.putInt("BurnTimeTotal", (short)timing.getItemBurnTime());
         compound.putInt("CookTime", (short)timing.getCookTime());
         compound.putInt("CookTimeTotal", (short)timing.getItemCookTime());
-        ItemStackHelper.saveAllItems(compound, this.furnaceItemStacks);
+        ItemStackHelper.saveAllItems(compound, this.items);
 
         if (this.hasCustomName())
         {
-            compound.putString("CustomName", this.furnaceCustomName);
+            compound.putString("CustomName", this.customName);
         }
 
         return compound;
@@ -188,8 +198,7 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
      */
     @Override
     public void tick() {
-        boolean flag = this.isBurning();
-        boolean flag1 = false;
+        boolean toMarkDirty = false;
 
         if (this.isBurning())
         {
@@ -198,28 +207,28 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 
         if (!this.world.isRemote)
         {
-            ItemStack itemstack = this.furnaceItemStacks.get(3);
-
+        	
+            ItemStack fuel = this.items.get(3);
             
-            if (this.isBurning() || !itemstack.isEmpty() && !((ItemStack)this.furnaceItemStacks.get(0)).isEmpty())
+            if (this.isBurning() || !fuel.isEmpty() && !((ItemStack)this.items.get(0)).isEmpty())
             {
                 if (!this.isBurning() && this.canSmelt())
                 {
-                    timing.setBurnTime(getItemBurnTime(itemstack));
+                    timing.setBurnTime(getItemBurnTime(fuel));
                     timing.setItemBurnTime(timing.getBurnTime());
+                    timing.setCookTime(timing.getCookTime() + 1);
                     
                     if (this.isBurning())
                     {
-                        flag1 = true;
-                        if (!itemstack.isEmpty())
+                        toMarkDirty = true;
+                        if (!fuel.isEmpty())
                         {
-                            Item item = itemstack.getItem();
-                            itemstack.shrink(3);
+                            fuel.shrink(1);
 
-                            if (itemstack.isEmpty())
+                            if (fuel.isEmpty())
                             {
-                                ItemStack item1 = item.getContainerItem(itemstack);
-                                this.furnaceItemStacks.set(3, item1);
+                                ItemStack item1 = fuel.getItem().getContainerItem(fuel);
+                                this.items.set(3, item1);
                             }
                         }
                     }
@@ -232,9 +241,9 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
                     if (timing.getCookTime() == timing.getItemCookTime())
                     {
                         timing.setCookTime(0);
-                        timing.setItemCookTime(this.getCookTime(this.furnaceItemStacks.get(0)));
+                        timing.setItemCookTime(this.getItemCookTime());
                         this.smeltItem();
-                        flag1 = true;
+                        toMarkDirty = true;
                     }
                 }
                 else
@@ -248,23 +257,18 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
             }
             
             world.setBlockState(pos, getBlockState().with(BlockCastFurnace.LIT, this.isBurning()));
-
-            if (flag != this.isBurning())
-            {
-                flag1 = true;
-                //BlockCastFurnace.replaceBlock(null, null, this.world, this.pos, 0);//(this.isBurning(), this.world, this.pos);
-            }
         }
 
-        if (flag1)
+        if (toMarkDirty)
         {
             this.markDirty();
         }
     }
 
-    public int getCookTime(ItemStack stack)
+    public int getItemCookTime()
     {
-        return 100;
+    	CastingRecipe rec = this.getCurrentRecipe();
+        return rec == null ? 200 : rec.getCookTime();
     }
 
     /**
@@ -273,24 +277,15 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
     
 	private boolean canSmelt()
     {
-    	ItemStack input1 = this.furnaceItemStacks.get(0);
-    	ItemStack cast = this.furnaceItemStacks.get(2);
+    	ItemStack input1 = this.items.get(0);
+    	ItemStack cast = this.items.get(2);
     	if(input1.isEmpty() || cast.isEmpty()){
     		return false;
     	}
     	
-		List<CastingRecipe> recipes = this.world.getRecipeManager().getRecipes((IRecipeType<CastingRecipe>)CAST_RECIPE_TYPE, this, this.world);
-        
-        if(lastRecipe != null && lastRecipe.matches(this, getWorld())) {
+    	CastingRecipe recipe = this.getCurrentRecipe();
+        if(recipe != null && recipe.matches(this, getWorld())) {
         	return true;
-        } else { 
-        	lastRecipe = null;
-        	for(CastingRecipe rec : recipes) {
-        		if(rec.matches(this, this.getWorld())) {
-        			lastRecipe = rec;
-        			return true; 
-        		}
-        	}
         }
         return false;
     }
@@ -303,19 +298,19 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
         if (this.canSmelt())
         {
 
-        	ItemStack input1 = this.furnaceItemStacks.get(0);
-        	ItemStack input2 = this.furnaceItemStacks.get(1);
+        	ItemStack input1 = this.items.get(0);
+        	ItemStack input2 = this.items.get(1);
         	
-        	//this.canSmelt() updates this.lastRecipe, making it safe to access here
-            ItemStack newOutput = lastRecipe.getCraftingResult(this);
-            ItemStack newOutput2 = lastRecipe.getSecondaryResult(this);
+        	CastingRecipe recipe = this.getCurrentRecipe();
+            ItemStack newOutput = recipe.getCraftingResult(this);
+            ItemStack newOutput2 = recipe.getSecondaryResult(this);
             
-            ItemStack inOutput = this.furnaceItemStacks.get(4);
-            ItemStack inOutput2 = this.furnaceItemStacks.get(5);
+            ItemStack inOutput = this.items.get(4);
+            ItemStack inOutput2 = this.items.get(5);
 
             if (inOutput.isEmpty())
             {
-                this.furnaceItemStacks.set(4, newOutput.copy());
+                this.items.set(4, newOutput.copy());
             }
             else if (inOutput.getItem() == newOutput.getItem())
             {
@@ -324,15 +319,15 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
             
             if (inOutput2.isEmpty())
             {
-                this.furnaceItemStacks.set(5, newOutput2.copy());
+                this.items.set(5, newOutput2.copy());
             }
             else if (inOutput2.getItem() == newOutput2.getItem())
             {
                 inOutput2.grow(newOutput2.getCount());
             }
 
-            input1.shrink(lastRecipe.getIngredient1Amount());
-            input2.shrink(lastRecipe.getIngredient2Amount());
+            input1.shrink(recipe.getIngredient1Amount());
+            input2.shrink(recipe.getIngredient2Amount());
         }
     }
 
@@ -346,9 +341,7 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
     	if (stack.isEmpty()) {
             return 0;
          } else {
-            Item item = stack.getItem();
-            int ret = stack.getBurnTime();
-            return net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack, ret == -1 ? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(item, 0) : ret);
+            return net.minecraftforge.event.ForgeEventFactory.getItemBurnTime(stack, stack.getBurnTime() == -1 ? AbstractFurnaceTileEntity.getBurnTimes().getOrDefault(stack.getItem(), 0) : stack.getBurnTime());
          }
     }
 
@@ -391,7 +384,7 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
         }
         else
         {
-            ItemStack itemstack = this.furnaceItemStacks.get(1);
+            ItemStack itemstack = this.items.get(1);
             return isItemFuel(stack) || BurnFuelSlot.isBucket(stack) && itemstack.getItem() != Items.BUCKET;
         }
     }
@@ -399,14 +392,7 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
     @Override
     public int[] getSlotsForFace(Direction side)
     {
-        if (side == Direction.DOWN)
-        {
-            return SLOTS_BOTTOM;
-        }
-        else
-        {
-            return side == Direction.UP ? SLOTS_TOP : SLOTS_SIDES;
-        }
+        return side == Direction.UP ? SLOTS_TOP : (side == Direction.DOWN ? SLOTS_BOTTOM : SLOTS_SIDES);
     }
 
     /**
@@ -415,7 +401,13 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
     @Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction)
     {
-        return this.isItemValidForSlot(index, itemStackIn);
+    	if(direction == Direction.DOWN) { return false; }
+    	for(int i : getSlotsForFace(direction)) {
+    		if(i == index) {
+    			return this.isItemValidForSlot(index, itemStackIn);
+    		}
+    	}
+    	return false;
     }
 
     /**
@@ -424,11 +416,9 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
     @Override
     public boolean canExtractItem(int index, ItemStack stack, Direction direction)
     {
-        if (direction == Direction.DOWN && index == 1)
+        if (direction == Direction.DOWN && index == 3)
         {
-            Item item = stack.getItem();
-
-            if (item != Items.WATER_BUCKET && item != Items.BUCKET)
+            if (stack.getItem() != Items.WATER_BUCKET && stack.getItem() != Items.BUCKET)
             {
                 return false;
             }
@@ -485,7 +475,7 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 
     public void clear()
     {
-        this.furnaceItemStacks.clear();
+        this.items.clear();
     }
 
 	@Override
@@ -507,7 +497,14 @@ public class TileEntityCastFurnace extends LockableTileEntity implements ITickab
 	}
 	
 	public String toString() {
-		return "TileEntityCastFurnace("+Integer.toHexString(this.hashCode())+")";
+		return "CastFurnaceTileEntity("+Integer.toHexString(this.hashCode())+")";
+	}
+
+	@Override
+	public void fillStackedContents(RecipeItemHelper helper) {
+		for(ItemStack itemstack : this.items) {
+	         helper.accountStack(itemstack);
+	      }
 	}
 	
 }

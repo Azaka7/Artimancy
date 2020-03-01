@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "artimancy:iron_plate"
+      "artimancy:casting/plate_cast"
     ]
   },
   "criteria": {
-    "has_mineral": {
+    "has_item": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:iron_ingot"
+            "item": "artimancy:cast_furnace"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "artimancy:iron_plate"
+        "recipe": "artimancy:casting/plate_cast"
       }
     }
   },
   "requirements": [
     [
-      "has_mineral",
+      "has_item",
       "has_the_recipe"
     ]
   ]

@@ -20,7 +20,7 @@ public class ClientHandler{
 			@Override
 			public CastFurnaceScreen create(CastFurnaceContainer container, PlayerInventory inventory, ITextComponent title) {
 				if(container == null || inventory == null) { return null; }
-				return new CastFurnaceScreen(container, inventory, title);
+				return new CastFurnaceScreen(container, new CastFurnaceRecipeGui(), inventory, title);
 			}
 			
 		});

@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.tileentity.FurnaceTiming;
-import azaka7.artimancy.common.tileentity.TileEntityCastFurnace;
+import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -52,15 +52,15 @@ public class BlockCastFurnace extends ContainerBlock{
 	public ActionResultType func_225533_a_(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
-		if (tileentity instanceof TileEntityCastFurnace)
+		if (tileentity instanceof CastFurnaceTileEntity)
         {
 			if(player instanceof ServerPlayerEntity)
-				NetworkHooks.openGui((ServerPlayerEntity) player,(TileEntityCastFurnace) tileentity, new Consumer<PacketBuffer>() {
+				NetworkHooks.openGui((ServerPlayerEntity) player,(CastFurnaceTileEntity) tileentity, new Consumer<PacketBuffer>() {
 
 					@Override
 					public void accept(PacketBuffer t) {
 						t.writeBlockPos(pos);
-						FurnaceTiming timing = ((TileEntityCastFurnace) tileentity).getTiming();
+						FurnaceTiming timing = ((CastFurnaceTileEntity) tileentity).getTiming();
 						t.writeInt(timing.getBurnTime());
 						t.writeInt(timing.getItemBurnTime());
 						t.writeInt(timing.getCookTime());
@@ -93,9 +93,9 @@ public class BlockCastFurnace extends ContainerBlock{
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileEntityCastFurnace)
+            if (tileentity instanceof CastFurnaceTileEntity)
             {
-                ((TileEntityCastFurnace)tileentity).setCustomInventoryName(stack.getDisplayName().getFormattedText());
+                ((CastFurnaceTileEntity)tileentity).setCustomInventoryName(stack.getDisplayName().getFormattedText());
             }
         }
     }
@@ -106,8 +106,8 @@ public class BlockCastFurnace extends ContainerBlock{
     {
     	if (state.getBlock() != newState.getBlock()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof TileEntityCastFurnace) {
-               InventoryHelper.dropInventoryItems(worldIn, pos, (TileEntityCastFurnace)tileentity);
+            if (tileentity instanceof CastFurnaceTileEntity) {
+               InventoryHelper.dropInventoryItems(worldIn, pos, (CastFurnaceTileEntity)tileentity);
                worldIn.updateComparatorOutputLevel(pos, this);
             }
 
@@ -132,7 +132,7 @@ public class BlockCastFurnace extends ContainerBlock{
 
 	@Override
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
-		return new TileEntityCastFurnace();
+		return new CastFurnaceTileEntity();
 	}
 	
 	@Override

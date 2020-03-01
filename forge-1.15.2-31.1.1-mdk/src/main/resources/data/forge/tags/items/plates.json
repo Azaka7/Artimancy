@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#forge:pressure_plates",
+    "artimancy:plate_cast_iron",
+    "artimancy:plate_gold",
+    "artimancy:plate_iron",
+    "artimancy:plate_steel"
+  ]
+}

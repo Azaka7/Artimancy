@@ -1,21 +1,22 @@
 package azaka7.artimancy.common.crafting;
 
 import azaka7.artimancy.common.ModBlocks;
-import azaka7.artimancy.common.tileentity.TileEntityCastFurnace;
+import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class CastingRecipe implements IRecipe<IInventory> {
 	
 	//These keys are used to prevent the recipe from showing up in any crafting book except the casting furnace's book.
-	public static final int width_key = 663941167; //"azaka7" base 36 to base 10
-	public static final int height_key = 573869;   //"cast"   base 36 to base 10
+	public static final int width_key = -663941167; //"azaka7" base 36 to base 10, made negative to prevent vanilla crafting recipes
+	public static final int height_key = -573869;   //"cast"   base 36 to base 10, made negative to prevent vanilla crafting recipes
 	
 	protected final ResourceLocation id;
 	protected final String group;
@@ -44,8 +45,8 @@ public class CastingRecipe implements IRecipe<IInventory> {
 	
 	@Override
 	public boolean matches(IInventory inv, World worldIn) {
-		if(!(inv instanceof TileEntityCastFurnace)) {return false;}
-		TileEntityCastFurnace tecf = (TileEntityCastFurnace) inv;
+		if(!(inv instanceof CastFurnaceTileEntity)) {return false;}
+		CastFurnaceTileEntity tecf = (CastFurnaceTileEntity) inv;
 		ItemStack input1 = tecf.getStackInSlot(0);
 		ItemStack input2 = tecf.getStackInSlot(1);
 		ItemStack inCast = tecf.getStackInSlot(2);
@@ -60,6 +61,19 @@ public class CastingRecipe implements IRecipe<IInventory> {
 		}
 		
 		return false;
+	}
+	
+	public NonNullList<AmountedIngredient> getAmountedIngredients() {
+		NonNullList<AmountedIngredient> ret = NonNullList.create();
+		ret.add(ingredient);
+		if(ingredient2 != AmountedIngredient.EMPTY) {
+			ret.add(ingredient2);
+		}
+		return ret;
+	}
+	
+	public Ingredient getCast() {
+		return this.cast;
 	}
 	
 	public int getIngredient1Amount() {
@@ -101,7 +115,11 @@ public class CastingRecipe implements IRecipe<IInventory> {
 
 	@Override
 	public IRecipeType<?> getType() {
-		return TileEntityCastFurnace.CAST_RECIPE_TYPE;
+		return CastFurnaceTileEntity.CAST_RECIPE_TYPE;
+	}
+
+	public int getCookTime() {
+		return cookTime > 0 ? cookTime : 100;
 	}
 
 }

@@ -1,13 +1,13 @@
 {
   "type": "artimancy:casting_recipe",
   "ingredient": {
-    "item": "artimancy:iron_ore_chunk",
-    "amount": 1
+    "item": "minecraft:iron_nugget",
+    "amount": 9
   },
   "cast": {
     "item": "artimancy:cast_ingot"
   },
   "result": "minecraft:iron_ingot",
-  "experience": 0.7,
-  "cookingtime": 100
+  "experience": 0.0,
+  "cookingtime": 20
 }

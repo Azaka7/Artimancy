@@ -1,23 +1,34 @@
 package azaka7.artimancy.common.tileentity;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import azaka7.artimancy.Artimancy;
+import azaka7.artimancy.common.crafting.CastingRecipe;
 import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
+import net.minecraft.client.util.RecipeBookCategories;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.IRecipeHelperPopulator;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.network.IContainerFactory;
 
 public class CastFurnaceContainer extends AbstractBurnContainer implements IContainerFactory<CastFurnaceContainer>{
 	
     private final IInventory tileFurnace;
     private FurnaceTiming timing;
+    private World world;
 
     public CastFurnaceContainer(int screenID, PlayerInventory playerInventory)
     {
@@ -30,6 +41,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
     	
         this.tileFurnace = furnaceInventory;
         this.timing = times == null ? new FurnaceTiming() : times;
+        this.world = playerInventory.player.getEntityWorld();
 
         this.addSlot(new Slot(furnaceInventory, 0, 56, 17)); //input1
         this.addSlot(new Slot(furnaceInventory, 1, 33, 17)); //input2
@@ -59,7 +71,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
     
     @Override
     public ContainerType<?> getType() {
-    	return Artimancy.instance().commonProxy().getCastFurnaceContainerType();//super.getType();
+    	return Artimancy.instance().commonProxy().getCastFurnaceContainerType();
     }
 
     public int getBurnTime() { return timing.getBurnTime(); }
@@ -129,7 +141,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (TileEntityCastFurnace.isItemFuel(itemstack1))
+                else if (CastFurnaceTileEntity.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 3, 4, false))
                     {
@@ -178,7 +190,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 
 	@Override
 	public boolean isFuel(ItemStack stack) {
-		return TileEntityCastFurnace.isItemFuel(stack);
+		return CastFurnaceTileEntity.isItemFuel(stack);
 	}
 
 	@Override
@@ -191,7 +203,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 		BlockPos pos = data.readBlockPos();
 		TileEntity te = inv.player.world.getTileEntity(pos);
 		IInventory inventory = null;
-		if(te instanceof TileEntityCastFurnace) {
+		if(te instanceof CastFurnaceTileEntity) {
 			inventory = (IInventory) te;
 		} else {return create(windowId, inv);}
 		FurnaceTiming timing = new FurnaceTiming(data.readInt(),data.readInt(),data.readInt(),data.readInt());
@@ -202,7 +214,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 		BlockPos pos = data.readBlockPos();
 		TileEntity te = inv.player.world.getTileEntity(pos);
 		IInventory inventory = null;
-		if(te instanceof TileEntityCastFurnace) {
+		if(te instanceof CastFurnaceTileEntity) {
 			inventory = (IInventory) te;
 		} else {return new CastFurnaceContainer(windowId, inv);}
 		FurnaceTiming timing = new FurnaceTiming(data.readInt(),data.readInt(),data.readInt(),data.readInt());
@@ -212,5 +224,48 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 	@Override
 	public String toString() {
 		return "CastFurnaceContainer("+Integer.toHexString(this.hashCode())+")[IInventory=\""+tileFurnace+"\",\" FurnaceTiming="+timing+"\"]";
+	}
+
+	@Override
+	public void func_201771_a(RecipeItemHelper p_201771_1_) {
+		if (this.tileFurnace instanceof IRecipeHelperPopulator) {
+	         ((IRecipeHelperPopulator)this.tileFurnace).fillStackedContents(p_201771_1_);
+	      }
+	}
+
+	@Override
+	public void clear() {
+		this.tileFurnace.clear();
+	}
+
+	@Override
+	public boolean matches(IRecipe<? super IInventory> recipeIn) {
+		if(recipeIn.getType() != CastFurnaceTileEntity.CAST_RECIPE_TYPE){ return false; }
+		return recipeIn.matches(this.tileFurnace, this.world);
+	}
+
+	@Override
+	public int getOutputSlot() {
+		return 5;
+	}
+
+	@Override
+	public int getWidth() {
+		return CastingRecipe.width_key;
+	}
+
+	@Override
+	public int getHeight() {
+		return CastingRecipe.height_key;
+	}
+
+	@Override
+	public int getSize() {
+		return 6;
+	}
+	
+	@Override
+	public List<RecipeBookCategories> getRecipeBookCategories() {
+		return Lists.newArrayList(RecipeBookCategories.MISC);
 	}
 }

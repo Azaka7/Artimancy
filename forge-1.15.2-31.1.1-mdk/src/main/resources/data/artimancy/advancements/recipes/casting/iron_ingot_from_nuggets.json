@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "artimancy:adamant_ingot"
+      "artimancy:casting/iron_ingot_from_nuggets"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_iron": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "artimancy:adamant_shards"
+            "item": "minecraft:iron_ingot"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "artimancy:adamant_ingot"
+        "recipe": "artimancy:casting/iron_ingot_from_nuggets"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_iron",
       "has_the_recipe"
     ]
   ]

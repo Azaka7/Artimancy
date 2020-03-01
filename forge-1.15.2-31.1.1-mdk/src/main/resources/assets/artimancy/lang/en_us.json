@@ -229,5 +229,12 @@
   "item.artimancy.zircon_blue": "Blue Zircon",
   "item.artimancy.zircon_red": "Red Zircon",
   "item.minecraft.iron_ingot": "Wrought Iron Ingot",
-  "artimancy.container.cast_furnace": "Casting Furnace"
+  "item.minecraft.diamond_helmet": "Adamant Helmet",
+  "item.minecraft.diamond_chestplate": "Adamant Chestplate",
+  "item.minecraft.diamond_leggings": "Adamant Leggings",
+  "item.minecraft.diamond_boots": "Adamant Boots",
+  "artimancy.container.cast_furnace": "Casting Furnace",
+  "gui.artimancy.label.input": "Input",
+  "gui.artimancy.label.input2": "Additive",
+  "gui.artimancy.label.cast": "Cast"
 }

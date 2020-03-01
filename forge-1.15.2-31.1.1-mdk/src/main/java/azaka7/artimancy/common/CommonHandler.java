@@ -8,7 +8,7 @@ import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.block.ICustomItemBlock;
 import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
 import azaka7.artimancy.common.tileentity.CastFurnaceContainer;
-import azaka7.artimancy.common.tileentity.TileEntityCastFurnace;
+import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -37,8 +37,8 @@ public class CommonHandler {
 	
 	private static final ToggleShapedSerializer TOGGLE_SHAPED_SERIALIZER = new ToggleShapedSerializer();
 	
-	private TileEntityType<TileEntityCastFurnace> castFurnaceTEType;
-    public final TileEntityType<TileEntityCastFurnace> getCastFurnaceType() {return castFurnaceTEType;}
+	private TileEntityType<CastFurnaceTileEntity> castFurnaceTEType;
+    public final TileEntityType<CastFurnaceTileEntity> getCastFurnaceType() {return castFurnaceTEType;}
     private ContainerType<CastFurnaceContainer> castFurnaceContainerType;
     public final ContainerType<CastFurnaceContainer> getCastFurnaceContainerType() {return castFurnaceContainerType;}
     //TODO Control this with config
@@ -52,7 +52,7 @@ public class CommonHandler {
 			 }
 		};
 		castFurnaceContainerType.setRegistryName("castfurnace");
-		castFurnaceTEType = TileEntityType.Builder.create(TileEntityCastFurnace::new, ModBlocks.instance().cast_furnace).build(null);
+		castFurnaceTEType = TileEntityType.Builder.create(CastFurnaceTileEntity::new, ModBlocks.instance().cast_furnace).build(null);
 		castFurnaceTEType.setRegistryName("castfurnace");
 	}
 	
