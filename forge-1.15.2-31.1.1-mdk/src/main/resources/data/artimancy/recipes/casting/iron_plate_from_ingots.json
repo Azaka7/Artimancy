@@ -7,7 +7,7 @@
   "cast": {
     "item": "artimancy:cast_plate"
   },
-  "result": "artimancy:plate_iron",
+  "result": "artimancy:iron_plate",
   "experience": 0.0,
   "cookingtime": 100
 }

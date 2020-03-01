@@ -44,8 +44,7 @@ public class ModItems {
 	
 	public final ArmorShieldItem gold_tower_shield, iron_tower_shield;
 	
-	//coal burns at 1200C (charcoal) - 1927C (perfect)
-	//
+	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
 	private ModItems(){
 		ImmutableList.Builder<Item> itemList = new ImmutableList.Builder<Item>();
@@ -146,10 +145,10 @@ public class ModItems {
 		zircon_red = new MiscItem("zircon_red", ItemGroup.MATERIALS, itemList);
 		
 		//Ingots, nuggets, plates
-		plate_cast_iron = new MiscItem("plate_cast_iron",ItemGroup.MATERIALS, itemList);
-		plate_gold = new MiscItem("plate_gold",ItemGroup.MATERIALS, itemList);
-		plate_iron = new MiscItem("plate_iron",ItemGroup.MATERIALS, itemList);
-		plate_steel = new MiscItem("plate_steel",ItemGroup.MATERIALS, itemList);
+		plate_cast_iron = new MiscItem("cast_iron_plate",ItemGroup.MATERIALS, itemList);
+		plate_gold = new MiscItem("gold_plate",ItemGroup.MATERIALS, itemList);
+		plate_iron = new MiscItem("iron_plate",ItemGroup.MATERIALS, itemList);
+		plate_steel = new MiscItem("steel_plate",ItemGroup.MATERIALS, itemList);
 
 		steel_ingot = new MiscItem("steel_ingot",ItemGroup.MATERIALS, itemList);
 		steel_nugget = new MiscItem("steel_nugget",ItemGroup.MATERIALS, itemList);

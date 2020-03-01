@@ -1,7 +1,7 @@
 {
   "type": "artimancy:casting_recipe",
   "ingredient": {
-    "item": "artimancy:plate_iron",
+    "item": "artimancy:iron_plate",
     "amount": 1
   },
   "cast": {

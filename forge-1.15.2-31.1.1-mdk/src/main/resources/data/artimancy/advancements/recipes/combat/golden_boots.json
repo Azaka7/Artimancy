@@ -11,7 +11,7 @@
       "conditions": {
         "items": [
           {
-            "item": "artimancy:plate_gold"
+            "item": "minecraft:gold_ingot"
           }
         ]
       }

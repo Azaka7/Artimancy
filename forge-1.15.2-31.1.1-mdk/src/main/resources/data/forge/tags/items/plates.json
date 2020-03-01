@@ -2,9 +2,9 @@
   "replace": false,
   "values": [
     "#forge:pressure_plates",
-    "artimancy:plate_cast_iron",
-    "artimancy:plate_gold",
-    "artimancy:plate_iron",
-    "artimancy:plate_steel"
+    "artimancy:cast_iron_plate",
+    "artimancy:gold_plate",
+    "artimancy:iron_plate",
+    "artimancy:steel_plate"
   ]
 }
