@@ -8,6 +8,7 @@
     "item": "artimancy:cast_ingot"
   },
   "result": "minecraft:gold_ingot",
+  "bonus": "artimancy:slag",
   "experience": 0.7,
-  "cookingtime": 100
+  "cookingtime": 200
 }

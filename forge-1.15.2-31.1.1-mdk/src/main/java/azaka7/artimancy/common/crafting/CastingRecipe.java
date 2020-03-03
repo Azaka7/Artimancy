@@ -83,6 +83,14 @@ public class CastingRecipe implements IRecipe<IInventory> {
 	public int getIngredient2Amount() {
 		return ingredient2.getAmount();
 	}
+	
+	public boolean result1Stacks(ItemStack stack) {
+		return stack == null || stack.isEmpty() || ItemStack.areItemsEqual(stack, result);
+	}
+	
+	public boolean result2Stacks(ItemStack stack) {
+		return stack == null || stack.isEmpty() || ItemStack.areItemsEqual(stack, result2);
+	}
 
 	@Override
 	public ItemStack getCraftingResult(IInventory inv) {

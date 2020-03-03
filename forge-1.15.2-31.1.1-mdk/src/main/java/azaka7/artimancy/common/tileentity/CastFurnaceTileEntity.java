@@ -279,13 +279,15 @@ public class CastFurnaceTileEntity extends LockableTileEntity implements ITickab
     {
     	ItemStack input1 = this.items.get(0);
     	ItemStack cast = this.items.get(2);
+    	
     	if(input1.isEmpty() || cast.isEmpty()){
     		return false;
     	}
     	
     	CastingRecipe recipe = this.getCurrentRecipe();
         if(recipe != null && recipe.matches(this, getWorld())) {
-        	return true;
+        	//Only allow smelting if the inputs match and the output slots can hold the new recipe output.
+        	return recipe.result1Stacks(this.items.get(4)) && recipe.result2Stacks(this.items.get(5));
         }
         return false;
     }

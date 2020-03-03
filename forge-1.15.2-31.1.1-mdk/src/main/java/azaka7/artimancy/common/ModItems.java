@@ -23,10 +23,11 @@ public class ModItems {
 	public final Item ore_chunk_iron, ore_chunk_gold, ore_chunk_silver, ore_chunk_copper, ore_chunk_nickel, 
 		ore_chunk_platinum, ore_chunk_lead, ore_chunk_chromite, ore_chunk_cobalt, ore_chunk_tin, ore_chunk_titanium;
 	public final Item ore_chunk_uranium;
+	public final Item slag;
 	public final Item sulfur, saltpetre, graphite, stibnite;
 	public final Item ceramic_tile;
 	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod;
-	public final Item plate_cast_iron, plate_gold, plate_iron, plate_steel;
+	public final Item cast_iron_plate, gold_plate, iron_plate, steel_plate;
 	public final Item steel_ingot, steel_nugget, cast_iron_ingot, cast_iron_nugget, silver_ingot, silver_nugget;
 	
 	public final Item copper_ingot, nickel_ingot, platinum_ingot, lead_ingot, chromium_ingot, cobalt_ingot, tin_ingot, titanium_ingot;
@@ -34,7 +35,7 @@ public class ModItems {
 	public final Item alexandrite, amazonite, amethyst, azurite, bloodstone, cassiterite, citrine, garnet, hematite, jade;
 	public final Item kyanite, malachite, moonstone, obsidian, onyx, opal, pearl, peridot, ruby, sapphire, sunstone, topaz;//, turquoise;
 	public final Item zircon_blue, zircon_red;
-	public final Item adamant_shards, adamant_ingot;
+	public final Item adamant_shards, adamant_ingot, adamant_plate;
 	
 	public final ArmorItem steel_boots, steel_leggings, steel_chestplate, steel_helmet;
 	public final ArmorItem steel_plated_boots, steel_plated_leggings, steel_plated_chestplate, steel_plated_helmet;
@@ -79,13 +80,13 @@ public class ModItems {
 		//Uranium Ore; Not super useful. Weak passive heating. More heat when more is in the same place. Up to 300C without further refining
 		ore_chunk_uranium = new MiscItem("uranium_ore_chunk", ItemGroup.MATERIALS, itemList);
 		
-		//TODO GRAPHITE && STIBNITE
-		
 		//Iron Ore; Gem: Hematite - healing (+ bloodstone), focus, grounding; Gem: Pyrite - manifestation, reflection, calming (+drops from lapis ore)
 		ore_chunk_iron = new MiscItem("iron_ore_chunk",ItemGroup.MATERIALS, itemList);
 		
 		
 		//Tungsten Ore; Drops from diamond, iron, and geodes; Generates only in Nether and End; Gem: Tungsten Carbide - hardness, crafted only
+		
+		slag = new MiscItem("slag",ItemGroup.MATERIALS, itemList);
 		
 		//Geode and Gemstones
 		
@@ -145,10 +146,11 @@ public class ModItems {
 		zircon_red = new MiscItem("zircon_red", ItemGroup.MATERIALS, itemList);
 		
 		//Ingots, nuggets, plates
-		plate_cast_iron = new MiscItem("cast_iron_plate",ItemGroup.MATERIALS, itemList);
-		plate_gold = new MiscItem("gold_plate",ItemGroup.MATERIALS, itemList);
-		plate_iron = new MiscItem("iron_plate",ItemGroup.MATERIALS, itemList);
-		plate_steel = new MiscItem("steel_plate",ItemGroup.MATERIALS, itemList);
+		adamant_plate = new MiscItem("adamant_plate",ItemGroup.MATERIALS, itemList);
+		cast_iron_plate = new MiscItem("cast_iron_plate",ItemGroup.MATERIALS, itemList);
+		gold_plate = new MiscItem("gold_plate",ItemGroup.MATERIALS, itemList);
+		iron_plate = new MiscItem("iron_plate",ItemGroup.MATERIALS, itemList);
+		steel_plate = new MiscItem("steel_plate",ItemGroup.MATERIALS, itemList);
 
 		steel_ingot = new MiscItem("steel_ingot",ItemGroup.MATERIALS, itemList);
 		steel_nugget = new MiscItem("steel_nugget",ItemGroup.MATERIALS, itemList);
@@ -173,14 +175,14 @@ public class ModItems {
 		//Smelt Wrought Iron => (clean) Steel (durability+, protection +)
 		
 		
-		//TODO make alloy furnace (textures and block), add following as recipes:		(fuel, 2 inputs, 2 outputs)
+		//TODO add following as recipes to cast furnace (No need for an alloy furnace!):
 		/* Recipes:
 		 * Blast Furnace or w.iron + w.iron = 2 Steel
 		 * Normal Furnace or w.iron + charcoal = Cast Iron (durability-, protection ++)
 		 * 3 w.iron + 1 tungsten ore (wolfram) = 3 Lycan Steel (durability+, magic resist ++, looks epic) + slag
 		 * 3 steel + 1 cobalt = 4 Cerulian Steel (durability+, magic resist +, looks cool) + slag
 		 * 3 steel + 1 chromium = 4 Viridian Steel (durability+, magic conduct +, magic resist +, looks envious)
-		 * 3 steel + 1 cinnabar = 4 Vermillion Steel (durability+, magic conduct +, looks hot) + slag
+		 * 3 steel + 1 cinnabar = 4 Sanguine Steel (durability+, magic conduct +, looks hot) + slag
 		 * 2 w.iron + 3 obsidian shard = 2 Obstinite Steel (durability--, protection-, magic resist +++, toughness +, looks dark) + black slag (both slag and black dye)
 		 * 2 w.iron + 1 nickel = 3 Invar (protection +, magic resist +) + slag
 		 * 
@@ -198,7 +200,7 @@ public class ModItems {
 		 * 1 gold + 1 silver = 2 Electrum (magic conduct +++, magic resist --) + slag if ores
 		 * 
 		 * 1 tungsten ore + 8 charcoal = 1 Wolfram Diamond (Tungsten Carbide, 'gem' form of tungsten) + slag (2x slag if coal instead of charcoal)
-		 * 1 Wolfram Diamond + 8 charcoal + time = Tungsten Ingot (not to be enabled until the 'electric age')
+		 * 1 Wolfram Diamond + heat + time = Tungsten Nugget (it's really too bad coal and even lava can't get hot enough...)
 		 * 
 		 */
 		
@@ -232,7 +234,7 @@ public class ModItems {
 		iron_tower_shield = new ArmorShieldItem("iron_tower_shield", ArmorMaterial.IRON, ItemGroup.COMBAT, itemList, 1.0f);
 		gold_tower_shield = new ArmorShieldItem("golden_tower_shield", ArmorMaterial.GOLD, ItemGroup.COMBAT, itemList, 1.0f);
 		
-		//artifice, artifice tables???
+		//artifice, artifice table
 		
 		// Bows and arrows +textures
 		

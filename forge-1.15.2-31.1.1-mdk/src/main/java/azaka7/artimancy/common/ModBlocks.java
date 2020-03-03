@@ -62,6 +62,8 @@ public class ModBlocks {
 	public final Block red_sandstone_gold_ore, red_sandstone_lead_ore, red_sandstone_tin_ore, sandstone_coal_ore, sandstone_copper_ore, sandstone_lead_ore, sandstone_tin_ore;
 	public final Block schist_graphite_ore, schist_nickel_ore, shale_iron_ore, shale_tin_ore;
 	
+	public final Block slag_block;
+	
 	public final Block white_mushroom, white_mushroom_block;
 	
 	private ModBlocks(){
@@ -417,8 +419,11 @@ public class ModBlocks {
 		warstone_bricks = (new BlockMisc("war_bricks", (Properties.create(Material.ROCK, MaterialColor.OBSIDIAN)).hardnessAndResistance(30.0F, 500.0F)));
 		blockMap.put(warstone_bricks, ItemGroup.BUILDING_BLOCKS);
 		
-		cast_furnace = (new BlockCastFurnace("cast_furnace", (Properties.create(Material.ROCK, MaterialColor.OBSIDIAN)).hardnessAndResistance(10.0F, 50.0F)));
+		cast_furnace = (new BlockCastFurnace("cast_furnace", (Properties.create(Material.ROCK, MaterialColor.RED_TERRACOTTA)).hardnessAndResistance(10.0F, 50.0F)));
 		blockMap.put(cast_furnace, ItemGroup.DECORATIONS);
+		
+		slag_block = (new BlockMisc("slag_block", (Properties.create(Material.EARTH, MaterialColor.GRAY)).hardnessAndResistance(1.5F, 5.0F).sound(SoundType.GROUND)));
+		blockMap.put(slag_block, ItemGroup.BUILDING_BLOCKS);
 		
 		//Jade, because jade is special and deserves over a dozen variants /s
 		jade_block = (new BlockMisc("jade_block", (Properties.create(Material.ROCK, MaterialColor.CYAN_TERRACOTTA)).hardnessAndResistance(1.5F, 7.0F)));

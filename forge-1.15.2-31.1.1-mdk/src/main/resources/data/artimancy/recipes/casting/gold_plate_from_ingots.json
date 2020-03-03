@@ -1,0 +1,13 @@
+{
+  "type": "artimancy:casting_recipe",
+  "ingredient": {
+    "item": "minecraft:gold_ingot",
+    "amount": 2
+  },
+  "cast": {
+    "item": "artimancy:cast_plate"
+  },
+  "result": "artimancy:gold_plate",
+  "experience": 0.0,
+  "cookingtime": 50
+}

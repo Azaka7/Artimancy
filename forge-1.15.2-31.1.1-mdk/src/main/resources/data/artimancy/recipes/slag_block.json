@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "group": "",
+  "pattern": [
+    "sss",
+    "sss",
+    "sss"
+  ],
+  "key": {
+    "s": {
+      "item": "artimancy:slag"
+    }
+  },
+  "result": {
+    "item": "artimancy:slag_block",
+    "count": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "crafting_shapeless",
+  "group": "",
+  "ingredients": [
+    {
+      "item": "artimancy:slag_block"
+    }
+  ],
+  "result": {
+    "item": "artimancy:slag",
+    "count": 9
+  }
+}
