@@ -43,17 +43,17 @@ public class CastingRecipeBookPage{
 
 	}
 
-	public void init(Minecraft p_194194_1_, int p_194194_2_, int p_194194_3_) {
-		this.minecraft = p_194194_1_;
-		this.recipeBook = p_194194_1_.player.getRecipeBook();
+	public void init(Minecraft minecraft, int posX, int posY) {
+		this.minecraft = minecraft;
+		this.recipeBook = minecraft.player.getRecipeBook();
 
 		for(int i = 0; i < this.buttons.size(); ++i) {
-			this.buttons.get(i).setPosition(p_194194_2_ + 11 + 25 * (i % 5), p_194194_3_ + 31 + 25 * (i / 5));
+			this.buttons.get(i).setPosition(posX + 11 + 25 * (i % 5), posY + 31 + 25 * (i / 5));
 		}
 
-		this.forwardButton = new ToggleWidget(p_194194_2_ + 93, p_194194_3_ + 137, 12, 17, false);
+		this.forwardButton = new ToggleWidget(posX + 93, posY + 137, 12, 17, false);
 		this.forwardButton.initTextureValues(1, 208, 13, 18, RECIPE_BOOK);
-		this.backButton = new ToggleWidget(p_194194_2_ + 38, p_194194_3_ + 137, 12, 17, true);
+		this.backButton = new ToggleWidget(posX + 38, posY + 137, 12, 17, true);
 		this.backButton.initTextureValues(1, 208, 13, 18, RECIPE_BOOK);
 	}
 
@@ -74,7 +74,6 @@ public class CastingRecipeBookPage{
 
 	private void updateButtonsForPage() {
 		int i = 20 * this.currentPage;
-
 		for(int j = 0; j < this.buttons.size(); ++j) {
 			CastRecipeWidget recipewidget = this.buttons.get(j);
 			if (i + j < this.recipeLists.size()) {
@@ -136,11 +135,12 @@ public class CastingRecipeBookPage{
 		this.overlay.setVisible(false);
 	}
 
-	public boolean func_198955_a(double p_198955_1_, double p_198955_3_, int p_198955_5_, int p_198955_6_, int p_198955_7_, int p_198955_8_, int p_198955_9_) {
+	public boolean func_198955_a(double mouseX, double mouseY, int button, int p_198955_6_, int p_198955_7_, int p_198955_8_, int p_198955_9_) {
 		this.lastClickedRecipe = null;
 		this.lastClickedRecipeList = null;
 		if (this.overlay.isVisible()) {
-			if (this.overlay.mouseClicked(p_198955_1_, p_198955_3_, p_198955_5_)) {
+			
+			if (this.overlay.mouseClicked(mouseX, mouseY, button)) {
 				this.lastClickedRecipe = this.overlay.getLastRecipeClicked();
 				this.lastClickedRecipeList = this.overlay.getRecipeList();
 			} else {
@@ -148,24 +148,17 @@ public class CastingRecipeBookPage{
 			}
 
 			return true;
-		} else if (this.forwardButton.mouseClicked(p_198955_1_, p_198955_3_, p_198955_5_)) {
+		} else if (this.forwardButton.mouseClicked(mouseX, mouseY, button)) {
 			++this.currentPage;
 			this.updateButtonsForPage();
 			return true;
-		} else if (this.backButton.mouseClicked(p_198955_1_, p_198955_3_, p_198955_5_)) {
+		} else if (this.backButton.mouseClicked(mouseX, mouseY, button)) {
 			--this.currentPage;
 			this.updateButtonsForPage();
 			return true;
 		} else {
 			for(CastRecipeWidget recipewidget : this.buttons) {
-				if (recipewidget.mouseClicked(p_198955_1_, p_198955_3_, p_198955_5_)) {
-					if (p_198955_5_ == 0) {
-						this.lastClickedRecipe = recipewidget.getRecipe();
-						this.lastClickedRecipeList = recipewidget.getList();
-					} else if (p_198955_5_ == 1 && !this.overlay.isVisible() && !recipewidget.isOnlyOption()) {
-						this.overlay.func_201703_a(this.minecraft, recipewidget.getList(), recipewidget.x, recipewidget.y, p_198955_6_ + p_198955_8_ / 2, p_198955_7_ + 13 + p_198955_9_ / 2, (float)recipewidget.getWidth());
-					}
-
+				if (recipewidget.mouseClicked(mouseX, mouseY, button)) {
 					return true;
 				}
 			}

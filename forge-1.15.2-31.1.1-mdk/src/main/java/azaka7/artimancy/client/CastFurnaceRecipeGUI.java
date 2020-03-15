@@ -172,10 +172,11 @@ public class CastFurnaceRecipeGui extends AbstractGui implements IRenderable, IG
 	protected String func_205703_f() {
 		return I18n.format("gui.recipebook.toggleRecipes.all");
 	}
-
-	public boolean mouseClicked(double p_mouseClicked_1_, double p_mouseClicked_3_, int p_mouseClicked_5_) {
+	
+	@Override
+	public boolean mouseClicked(double mouseX, double mouseY, int buttonID) {
 		if (this.isVisible() && !this.mc.player.isSpectator()) {
-			if (this.recipeBookPage.func_198955_a(p_mouseClicked_1_, p_mouseClicked_3_, p_mouseClicked_5_, (this.width - 147) / 2 - this.xOffset, (this.height - 166) / 2, 147, 166)) {
+			if (this.recipeBookPage.func_198955_a(mouseX, mouseY, buttonID, (this.width - 147) / 2 - this.xOffset, (this.height - 166) / 2, 147, 166)) {
 				IRecipe<?> irecipe = this.recipeBookPage.getLastClickedRecipe();
 				RecipeList recipelist = this.recipeBookPage.getLastClickedRecipeList();
 				if (irecipe != null && recipelist != null) {

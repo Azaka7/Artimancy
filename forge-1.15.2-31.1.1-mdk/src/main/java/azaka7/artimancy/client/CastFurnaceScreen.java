@@ -124,6 +124,12 @@ public class CastFurnaceScreen extends ContainerScreen<CastFurnaceContainer> imp
 
 		return furnaceContainer.getBurnTime() * pixels / i;
 	}
+	
+	@Override
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		boolean ret = super.mouseClicked(mouseX, mouseY, button);
+		return recipeBookGui.mouseClicked(mouseX, mouseY, button) || ret;
+	}
 
 	@Override
 	public void recipesUpdated() {

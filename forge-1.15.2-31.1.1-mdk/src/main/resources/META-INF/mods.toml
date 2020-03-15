@@ -26,10 +26,10 @@ authors="Azaka7" #optional
 description='''
 Artimancy advances the magic of crafting and building to include multiple IRL and RPG elements.
 
-Fun fact: The term "Artimancy" refers to the magic of art.
+Fun fact: The term "Artimancy" means "art magic", and is totally not a made-up word.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.examplemod]] #optional
+[[dependencies.artimancy]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -41,7 +41,7 @@ Fun fact: The term "Artimancy" refers to the magic of art.
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.examplemod]]
+[[dependencies.artimancy]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.15.2]"

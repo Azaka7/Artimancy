@@ -6,12 +6,13 @@
   },
   "ingredient2": {
     "item": "artimancy:adamant_shards",
-    "amount": 2
+    "amount": 3
   },
   "cast": {
     "item": "artimancy:cast_ingot"
   },
   "result": "artimancy:adamant_ingot",
+  "bonus": "artimancy:slag",
   "experience": 1.0,
   "cookingtime": 100
 }

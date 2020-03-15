@@ -1,0 +1,14 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:pickaxe_heads",
+  "ingredient": {
+    "item": "minecraft:gold_ingot",
+    "amount": 3
+  },
+  "cast": {
+    "item": "artimancy:cast_pickaxe_head"
+  },
+  "result": "artimancy:golden_pickaxe_head",
+  "experience": 0.1,
+  "cookingtime": 100
+}

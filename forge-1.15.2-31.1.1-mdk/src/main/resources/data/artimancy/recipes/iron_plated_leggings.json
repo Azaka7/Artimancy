@@ -1,0 +1,19 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "LXL",
+    "X X",
+    "L L"
+  ],
+  "key": {
+    "X": {
+      "item": "artimancy:iron_plate"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "artimancy:iron_plated_leggings"
+  }
+}

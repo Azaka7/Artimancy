@@ -4,14 +4,19 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemTier;
 
 import com.google.common.collect.ImmutableList;
 
 import azaka7.artimancy.common.item.SimpleArmorItem;
+import azaka7.artimancy.common.item.ToolTier;
 import azaka7.artimancy.common.item.ArmorShieldItem;
+import azaka7.artimancy.common.item.CustomSwordItem;
 import azaka7.artimancy.common.item.MiscItem;
 import azaka7.artimancy.common.item.ModArmorMaterial;
+import azaka7.artimancy.common.item.ModPickaxeItem;
 
 public class ModItems {
 	
@@ -21,12 +26,12 @@ public class ModItems {
 	public static final ModItems instance(){ return INSTANCE; }
 	
 	public final Item ore_chunk_iron, ore_chunk_gold, ore_chunk_silver, ore_chunk_copper, ore_chunk_nickel, 
-		ore_chunk_platinum, ore_chunk_lead, ore_chunk_chromite, ore_chunk_cobalt, ore_chunk_tin, ore_chunk_titanium;
+		ore_chunk_platinum, ore_chunk_lead, ore_chunk_chromite, ore_chunk_cobalt, ore_chunk_tin, ore_chunk_titanium, ore_chunk_zinc;
 	public final Item ore_chunk_uranium;
 	public final Item slag;
 	public final Item sulfur, saltpetre, graphite, stibnite;
 	public final Item ceramic_tile;
-	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod;
+	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod, cast_hilt, cast_pickaxe_head;
 	public final Item cast_iron_plate, gold_plate, iron_plate, steel_plate;
 	public final Item steel_ingot, steel_nugget, cast_iron_ingot, cast_iron_nugget, silver_ingot, silver_nugget;
 	
@@ -43,13 +48,15 @@ public class ModItems {
 	public final ArmorItem castiron_plated_boots, castiron_plated_leggings, castiron_plated_chestplate, castiron_plated_helmet;
 	public final ArmorItem gold_plated_boots, gold_plated_leggings, gold_plated_chestplate, gold_plated_helmet;
 	
-	public final ArmorShieldItem gold_tower_shield, iron_tower_shield;
+	public final ArmorShieldItem gold_tower_shield, iron_tower_shield, steel_tower_shield, cast_iron_tower_shield, adamant_tower_shield;
+	
+	public final CustomSwordItem steel_sword, cast_iron_sword;
+	public final ModPickaxeItem steel_pickaxe, cast_iron_pickaxe;
 	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
 	private ModItems(){
 		ImmutableList.Builder<Item> itemList = new ImmutableList.Builder<Item>();
-		
 
 		sulfur = new MiscItem("mineral_sulfur",ItemGroup.MATERIALS, itemList);
 		saltpetre = new MiscItem("mineral_saltpetre",ItemGroup.MATERIALS, itemList);
@@ -68,6 +75,7 @@ public class ModItems {
 		ore_chunk_platinum = new MiscItem("platinum_ore_chunk", ItemGroup.MATERIALS, itemList);
 		ore_chunk_lead = new MiscItem("lead_ore_chunk", ItemGroup.MATERIALS, itemList);
 		ore_chunk_chromite = new MiscItem("chromite_ore_chunk", ItemGroup.MATERIALS, itemList);
+		ore_chunk_zinc = new MiscItem("zinc_ore_chunk", ItemGroup.MATERIALS, itemList);
 		
 		//Cobalt Ore; Drops from ore and geodes; Generates only in End; no native gems
 		ore_chunk_cobalt = new MiscItem("cobalt_ore_chunk", ItemGroup.MATERIALS, itemList);
@@ -82,7 +90,6 @@ public class ModItems {
 		
 		//Iron Ore; Gem: Hematite - healing (+ bloodstone), focus, grounding; Gem: Pyrite - manifestation, reflection, calming (+drops from lapis ore)
 		ore_chunk_iron = new MiscItem("iron_ore_chunk",ItemGroup.MATERIALS, itemList);
-		
 		
 		//Tungsten Ore; Drops from diamond, iron, and geodes; Generates only in Nether and End; Gem: Tungsten Carbide - hardness, crafted only
 		
@@ -172,13 +179,10 @@ public class ModItems {
 		tin_ingot = new MiscItem("tin_ingot",ItemGroup.MATERIALS,itemList);
 		titanium_ingot = new MiscItem("titanium_ingot",ItemGroup.MATERIALS,itemList);
 		
-		//Smelt Wrought Iron => (clean) Steel (durability+, protection +)
-		
-		
 		//TODO add following as recipes to cast furnace (No need for an alloy furnace!):
 		/* Recipes:
-		 * Blast Furnace or w.iron + w.iron = 2 Steel
-		 * Normal Furnace or w.iron + charcoal = Cast Iron (durability-, protection ++)
+		 * *Blast Furnace or w.iron + w.iron = 2 Steel + Slag
+		 * *Normal Furnace or w.iron + charcoal = Cast Iron (durability-, protection ++)
 		 * 3 w.iron + 1 tungsten ore (wolfram) = 3 Lycan Steel (durability+, magic resist ++, looks epic) + slag
 		 * 3 steel + 1 cobalt = 4 Cerulian Steel (durability+, magic resist +, looks cool) + slag
 		 * 3 steel + 1 chromium = 4 Viridian Steel (durability+, magic conduct +, magic resist +, looks envious)
@@ -186,7 +190,7 @@ public class ModItems {
 		 * 2 w.iron + 3 obsidian shard = 2 Obstinite Steel (durability--, protection-, magic resist +++, toughness +, looks dark) + black slag (both slag and black dye)
 		 * 2 w.iron + 1 nickel = 3 Invar (protection +, magic resist +) + slag
 		 * 
-		 * 1 w.iron + 2 adamant shards = 1 Adamant Ingot (for diamond armor/tools)
+		 * *1 w.iron + 3 adamant shards = 1 Adamant Ingot (for diamond armor/tools)
 		 * 
 		 * 3 copper + 1 tin = 4 Bronze (magic conduct +, magic resist -) + slag if ores
 		 * 1 copper + 1 nickel = 2 Constantan (magic conduct -, magic resist +, mana gen from burn)
@@ -206,6 +210,7 @@ public class ModItems {
 		
 		//armor, tools, weapons, shields
 		
+		//Armor
 		steel_helmet = new SimpleArmorItem("steel_helmet", ItemGroup.COMBAT, itemList, ModArmorMaterial.STEEL, EquipmentSlotType.HEAD);
 		steel_chestplate = new SimpleArmorItem("steel_chestplate", ItemGroup.COMBAT, itemList, ModArmorMaterial.STEEL, EquipmentSlotType.CHEST);
 		steel_leggings = new SimpleArmorItem("steel_leggings", ItemGroup.COMBAT, itemList, ModArmorMaterial.STEEL, EquipmentSlotType.LEGS);
@@ -230,15 +235,38 @@ public class ModItems {
 		gold_plated_chestplate = new SimpleArmorItem("gold_plated_chestplate", ItemGroup.COMBAT, itemList, ModArmorMaterial.GOLD_LEATHER, EquipmentSlotType.CHEST);
 		gold_plated_leggings = new SimpleArmorItem("gold_plated_leggings", ItemGroup.COMBAT, itemList, ModArmorMaterial.GOLD_LEATHER, EquipmentSlotType.LEGS);
 		gold_plated_boots = new SimpleArmorItem("gold_plated_boots", ItemGroup.COMBAT, itemList, ModArmorMaterial.GOLD_LEATHER, EquipmentSlotType.FEET);
-		
+
+		//Shields
 		iron_tower_shield = new ArmorShieldItem("iron_tower_shield", ArmorMaterial.IRON, ItemGroup.COMBAT, itemList, 1.0f);
 		gold_tower_shield = new ArmorShieldItem("golden_tower_shield", ArmorMaterial.GOLD, ItemGroup.COMBAT, itemList, 1.0f);
+		steel_tower_shield = new ArmorShieldItem("steel_tower_shield", ModArmorMaterial.STEEL, ItemGroup.COMBAT, itemList, 1.0f);
+		cast_iron_tower_shield = new ArmorShieldItem("cast_iron_tower_shield", ModArmorMaterial.CASTIRON, ItemGroup.COMBAT, itemList, 1.0f);
+		adamant_tower_shield = new ArmorShieldItem("adamant_tower_shield", ArmorMaterial.DIAMOND, ItemGroup.COMBAT, itemList, 1.0f);
 		
-		//artifice, artifice table
 		
-		// Bows and arrows +textures
+		//Weapons
+		itemList.add(steel_sword = new CustomSwordItem("steel_sword", ToolTier.STEEL, ToolTier.STEEL));
+		itemList.add(cast_iron_sword = new CustomSwordItem("cast_iron_sword", ToolTier.CAST_IRON, ToolTier.CAST_IRON));
 		
-		//tool parts +textures +crafting
+		IItemTier[] materials = new IItemTier[] {ItemTier.DIAMOND, ItemTier.GOLD, ItemTier.IRON, ToolTier.CAST_IRON, ToolTier.STEEL};
+		
+		for(int i = 0; i < materials.length; i++) {
+			for(int j = 0; j < materials.length; j++) {
+				if(i != j)
+					itemList.add(new CustomSwordItem(materials[i].toString().toLowerCase()+"_"+materials[j].toString().toLowerCase()+"_sword", materials[i], materials[j]));
+			}
+		}
+		
+		//Tools
+		cast_iron_pickaxe = new ModPickaxeItem("cast_iron_pickaxe", ToolTier.CAST_IRON, 1, -2.8F, ItemGroup.TOOLS, itemList);
+		
+		steel_pickaxe = new ModPickaxeItem("steel_pickaxe", ToolTier.STEEL, 1, -2.8F, ItemGroup.TOOLS, itemList);
+		
+		//Artifice, Artifice Table
+		
+		//Bows and Arrows
+		
+		//Tool Parts
 		
 		ceramic_tile = new MiscItem("cast_blank",ItemGroup.TOOLS, itemList);
 		
@@ -250,6 +278,25 @@ public class ModItems {
 		cast_nugget = new MiscItem("cast_nugget",ItemGroup.TOOLS, itemList);
 		cast_plate = new MiscItem("cast_plate",ItemGroup.TOOLS, itemList);
 		cast_rod = new MiscItem("cast_rod",ItemGroup.TOOLS, itemList);
+		cast_hilt = new MiscItem("cast_hilt",ItemGroup.TOOLS, itemList);
+		cast_pickaxe_head = new MiscItem("cast_pickaxe_head",ItemGroup.TOOLS, itemList);
+		
+		new MiscItem("iron_blade",ItemGroup.TOOLS, itemList);
+		new MiscItem("iron_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_blade",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_blade",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_blade",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("steel_blade",ItemGroup.TOOLS, itemList);
+		new MiscItem("steel_hilt",ItemGroup.TOOLS, itemList);
+
+		new MiscItem("iron_pickaxe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_pickaxe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_pickaxe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_pickaxe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("steel_pickaxe_head",ItemGroup.TOOLS, itemList);
 		
 		modItems = itemList.build();
 	}

@@ -1,5 +1,6 @@
 {
   "type": "artimancy:casting_recipe",
+  "group": "artimancy:plates",
   "ingredient": {
     "item": "minecraft:gold_ingot",
     "amount": 2

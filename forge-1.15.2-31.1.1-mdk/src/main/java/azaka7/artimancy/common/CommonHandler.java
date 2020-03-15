@@ -1,5 +1,8 @@
 package azaka7.artimancy.common;
 
+import java.lang.reflect.Field;
+import java.util.function.Supplier;
+
 import org.apache.logging.log4j.Logger;
 
 import com.google.gson.JsonObject;
@@ -16,15 +19,17 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.LazyValue;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
@@ -54,6 +59,7 @@ public class CommonHandler {
 		castFurnaceContainerType.setRegistryName("castfurnace");
 		castFurnaceTEType = TileEntityType.Builder.create(CastFurnaceTileEntity::new, ModBlocks.instance().cast_furnace).build(null);
 		castFurnaceTEType.setRegistryName("castfurnace");
+		
 	}
 	
 	public final void registerBlocks(RegistryEvent.Register<Block> event){
@@ -74,8 +80,31 @@ public class CommonHandler {
 			}
 		}
 		for(Item item : ModItems.instance().getModItemList()){
-			LOGGER.debug(" - "+item.getRegistryName());
 			event.getRegistry().register(item);
+		}
+
+		//Now that the mod's items registered, replace vanilla armor repair materials with modded items
+		//TODO hook this up to config file with the toggleable recipes
+		for(Field field : ArmorMaterial.class.getDeclaredFields()) {
+			if(field.getType().equals(LazyValue.class)) {
+				try {
+					LOGGER.debug("Overriding vanilla repair materials");
+					field.setAccessible(true);
+					Supplier<Ingredient> supplier = (() -> {return Ingredient.fromItems(ModItems.instance().adamant_plate);});
+					field.set(ArmorMaterial.DIAMOND, new LazyValue<Ingredient>(supplier));
+
+					supplier = (() -> {return Ingredient.fromItems(ModItems.instance().iron_plate);});
+					field.set(ArmorMaterial.IRON, new LazyValue<Ingredient>(supplier));
+
+					supplier = (() -> {return Ingredient.fromItems(ModItems.instance().gold_plate);});
+					field.set(ArmorMaterial.GOLD, new LazyValue<Ingredient>(supplier));
+					
+					field.setAccessible(false);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
 		}
 	}
 	
@@ -107,12 +136,6 @@ public class CommonHandler {
 				event.getWorld().addEntity(new ItemEntity((World) event.getWorld(), x, y, z, new ItemStack(ModItems.instance().sulfur, 1)));
 			}
 		}
-	}
-	
-	
-	//TODO is this needed?
-	public boolean isTagGood(Item in, Tag<Item> tag) {
-		return tag.contains(in);
 	}
 	
 	private static final class ToggleShapedSerializer extends ShapedRecipe.Serializer{

@@ -1,7 +1,8 @@
 {
   "type": "artimancy:casting_recipe",
+  "group": "artimancy:ingots_from_plate",
   "ingredient": {
-    "item": "artimancy:iron_plate",
+    "item": "artimancy:gold_plate",
     "amount": 1
   },
   "cast": {

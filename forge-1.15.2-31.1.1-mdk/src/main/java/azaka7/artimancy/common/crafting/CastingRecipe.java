@@ -115,6 +115,11 @@ public class CastingRecipe implements IRecipe<IInventory> {
 	public ResourceLocation getId() {
 		return id;
 	}
+	
+	@Override
+	public String getGroup() {
+	      return this.group;
+	}
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
@@ -128,6 +133,10 @@ public class CastingRecipe implements IRecipe<IInventory> {
 
 	public int getCookTime() {
 		return cookTime > 0 ? cookTime : 100;
+	}
+
+	public ItemStack getRecipeBonus() {
+		return this.result2;
 	}
 
 }

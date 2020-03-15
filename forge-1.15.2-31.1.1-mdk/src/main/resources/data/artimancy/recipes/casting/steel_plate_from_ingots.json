@@ -1,5 +1,6 @@
 {
   "type": "artimancy:casting_recipe",
+  "group": "artimancy:plates",
   "ingredient": {
     "item": "artimancy:steel_ingot",
     "amount": 2

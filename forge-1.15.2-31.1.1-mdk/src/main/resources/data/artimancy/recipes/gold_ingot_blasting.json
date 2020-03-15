@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "artimancy:gold_ore_chunk"
+  },
+  "result": "minecraft:gold_ingot",
+  "experience": 0.9,
+  "cookingtime": 95
+}

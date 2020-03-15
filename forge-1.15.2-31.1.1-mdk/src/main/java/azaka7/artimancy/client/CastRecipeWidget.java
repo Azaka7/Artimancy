@@ -38,7 +38,7 @@ public class CastRecipeWidget extends Widget {
 		this.list = recipes;
 		this.container = (RecipeBookContainer<?>)page.func_203411_d().player.openContainer;
 		this.book = page.func_203412_e();
-		List<IRecipe<?>> list = recipes.getRecipes(this.book.isFilteringCraftable(this.container));
+		List<IRecipe<?>> list = recipes.getRecipes(false/*this.book.isFilteringCraftable(this.container)*/);
 
 		for(IRecipe<?> irecipe : list) {
 			if (this.book.isNew(irecipe)) {
@@ -90,10 +90,9 @@ public class CastRecipeWidget extends Widget {
 		IRecipe<?> recipe = list.get(this.currentIndex);
 		ItemStack itemstack;
 		int k = 4;
-
-		//TODO tool tips
+		
 		if(recipe instanceof CastingRecipe) {
-	 		RenderSystem.scalef(0.5f, 0.5f, 0.5f);
+	 		RenderSystem.scalef(0.5f, 0.5f, 1.0f);
 	 		CastingRecipe crec = (CastingRecipe) recipe;
 	 		int subIndex = MathHelper.floor(this.time / 10.0F) % crec.getAmountedIngredients().get(0).getMatchingStacks().length;
 	 	 
@@ -114,14 +113,15 @@ public class CastRecipeWidget extends Widget {
 		 		}
 	 		}
 			subIndex = MathHelper.floor(this.time / 10.0F) % crec.getCast().getMatchingStacks().length;
-	 		itemstack = crec.getCast().getMatchingStacks()[subIndex];
+			itemstack = crec.getCast().getMatchingStacks()[subIndex];
 	 		minecraft.getItemRenderer().renderItemAndEffectIntoGUI(itemstack, 2*(this.x + k + 4 + 6), 2*(this.y + k - 4 + 2));
-	 		RenderSystem.scalef(2.0f, 2.0f, 2.0f);
+	 		
+	 		RenderSystem.scalef(2.0f, 2.0f, 1.0f);
 		}
 
 		itemstack = recipe.getRecipeOutput();
 		
-		minecraft.getItemRenderer().renderItemAndEffectIntoGUI(itemstack, this.x + k + 2, this.y + k + 4);
+		minecraft.getItemRenderer().renderItemAndEffectIntoGUI(itemstack, this.x + k + 3, this.y + k + 4);
 		if (itemstack.getCount() > 1) {
 			minecraft.getItemRenderer().renderItemOverlayIntoGUI(minecraft.fontRenderer, itemstack, this.x + k + 1, this.y + k + 1, null);
 		}
@@ -170,8 +170,12 @@ public class CastRecipeWidget extends Widget {
 		
 		if(recipe instanceof CastingRecipe) {
 			CastingRecipe crec = (CastingRecipe) recipe;
+			itemstack = crec.getRecipeBonus();
+			if(itemstack != null && !itemstack.isEmpty()) {
+				list.add(I18n.format("gui.artimancy.label.bonus") + ": " + crec.getRecipeBonus().getDisplayName().getFormattedText());
+				list.add("");
+			}
 			int subIndex = MathHelper.floor(this.time / 10.0F) % crec.getAmountedIngredients().get(0).getMatchingStacks().length;
-			
 			list.add(I18n.format("gui.artimancy.label.input")+": " + crec.getIngredient1Amount() + "x " + crec.getAmountedIngredients().get(0).getMatchingStacks()[subIndex].getDisplayName().getFormattedText());
 			if(crec.getAmountedIngredients().size() > 1) {
 				subIndex = MathHelper.floor(this.time / 10.0F) % crec.getAmountedIngredients().get(1).getMatchingStacks().length;
@@ -181,9 +185,11 @@ public class CastRecipeWidget extends Widget {
 			list.add(I18n.format("gui.artimancy.label.cast")+": " + crec.getCast().getMatchingStacks()[subIndex].getDisplayName().getFormattedText());
 		}
 		
+		/* TODO Make right-clicking actually show all grouped recipes, then enable this
 		if (this.list.getRecipes(this.book.isFilteringCraftable(this.container)).size() > 1) {
 			list.add(I18n.format("gui.recipebook.moreRecipes"));
 		}
+		*/
 
 		return list;
 	}

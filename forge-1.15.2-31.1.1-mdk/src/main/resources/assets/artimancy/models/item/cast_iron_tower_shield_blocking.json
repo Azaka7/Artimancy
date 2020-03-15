@@ -1,0 +1,7 @@
+{
+    "parent": "artimancy:item/generic_shield_blocking",
+    "textures": {
+        "wood": "minecraft:block/dark_oak_planks",
+        "metal": "artimancy:block/cast_iron_block"
+    }
+}

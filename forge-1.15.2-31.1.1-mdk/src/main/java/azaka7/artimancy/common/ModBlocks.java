@@ -16,6 +16,7 @@ import net.minecraft.block.Block.Properties;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.ItemGroup;
+import net.minecraftforge.common.ToolType;
 
 public class ModBlocks {
 	
@@ -419,10 +420,10 @@ public class ModBlocks {
 		warstone_bricks = (new BlockMisc("war_bricks", (Properties.create(Material.ROCK, MaterialColor.OBSIDIAN)).hardnessAndResistance(30.0F, 500.0F)));
 		blockMap.put(warstone_bricks, ItemGroup.BUILDING_BLOCKS);
 		
-		cast_furnace = (new BlockCastFurnace("cast_furnace", (Properties.create(Material.ROCK, MaterialColor.RED_TERRACOTTA)).hardnessAndResistance(10.0F, 50.0F)));
+		cast_furnace = (new BlockCastFurnace("cast_furnace", (Properties.create(Material.ROCK, MaterialColor.RED_TERRACOTTA)).hardnessAndResistance(3.5F, 5.0F)));
 		blockMap.put(cast_furnace, ItemGroup.DECORATIONS);
 		
-		slag_block = (new BlockMisc("slag_block", (Properties.create(Material.EARTH, MaterialColor.GRAY)).hardnessAndResistance(1.5F, 5.0F).sound(SoundType.GROUND)));
+		slag_block = (new BlockMisc("slag_block", (Properties.create(Material.EARTH, MaterialColor.GRAY)).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F, 10.0F).sound(SoundType.GROUND)));
 		blockMap.put(slag_block, ItemGroup.BUILDING_BLOCKS);
 		
 		//Jade, because jade is special and deserves over a dozen variants /s
