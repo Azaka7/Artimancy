@@ -119,7 +119,7 @@ public class CastFurnaceScreen extends ContainerScreen<CastFurnaceContainer> imp
 
 		if (i == 0)
 		{
-				i = 200;
+			i = 200;
 		}
 
 		return furnaceContainer.getBurnTime() * pixels / i;
@@ -130,6 +130,23 @@ public class CastFurnaceScreen extends ContainerScreen<CastFurnaceContainer> imp
 		boolean ret = super.mouseClicked(mouseX, mouseY, button);
 		return recipeBookGui.mouseClicked(mouseX, mouseY, button) || ret;
 	}
+	
+	@Override
+	public boolean keyPressed(int key, int scanCode, int modifiers) {
+		return this.recipeBookGui.keyPressed(key, scanCode, modifiers) ? false : super.keyPressed(key, scanCode, modifiers);
+	}
+	
+	@Override
+	public boolean charTyped(char character, int modifiers) {
+		return this.recipeBookGui.charTyped(character, modifiers) ? true : super.charTyped(character, modifiers);
+	}
+	
+	@Override
+	protected boolean hasClickedOutside(double x, double y, int guiLeft, int guiTop, int mouseButton) {
+		boolean flag = x < (double)guiLeft || y < (double)guiTop || x >= (double)(guiLeft + this.xSize) || y >= (double)(guiTop + this.ySize);
+		return this.recipeBookGui.clickedAway(x, y, this.guiLeft, this.guiTop, this.xSize, this.ySize, mouseButton) && flag;
+	}
+	
 
 	@Override
 	public void recipesUpdated() {

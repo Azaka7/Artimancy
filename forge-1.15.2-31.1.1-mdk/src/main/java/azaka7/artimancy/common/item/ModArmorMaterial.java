@@ -13,12 +13,12 @@ import net.minecraft.util.SoundEvent;
 
 public class ModArmorMaterial implements IArmorMaterial{
 
-	public static final IArmorMaterial STEEL = new ModArmorMaterial(Artimancy.MODID+":steel", 24, new int[] {2,5,6,2}, 5, "plate_steel", 2.0F, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
-	public static final IArmorMaterial CASTIRON = new ModArmorMaterial(Artimancy.MODID+":cast_iron", 11, new int[] {3,6,8,3},13,"plate_cast_iron", 1.0F, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND);
-	public static final IArmorMaterial IRON_LEATHER = new ModArmorMaterial(Artimancy.MODID+":iron_plated", 12, new int[] {2,4,5,2},12,"plate_iron", 0.0F, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
-	public static final IArmorMaterial STEEL_LEATHER = new ModArmorMaterial(Artimancy.MODID+":steel_plated", 15, new int[] {2,4,5,2},10,"plate_steel", 1.0F, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
-	public static final IArmorMaterial CASTIRON_LEATHER = new ModArmorMaterial(Artimancy.MODID+":cast_iron_plated", 8, new int[] {3,5,7,3},13,"plate_cast_iron", 0.5F, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND);
-	public static final IArmorMaterial GOLD_LEATHER = new ModArmorMaterial(Artimancy.MODID+":gold_plated", 6, new int[] {1,3,4,1},20,"plate_gold", 0.0F, SoundEvents.ITEM_ARMOR_EQUIP_GOLD);
+	public static final IArmorMaterial STEEL = new ModArmorMaterial(Artimancy.MODID+":steel", 24, new int[] {2,5,6,2}, 5, "steel_plate", 2.0F, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static final IArmorMaterial CASTIRON = new ModArmorMaterial(Artimancy.MODID+":cast_iron", 11, new int[] {3,6,8,3},13,"cast_iron_plate", 1.0F, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND);
+	public static final IArmorMaterial IRON_LEATHER = new ModArmorMaterial(Artimancy.MODID+":iron_plated", 12, new int[] {2,4,5,2},12,"iron_plate", 0.0F, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static final IArmorMaterial STEEL_LEATHER = new ModArmorMaterial(Artimancy.MODID+":steel_plated", 15, new int[] {2,4,5,2},10,"steel_plate", 1.0F, SoundEvents.ITEM_ARMOR_EQUIP_IRON);
+	public static final IArmorMaterial CASTIRON_LEATHER = new ModArmorMaterial(Artimancy.MODID+":cast_iron_plated", 8, new int[] {3,5,7,3},13,"cast_iron_plate", 0.5F, SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND);
+	public static final IArmorMaterial GOLD_LEATHER = new ModArmorMaterial(Artimancy.MODID+":gold_plated", 6, new int[] {1,3,4,1},20,"gold_plate", 0.0F, SoundEvents.ITEM_ARMOR_EQUIP_GOLD);
 	
 	protected static final int[] durabilityMultipliers = new int[] {13, 15, 16, 11};
 	

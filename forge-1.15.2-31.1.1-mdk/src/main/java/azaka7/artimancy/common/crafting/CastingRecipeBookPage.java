@@ -135,7 +135,7 @@ public class CastingRecipeBookPage{
 		this.overlay.setVisible(false);
 	}
 
-	public boolean func_198955_a(double mouseX, double mouseY, int button, int p_198955_6_, int p_198955_7_, int p_198955_8_, int p_198955_9_) {
+	public boolean mouseClick(double mouseX, double mouseY, int button) {
 		this.lastClickedRecipe = null;
 		this.lastClickedRecipeList = null;
 		if (this.overlay.isVisible()) {
