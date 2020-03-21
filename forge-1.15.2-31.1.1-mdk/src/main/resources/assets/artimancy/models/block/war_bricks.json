@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:block/cube_all",
     "textures": {
-        "all": "artimancy:block/warforge_brick"
+        "all": "artimancy:block/warstone_bricks"
     }
 }

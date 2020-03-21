@@ -16,6 +16,7 @@ import azaka7.artimancy.common.item.ArmorShieldItem;
 import azaka7.artimancy.common.item.CustomSwordItem;
 import azaka7.artimancy.common.item.MiscItem;
 import azaka7.artimancy.common.item.ModArmorMaterial;
+import azaka7.artimancy.common.item.ModAxeItem;
 import azaka7.artimancy.common.item.ModPickaxeItem;
 
 public class ModItems {
@@ -52,6 +53,7 @@ public class ModItems {
 	
 	public final CustomSwordItem steel_sword, cast_iron_sword;
 	public final ModPickaxeItem steel_pickaxe, cast_iron_pickaxe;
+	public final ModAxeItem steel_axe, cast_iron_axe;
 	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
@@ -259,8 +261,10 @@ public class ModItems {
 		
 		//Tools
 		cast_iron_pickaxe = new ModPickaxeItem("cast_iron_pickaxe", ToolTier.CAST_IRON, 1, -2.8F, ItemGroup.TOOLS, itemList);
+		cast_iron_axe = new ModAxeItem("cast_iron_axe", ToolTier.CAST_IRON, 5, -3.0F, ItemGroup.TOOLS, itemList);
 		
 		steel_pickaxe = new ModPickaxeItem("steel_pickaxe", ToolTier.STEEL, 1, -2.8F, ItemGroup.TOOLS, itemList);
+		steel_axe = new ModAxeItem("steel_axe", ToolTier.STEEL, 5, -3.0F, ItemGroup.TOOLS, itemList);
 		
 		//Artifice, Artifice Table
 		
@@ -297,6 +301,12 @@ public class ModItems {
 		new MiscItem("diamond_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_pickaxe_head",ItemGroup.TOOLS, itemList);
+		
+		new MiscItem("iron_axe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_axe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_axe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_axe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("steel_axe_head",ItemGroup.TOOLS, itemList);
 		
 		modItems = itemList.build();
 	}

@@ -1,0 +1,14 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:axe_heads",
+  "ingredient": {
+    "item": "artimancy:steel_ingot",
+    "amount": 3
+  },
+  "cast": {
+    "item": "artimancy:cast_axe"
+  },
+  "result": "artimancy:steel_axe_head",
+  "experience": 0.1,
+  "cookingtime": 100
+}

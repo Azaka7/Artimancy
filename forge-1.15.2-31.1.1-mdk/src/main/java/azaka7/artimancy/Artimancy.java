@@ -31,7 +31,7 @@ public class Artimancy
 {
     public static final String MODID = "artimancy";
     public static final String NAME = "Artimancy";
-    public static final String VERSION = "0.1.2a";
+    public static final String VERSION = "0.1.3a";
 
     private static final Logger LOGGER = LogManager.getLogger();
     
