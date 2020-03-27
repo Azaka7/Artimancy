@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "artimancy:casting/cast_iron_axe_head"
+      "artimancy:iron_shovel"
     ]
   },
   "criteria": {
-    "has_item": {
+    "has_mineral": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "artimancy:cast_iron_ingot"
+            "item": "minecraft:iron_ingot"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "artimancy:casting/cast_iron_axe_head"
+        "recipe": "artimancy:iron_shovel"
       }
     }
   },
   "requirements": [
     [
-      "has_item",
+      "has_mineral",
       "has_the_recipe"
     ]
   ]

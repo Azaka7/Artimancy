@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "artimancy:casting/cast_iron_axe_head"
+      "artimancy:casting/cast_iron_shovel_head"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "artimancy:casting/cast_iron_axe_head"
+        "recipe": "artimancy:casting/cast_iron_shovel_head"
       }
     }
   },

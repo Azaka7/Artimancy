@@ -1,0 +1,19 @@
+{
+  "type": "artimancy:toggle_shaped_recipe",
+  "pattern": [
+    "X",
+    "S",
+    "S"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "minecraft:diamond_shovel"
+  }
+}

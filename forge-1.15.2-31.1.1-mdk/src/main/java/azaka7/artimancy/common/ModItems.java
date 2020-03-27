@@ -13,11 +13,12 @@ import com.google.common.collect.ImmutableList;
 import azaka7.artimancy.common.item.SimpleArmorItem;
 import azaka7.artimancy.common.item.ToolTier;
 import azaka7.artimancy.common.item.ArmorShieldItem;
-import azaka7.artimancy.common.item.CustomSwordItem;
+import azaka7.artimancy.common.item.ModSwordItem;
 import azaka7.artimancy.common.item.MiscItem;
 import azaka7.artimancy.common.item.ModArmorMaterial;
 import azaka7.artimancy.common.item.ModAxeItem;
 import azaka7.artimancy.common.item.ModPickaxeItem;
+import azaka7.artimancy.common.item.ModShovelItem;
 
 public class ModItems {
 	
@@ -32,7 +33,7 @@ public class ModItems {
 	public final Item slag;
 	public final Item sulfur, saltpetre, graphite, stibnite;
 	public final Item ceramic_tile;
-	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod, cast_hilt, cast_pickaxe_head;
+	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod, cast_hilt, cast_pickaxe_head, cast_shovel_head;
 	public final Item cast_iron_plate, gold_plate, iron_plate, steel_plate;
 	public final Item steel_ingot, steel_nugget, cast_iron_ingot, cast_iron_nugget, silver_ingot, silver_nugget;
 	
@@ -51,9 +52,10 @@ public class ModItems {
 	
 	public final ArmorShieldItem gold_tower_shield, iron_tower_shield, steel_tower_shield, cast_iron_tower_shield, adamant_tower_shield;
 	
-	public final CustomSwordItem steel_sword, cast_iron_sword;
+	public final ModSwordItem steel_sword, cast_iron_sword;
 	public final ModPickaxeItem steel_pickaxe, cast_iron_pickaxe;
 	public final ModAxeItem steel_axe, cast_iron_axe;
+	public final ModShovelItem steel_shovel, cast_iron_shovel;
 	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
@@ -247,24 +249,26 @@ public class ModItems {
 		
 		
 		//Weapons
-		itemList.add(steel_sword = new CustomSwordItem("steel_sword", ToolTier.STEEL, ToolTier.STEEL));
-		itemList.add(cast_iron_sword = new CustomSwordItem("cast_iron_sword", ToolTier.CAST_IRON, ToolTier.CAST_IRON));
+		itemList.add(steel_sword = new ModSwordItem("steel_sword", ToolTier.STEEL, ToolTier.STEEL));
+		itemList.add(cast_iron_sword = new ModSwordItem("cast_iron_sword", ToolTier.CAST_IRON, ToolTier.CAST_IRON));
 		
 		IItemTier[] materials = new IItemTier[] {ItemTier.DIAMOND, ItemTier.GOLD, ItemTier.IRON, ToolTier.CAST_IRON, ToolTier.STEEL};
 		
 		for(int i = 0; i < materials.length; i++) {
 			for(int j = 0; j < materials.length; j++) {
 				if(i != j)
-					itemList.add(new CustomSwordItem(materials[i].toString().toLowerCase()+"_"+materials[j].toString().toLowerCase()+"_sword", materials[i], materials[j]));
+					itemList.add(new ModSwordItem(materials[i].toString().toLowerCase()+"_"+materials[j].toString().toLowerCase()+"_sword", materials[i], materials[j]));
 			}
 		}
 		
 		//Tools
 		cast_iron_pickaxe = new ModPickaxeItem("cast_iron_pickaxe", ToolTier.CAST_IRON, 1, -2.8F, ItemGroup.TOOLS, itemList);
 		cast_iron_axe = new ModAxeItem("cast_iron_axe", ToolTier.CAST_IRON, 5, -3.0F, ItemGroup.TOOLS, itemList);
+		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
 		
 		steel_pickaxe = new ModPickaxeItem("steel_pickaxe", ToolTier.STEEL, 1, -2.8F, ItemGroup.TOOLS, itemList);
 		steel_axe = new ModAxeItem("steel_axe", ToolTier.STEEL, 5, -3.0F, ItemGroup.TOOLS, itemList);
+		steel_shovel = new ModShovelItem("steel_shovel", ToolTier.STEEL, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
 		
 		//Artifice, Artifice Table
 		
@@ -284,6 +288,7 @@ public class ModItems {
 		cast_rod = new MiscItem("cast_rod",ItemGroup.TOOLS, itemList);
 		cast_hilt = new MiscItem("cast_hilt",ItemGroup.TOOLS, itemList);
 		cast_pickaxe_head = new MiscItem("cast_pickaxe_head",ItemGroup.TOOLS, itemList);
+		cast_shovel_head = new MiscItem("cast_shovel_head", ItemGroup.TOOLS, itemList);
 		
 		new MiscItem("iron_blade",ItemGroup.TOOLS, itemList);
 		new MiscItem("iron_hilt",ItemGroup.TOOLS, itemList);
@@ -301,12 +306,18 @@ public class ModItems {
 		new MiscItem("diamond_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_pickaxe_head",ItemGroup.TOOLS, itemList);
-		
+
 		new MiscItem("iron_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_axe_head",ItemGroup.TOOLS, itemList);
+		
+		new MiscItem("iron_shovel_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_shovel_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_shovel_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_shovel_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("steel_shovel_head",ItemGroup.TOOLS, itemList);
 		
 		modItems = itemList.build();
 	}

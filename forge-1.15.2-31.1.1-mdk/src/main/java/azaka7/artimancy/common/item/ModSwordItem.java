@@ -12,18 +12,18 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 
-public class CustomSwordItem extends SwordItem {
+public class ModSwordItem extends SwordItem {
 		
 		private final IItemTier hiltTier;
 	
 		private final float attackDamage;
 		private float attackSpeed;
 		
-		public CustomSwordItem(String name, IItemTier tier, IItemTier hilt) {
+		public ModSwordItem(String name, IItemTier tier, IItemTier hilt) {
 			this(name, tier, hilt, 3, -2.4F, (new Item.Properties()).group(ItemGroup.COMBAT));
 		}
 
-		public CustomSwordItem(String name, IItemTier tier, IItemTier hilt, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
+		public ModSwordItem(String name, IItemTier tier, IItemTier hilt, int attackDamageIn, float attackSpeedIn, Item.Properties builder) {
 			super(tier, attackDamageIn, attackSpeedIn, builder.defaultMaxDamage(((3*tier.getMaxUses())+hilt.getMaxUses())/4));
 			this.setRegistryName(Artimancy.MODID+":"+name);
 			this.attackSpeed = attackSpeedIn;
