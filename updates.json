@@ -1,0 +1,14 @@
+{
+  "homepage": "<homepage/download page for your mod>",
+  "1.15.2": {
+    "0.1.3a": "All vanilla tool types completed for current materials (Steel, Cast Iron).", 
+    // List all versions of your mod for the given Minecraft version, along with their changelogs
+  },
+  ...
+  "promos": {
+    "1.15.2-latest": "0.1.3a",
+    // Declare the latest "bleeding-edge" version of your mod for the given Minecraft version
+    "1.15.2-recommended": "0.1.3a",
+    // Declare the latest "stable" version of your mod for the given Minecraft version
+  }
+}
