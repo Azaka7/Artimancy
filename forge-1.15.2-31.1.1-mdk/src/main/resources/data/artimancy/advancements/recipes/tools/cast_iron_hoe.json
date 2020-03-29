@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "artimancy:cast_iron_hoe"
+    ]
+  },
+  "criteria": {
+    "has_mineral": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "artimancy:cast_iron_ingot"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "artimancy:cast_iron_hoe"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_mineral",
+      "has_the_recipe"
+    ]
+  ]
+}

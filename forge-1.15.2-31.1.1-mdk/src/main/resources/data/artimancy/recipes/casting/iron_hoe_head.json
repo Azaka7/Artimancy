@@ -1,0 +1,14 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:hoe_heads",
+  "ingredient": {
+    "item": "minecraft:iron_ingot",
+    "amount": 2
+  },
+  "cast": {
+    "item": "artimancy:cast_hoe_head"
+  },
+  "result": "artimancy:iron_hoe_head",
+  "experience": 0.0,
+  "cookingtime": 100
+}

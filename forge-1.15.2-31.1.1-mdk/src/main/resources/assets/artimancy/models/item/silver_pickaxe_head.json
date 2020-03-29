@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:item/generated",
     "textures": {
-        "layer0": "artimancy:items/parts/silver_axe_head"
+        "layer0": "artimancy:items/parts/silver_pickaxe_head"
     }
 }

@@ -17,6 +17,7 @@ import azaka7.artimancy.common.item.ModSwordItem;
 import azaka7.artimancy.common.item.MiscItem;
 import azaka7.artimancy.common.item.ModArmorMaterial;
 import azaka7.artimancy.common.item.ModAxeItem;
+import azaka7.artimancy.common.item.ModHoeItem;
 import azaka7.artimancy.common.item.ModPickaxeItem;
 import azaka7.artimancy.common.item.ModShovelItem;
 
@@ -33,7 +34,7 @@ public class ModItems {
 	public final Item slag;
 	public final Item sulfur, saltpetre, graphite, stibnite;
 	public final Item ceramic_tile;
-	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod, cast_hilt, cast_pickaxe_head, cast_shovel_head;
+	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod, cast_hilt, cast_pickaxe_head, cast_shovel_head, cast_hoe_head;
 	public final Item cast_iron_plate, gold_plate, iron_plate, steel_plate;
 	public final Item steel_ingot, steel_nugget, cast_iron_ingot, cast_iron_nugget, silver_ingot, silver_nugget;
 	
@@ -56,6 +57,7 @@ public class ModItems {
 	public final ModPickaxeItem steel_pickaxe, cast_iron_pickaxe;
 	public final ModAxeItem steel_axe, cast_iron_axe;
 	public final ModShovelItem steel_shovel, cast_iron_shovel;
+	public final ModHoeItem steel_hoe, cast_iron_hoe;
 	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
@@ -262,13 +264,15 @@ public class ModItems {
 		}
 		
 		//Tools
+		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
 		cast_iron_pickaxe = new ModPickaxeItem("cast_iron_pickaxe", ToolTier.CAST_IRON, 1, -2.8F, ItemGroup.TOOLS, itemList);
 		cast_iron_axe = new ModAxeItem("cast_iron_axe", ToolTier.CAST_IRON, 5, -3.0F, ItemGroup.TOOLS, itemList);
-		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
+		cast_iron_hoe = new ModHoeItem("cast_iron_hoe", ToolTier.CAST_IRON, -0.0F, ItemGroup.TOOLS, itemList);
 		
+		steel_shovel = new ModShovelItem("steel_shovel", ToolTier.STEEL, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
 		steel_pickaxe = new ModPickaxeItem("steel_pickaxe", ToolTier.STEEL, 1, -2.8F, ItemGroup.TOOLS, itemList);
 		steel_axe = new ModAxeItem("steel_axe", ToolTier.STEEL, 5, -3.0F, ItemGroup.TOOLS, itemList);
-		steel_shovel = new ModShovelItem("steel_shovel", ToolTier.STEEL, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
+		steel_hoe = new ModHoeItem("steel_hoe", ToolTier.STEEL, -0.5F, ItemGroup.TOOLS, itemList);
 		
 		//Artifice, Artifice Table
 		
@@ -289,6 +293,7 @@ public class ModItems {
 		cast_hilt = new MiscItem("cast_hilt",ItemGroup.TOOLS, itemList);
 		cast_pickaxe_head = new MiscItem("cast_pickaxe_head",ItemGroup.TOOLS, itemList);
 		cast_shovel_head = new MiscItem("cast_shovel_head", ItemGroup.TOOLS, itemList);
+		cast_hoe_head = new MiscItem("cast_hoe_head", ItemGroup.TOOLS, itemList);
 		
 		new MiscItem("iron_blade",ItemGroup.TOOLS, itemList);
 		new MiscItem("iron_hilt",ItemGroup.TOOLS, itemList);
@@ -312,12 +317,18 @@ public class ModItems {
 		new MiscItem("diamond_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_axe_head",ItemGroup.TOOLS, itemList);
-		
+
 		new MiscItem("iron_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_shovel_head",ItemGroup.TOOLS, itemList);
+
+		new MiscItem("iron_hoe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_hoe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_hoe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_hoe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("steel_hoe_head",ItemGroup.TOOLS, itemList);
 		
 		modItems = itemList.build();
 	}
