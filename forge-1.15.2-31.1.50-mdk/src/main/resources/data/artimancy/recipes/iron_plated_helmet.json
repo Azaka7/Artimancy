@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "XLX",
+    "L L"
+  ],
+  "key": {
+    "X": {
+      "item": "artimancy:iron_plate"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "artimancy:iron_plated_helmet"
+  }
+}

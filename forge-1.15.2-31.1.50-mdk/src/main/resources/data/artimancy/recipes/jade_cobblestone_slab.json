@@ -1,0 +1,16 @@
+{
+  "type": "crafting_shaped",
+  "group": "jade",
+  "pattern": [
+    "jjj"
+  ],
+  "key": {
+    "j": {
+      "item": "artimancy:jade_cobblestone"
+    }
+  },
+  "result": {
+    "item": "artimancy:jade_cobblestone_slab",
+    "count": 6
+  }
+}

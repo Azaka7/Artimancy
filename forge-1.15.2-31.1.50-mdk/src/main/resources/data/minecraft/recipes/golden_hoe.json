@@ -1,0 +1,19 @@
+{
+  "type": "artimancy:toggle_shaped_recipe",
+  "pattern": [
+    "XX",
+    " S",
+    " S"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:gold_ingot"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "minecraft:golden_hoe"
+  }
+}

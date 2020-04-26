@@ -1,0 +1,6 @@
+{
+    "parent": "block/cross",
+    "textures": {
+        "cross": "artimancy:block/white_mushroom"
+    }
+}

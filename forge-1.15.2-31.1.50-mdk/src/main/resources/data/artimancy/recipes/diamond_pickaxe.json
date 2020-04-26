@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "H ",
+    "S "
+  ],
+  "key": {
+    "H": {
+      "item": "artimancy:diamond_pickaxe_head"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "minecraft:diamond_pickaxe"
+  }
+}

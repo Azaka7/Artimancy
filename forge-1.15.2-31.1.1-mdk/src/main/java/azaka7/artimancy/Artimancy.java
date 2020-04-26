@@ -1,7 +1,11 @@
 package azaka7.artimancy;
 
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.google.common.collect.Lists;
 
 import azaka7.artimancy.client.ClientHandler;
 import azaka7.artimancy.common.CommonHandler;
@@ -11,9 +15,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -31,7 +37,7 @@ public class Artimancy
 {
     public static final String MODID = "artimancy";
     public static final String NAME = "Artimancy";
-    public static final String VERSION = "0.1.3a";
+    public static final String VERSION = "0.1.4a";
 
     private static final Logger LOGGER = LogManager.getLogger();
     
@@ -79,7 +85,6 @@ public class Artimancy
     public void commonInit(final FMLCommonSetupEvent event)
     {
     	LOGGER.debug("Artimancy Common Init");
-		
     }
 
 	@OnlyIn(Dist.CLIENT)

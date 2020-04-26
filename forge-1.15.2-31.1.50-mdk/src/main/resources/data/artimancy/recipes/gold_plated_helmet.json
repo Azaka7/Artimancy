@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "XLX",
+    "L L"
+  ],
+  "key": {
+    "X": {
+      "item": "artimancy:gold_plate"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "result": {
+    "item": "artimancy:gold_plated_helmet"
+  }
+}

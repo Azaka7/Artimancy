@@ -1,0 +1,14 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:blades",
+  "ingredient": {
+    "item": "artimancy:cast_iron_ingot",
+    "amount": 2
+  },
+  "cast": {
+    "item": "artimancy:cast_blade"
+  },
+  "result": "artimancy:cast_iron_blade",
+  "experience": 0.1,
+  "cookingtime": 100
+}

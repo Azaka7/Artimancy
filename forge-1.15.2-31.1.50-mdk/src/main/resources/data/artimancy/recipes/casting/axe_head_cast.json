@@ -1,0 +1,13 @@
+{
+  "type": "artimancy:casting_recipe",
+  "ingredient": {
+    "item": "minecraft:clay_ball",
+    "amount": 2
+  },
+  "cast": {
+    "tag": "forge:axes"
+  },
+  "result": "artimancy:cast_axe",
+  "experience": 0.0,
+  "cookingtime": 100
+}

@@ -1,0 +1,7 @@
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "artimancy:block/marble_pillar_top",
+        "side": "artimancy:block/marble_pillar"
+    }
+}

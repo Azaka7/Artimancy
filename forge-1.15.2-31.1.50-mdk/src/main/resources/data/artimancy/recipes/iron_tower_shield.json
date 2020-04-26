@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WPW",
+    "WSW",
+    " P "
+  ],
+  "key": {
+    "W": {
+      "tag": "minecraft:planks"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "P": {
+      "item": "artimancy:iron_plate"
+    }
+  },
+  "result": {
+    "item": "artimancy:iron_tower_shield"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "crafting_shaped",
+  "group": "artimancy:golden_sword",
+  "pattern": [
+    "B ",
+    "H "
+  ],
+  "key": {
+    "B": {
+      "item": "artimancy:golden_blade"
+    },
+    "H": {
+      "item": "artimancy:diamond_hilt"
+    }
+  },
+  "result": {
+    "item": "artimancy:gold_diamond_sword"
+  }
+}

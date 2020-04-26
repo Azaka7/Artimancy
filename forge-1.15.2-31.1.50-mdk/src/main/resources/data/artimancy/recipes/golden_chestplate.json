@@ -1,0 +1,16 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "X X",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "artimancy:gold_plate"
+    }
+  },
+  "result": {
+    "item": "minecraft:golden_chestplate"
+  }
+}

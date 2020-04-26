@@ -1,0 +1,7 @@
+{
+    "variants": {
+        "axis=y":  { "model": "artimancy:block/basalt" },
+        "axis=z":   { "model": "artimancy:block/basalt", "x": 90 },
+        "axis=x":   { "model": "artimancy:block/basalt", "x": 90, "y": 90 }
+    }
+}

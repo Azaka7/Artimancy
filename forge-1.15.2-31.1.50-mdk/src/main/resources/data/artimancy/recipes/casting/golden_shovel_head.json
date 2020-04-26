@@ -1,0 +1,14 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:shovel_heads",
+  "ingredient": {
+    "item": "minecraft:gold_ingot",
+    "amount": 1
+  },
+  "cast": {
+    "item": "artimancy:cast_shovel_head"
+  },
+  "result": "artimancy:golden_shovel_head",
+  "experience": 0.1,
+  "cookingtime": 100
+}
