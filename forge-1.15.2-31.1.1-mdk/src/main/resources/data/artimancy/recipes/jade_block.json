@@ -1,9 +1,0 @@
-{
-  "type": "smelting",
-  "ingredient": {
-    "item": "artimancy:jade_stone"
-  },
-  "result": "artimancy:jade_block",
-  "experience": 0.1,
-  "cookingtime": 100
-}

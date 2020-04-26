@@ -1,8 +1,0 @@
-{
-    "parent": "block/slab_top",
-    "textures": {
-        "bottom": "artimancy:block/jade_cobblestone",
-        "top": "artimancy:block/jade_cobblestone",
-        "side": "artimancy:block/jade_cobblestone"
-    }
-}

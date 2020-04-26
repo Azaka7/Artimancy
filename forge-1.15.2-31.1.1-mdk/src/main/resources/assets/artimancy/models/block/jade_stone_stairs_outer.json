@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "artimancy:block/jade_stone",
-        "top": "artimancy:block/jade_stone",
-        "side": "artimancy:block/jade_stone"
-    }
-}

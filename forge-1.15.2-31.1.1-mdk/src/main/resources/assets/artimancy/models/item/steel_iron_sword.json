@@ -1,7 +1,0 @@
-{
-    "parent": "minecraft:item/handheld",
-    "textures": {
-        "layer0": "artimancy:items/parts/steel_blade",
-        "layer1": "artimancy:items/parts/iron_hilt"
-    }
-}

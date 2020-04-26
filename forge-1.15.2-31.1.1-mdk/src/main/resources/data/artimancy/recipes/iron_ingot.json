@@ -1,9 +1,0 @@
-{
-  "type": "smelting",
-  "ingredient": {
-    "item": "artimancy:iron_ore_chunk"
-  },
-  "result": "minecraft:iron_ingot",
-  "experience": 0.6,
-  "cookingtime": 200
-}

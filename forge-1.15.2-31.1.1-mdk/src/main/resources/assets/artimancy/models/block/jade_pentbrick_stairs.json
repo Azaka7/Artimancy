@@ -1,8 +1,0 @@
-{
-    "parent": "block/stairs",
-    "textures": {
-        "bottom": "artimancy:block/jade_pent_brick",
-        "top": "artimancy:block/jade_pent_brick",
-        "side": "artimancy:block/jade_pent_brick"
-    }
-}

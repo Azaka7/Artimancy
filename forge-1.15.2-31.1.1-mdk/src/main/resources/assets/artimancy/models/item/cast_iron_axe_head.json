@@ -1,6 +1,0 @@
-{
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "artimancy:items/parts/cast_iron_axe_head"
-    }
-}

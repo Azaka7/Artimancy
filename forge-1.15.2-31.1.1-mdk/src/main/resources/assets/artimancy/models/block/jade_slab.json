@@ -1,8 +1,0 @@
-{
-    "parent": "minecraft:block/slab",
-    "textures": {
-        "bottom": "artimancy:block/jade_block",
-        "top": "artimancy:block/jade_block",
-        "side": "artimancy:block/jade_slab"
-    }
-}
