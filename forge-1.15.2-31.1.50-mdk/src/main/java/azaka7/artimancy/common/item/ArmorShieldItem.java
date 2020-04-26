@@ -155,7 +155,7 @@ public class ArmorShieldItem extends Item{
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 		ItemStack itemstack = playerIn.getHeldItem(handIn);
 		playerIn.setActiveHand(handIn);
-		return ActionResult.func_226249_b_(itemstack);
+		return ActionResult.resultConsume(itemstack);
 	}
 
 	/**

@@ -71,8 +71,8 @@ public class CastFurnaceRecipeGui extends AbstractGui implements IRenderable, IG
 		int i = (this.width - 147) / 2 - this.xOffset;
 		int j = (this.height - 166) / 2;
 		this.stackedContents.clear();
-		this.mc.player.inventory.func_201571_a(this.stackedContents);
-		this.container.func_201771_a(this.stackedContents);
+		this.mc.player.inventory.accountStacks(this.stackedContents);
+		this.container.fillStackedContents(this.stackedContents);
 		this.recipeBookPage.init(this.mc, i, j);
 		this.recipeBookPage.addListener(this);
 		
@@ -152,7 +152,7 @@ public class CastFurnaceRecipeGui extends AbstractGui implements IRenderable, IG
 		
 		String s = this.searchBar.getText();
 		if (!s.isEmpty()) {
-			ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<>(this.mc.func_213253_a(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
+			ObjectSet<RecipeList> objectset = new ObjectLinkedOpenHashSet<>(this.mc.getSearchTree(SearchTreeManager.RECIPES).search(s.toLowerCase(Locale.ROOT)));
 			list1.removeIf((p_193947_1_) -> {
 				return !objectset.contains(p_193947_1_);
 			});
@@ -173,8 +173,8 @@ public class CastFurnaceRecipeGui extends AbstractGui implements IRenderable, IG
 
 	private void updateStackedContents() {
 		this.stackedContents.clear();
-		this.mc.player.inventory.func_201571_a(this.stackedContents);
-		this.container.func_201771_a(this.stackedContents);
+		this.mc.player.inventory.accountStacks(this.stackedContents);
+		this.container.fillStackedContents(this.stackedContents);
 		this.updateCollections(false);
 	}
 
@@ -212,7 +212,7 @@ public class CastFurnaceRecipeGui extends AbstractGui implements IRenderable, IG
 				IRecipe<?> irecipe = this.recipeBookPage.getLastClickedRecipe();
 				RecipeList recipelist = this.recipeBookPage.getLastClickedRecipeList();
 				if (irecipe != null && recipelist != null) {
-					this.mc.playerController.func_203413_a(this.mc.player.openContainer.windowId, irecipe, Screen.hasShiftDown());
+					this.mc.playerController.sendPlaceRecipePacket(this.mc.player.openContainer.windowId, irecipe, Screen.hasShiftDown());
 					if (!this.isOffsetNextToMainGUI()) {
 						this.setVisible(false);
 					}

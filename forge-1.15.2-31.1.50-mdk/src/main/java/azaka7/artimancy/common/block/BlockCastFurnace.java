@@ -49,7 +49,7 @@ public class BlockCastFurnace extends ContainerBlock{
 	}
 	
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
+	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 		if (tileentity instanceof CastFurnaceTileEntity)

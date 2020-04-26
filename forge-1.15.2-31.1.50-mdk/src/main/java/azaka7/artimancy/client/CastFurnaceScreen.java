@@ -154,5 +154,8 @@ public class CastFurnaceScreen extends ContainerScreen<CastFurnaceContainer> imp
 	}
 
 	@Override	//This method is not meant to do anything here, so it voids out the method that is referenced through this method. It's only here for the interface that also provides recipesUpdated()
-	public RecipeBookGui func_194310_f() { return new RecipeBookGui() { public void setupGhostRecipe(IRecipe<?> recipe, List<Slot> slots) {} }; }
+	public RecipeBookGui getRecipeGui() { 
+		return new RecipeBookGui() { public void setupGhostRecipe(IRecipe<?> recipe, List<Slot> slots) {} }; 
+	}
+
 }

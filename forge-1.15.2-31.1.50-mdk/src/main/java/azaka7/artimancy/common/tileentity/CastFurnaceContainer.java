@@ -227,7 +227,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 	}
 
 	@Override
-	public void func_201771_a(RecipeItemHelper p_201771_1_) {
+	public void fillStackedContents(RecipeItemHelper p_201771_1_) {
 		if (this.tileFurnace instanceof IRecipeHelperPopulator) {
 	         ((IRecipeHelperPopulator)this.tileFurnace).fillStackedContents(p_201771_1_);
 	      }

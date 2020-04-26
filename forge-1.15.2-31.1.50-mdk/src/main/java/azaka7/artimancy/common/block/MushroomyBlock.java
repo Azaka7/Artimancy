@@ -25,7 +25,7 @@ public class MushroomyBlock extends MushroomBlock{
 		serverWorld.removeBlock(pos, false);
 		ConfiguredFeature<BigMushroomFeatureConfig, ?> configuredfeature;
 		if (this == ModBlocks.instance().white_mushroom) {
-			configuredfeature = Feature.HUGE_BROWN_MUSHROOM.func_225566_b_(LateDataStore.WHITE_MUSHROOM_CFG);
+			configuredfeature = Feature.HUGE_BROWN_MUSHROOM.withConfiguration(LateDataStore.WHITE_MUSHROOM_CFG);
 		} else {
 			serverWorld.setBlockState(pos, blockState, 3);
 			return false;

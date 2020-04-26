@@ -20,7 +20,7 @@ public class FireballSpell extends AbstractSpell{
 		
 		FireballEntity fireball = new FireballEntity(world, caster, vec3d.getX(), vec3d.getY(), vec3d.getZ());
 		fireball.explosionPower = power + Math.round(world.getRandom().nextFloat() * (luck + 1));
-		fireball.setPosition(fireball.func_226277_ct_(), caster.func_226283_e_(0.5D) + 0.5D, fireball.func_226281_cx_());
+		fireball.setPosition(fireball.getPosX(), caster.getPosYHeight(0.5D) + 0.5D, fireball.getPosZ());
 		world.addEntity(fireball);
 		return true;
 	}
