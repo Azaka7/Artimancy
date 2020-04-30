@@ -50,14 +50,16 @@ public class ModItems {
 	public final ArmorItem iron_plated_boots, iron_plated_leggings, iron_plated_chestplate, iron_plated_helmet;
 	public final ArmorItem castiron_plated_boots, castiron_plated_leggings, castiron_plated_chestplate, castiron_plated_helmet;
 	public final ArmorItem gold_plated_boots, gold_plated_leggings, gold_plated_chestplate, gold_plated_helmet;
+	public final ArmorItem silver_boots, silver_leggings, silver_chestplate, silver_helmet;
+	public final ArmorItem silver_plated_boots, silver_plated_leggings, silver_plated_chestplate, silver_plated_helmet;
 	
 	public final ArmorShieldItem gold_tower_shield, iron_tower_shield, steel_tower_shield, cast_iron_tower_shield, adamant_tower_shield, silver_tower_shield;
 	
-	public final ModSwordItem steel_sword, cast_iron_sword;
-	public final ModPickaxeItem steel_pickaxe, cast_iron_pickaxe;
-	public final ModAxeItem steel_axe, cast_iron_axe;
-	public final ModShovelItem steel_shovel, cast_iron_shovel;
-	public final ModHoeItem steel_hoe, cast_iron_hoe;
+	public final ModSwordItem steel_sword, cast_iron_sword, silver_sword;
+	public final ModPickaxeItem steel_pickaxe, cast_iron_pickaxe, silver_pickaxe;
+	public final ModAxeItem steel_axe, cast_iron_axe, silver_axe;
+	public final ModShovelItem steel_shovel, cast_iron_shovel, silver_shovel;
+	public final ModHoeItem steel_hoe, cast_iron_hoe, silver_hoe;
 	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
@@ -243,6 +245,18 @@ public class ModItems {
 		gold_plated_leggings = new SimpleArmorItem("gold_plated_leggings", ItemGroup.COMBAT, itemList, ModArmorMaterial.GOLD_LEATHER, EquipmentSlotType.LEGS);
 		gold_plated_boots = new SimpleArmorItem("gold_plated_boots", ItemGroup.COMBAT, itemList, ModArmorMaterial.GOLD_LEATHER, EquipmentSlotType.FEET);
 
+		silver_helmet = new SimpleArmorItem("silver_helmet", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER, EquipmentSlotType.HEAD);
+		silver_chestplate = new SimpleArmorItem("silver_chestplate", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER, EquipmentSlotType.CHEST);
+		silver_leggings = new SimpleArmorItem("silver_leggings", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER, EquipmentSlotType.LEGS);
+		silver_boots = new SimpleArmorItem("silver_boots", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER, EquipmentSlotType.FEET);
+		
+		silver_plated_helmet = new SimpleArmorItem("silver_plated_helmet", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER_LEATHER, EquipmentSlotType.HEAD);
+		silver_plated_chestplate = new SimpleArmorItem("silver_plated_chestplate", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER_LEATHER, EquipmentSlotType.CHEST);
+		silver_plated_leggings = new SimpleArmorItem("silver_plated_leggings", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER_LEATHER, EquipmentSlotType.LEGS);
+		silver_plated_boots = new SimpleArmorItem("silver_plated_boots", ItemGroup.COMBAT, itemList, ModArmorMaterial.SILVER_LEATHER, EquipmentSlotType.FEET);
+		
+		
+
 		//Shields
 		iron_tower_shield = new ArmorShieldItem("iron_tower_shield", ArmorMaterial.IRON, ItemGroup.COMBAT, itemList, 1.0f);
 		gold_tower_shield = new ArmorShieldItem("golden_tower_shield", ArmorMaterial.GOLD, ItemGroup.COMBAT, itemList, 1.0f);
@@ -255,8 +269,9 @@ public class ModItems {
 		//Weapons
 		itemList.add(steel_sword = new ModSwordItem("steel_sword", ToolTier.STEEL, ToolTier.STEEL));
 		itemList.add(cast_iron_sword = new ModSwordItem("cast_iron_sword", ToolTier.CAST_IRON, ToolTier.CAST_IRON));
+		itemList.add(silver_sword = new ModSwordItem("silver_sword", ToolTier.SILVER, ToolTier.SILVER));
 		
-		IItemTier[] materials = new IItemTier[] {ItemTier.DIAMOND, ItemTier.GOLD, ItemTier.IRON, ToolTier.CAST_IRON, ToolTier.STEEL};
+		IItemTier[] materials = new IItemTier[] {ItemTier.DIAMOND, ItemTier.GOLD, ItemTier.IRON, ToolTier.CAST_IRON, ToolTier.STEEL, ToolTier.SILVER};
 		
 		for(int i = 0; i < materials.length; i++) {
 			for(int j = 0; j < materials.length; j++) {
@@ -276,6 +291,11 @@ public class ModItems {
 		steel_axe = new ModAxeItem("steel_axe", ToolTier.STEEL, 5, -3.0F, ItemGroup.TOOLS, itemList);
 		steel_hoe = new ModHoeItem("steel_hoe", ToolTier.STEEL, -0.5F, ItemGroup.TOOLS, itemList);
 		
+		silver_shovel = new ModShovelItem("silver_shovel", ToolTier.SILVER, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
+		silver_pickaxe = new ModPickaxeItem("silver_pickaxe", ToolTier.SILVER, 1, -2.8F, ItemGroup.TOOLS, itemList);
+		silver_axe = new ModAxeItem("silver_axe", ToolTier.SILVER, 5, -3.0F, ItemGroup.TOOLS, itemList);
+		silver_hoe = new ModHoeItem("silver_hoe", ToolTier.SILVER, -0.0F, ItemGroup.TOOLS, itemList);
+		
 		//Artifice, Artifice Table
 		
 		//Bows and Arrows
@@ -284,7 +304,7 @@ public class ModItems {
 		
 		ceramic_tile = new MiscItem("cast_blank",ItemGroup.TOOLS, itemList);
 		
-		cast_arrow = new MiscItem("cast_arrow",ItemGroup.TOOLS, itemList);//"blank", "arrow", "axe", "ball", "blade", "hilt", "ingot", "nugget", "plate", "rod");
+		cast_arrow = new MiscItem("cast_arrow",ItemGroup.TOOLS, itemList);
 		cast_axe = new MiscItem("cast_axe",ItemGroup.TOOLS, itemList);
 		cast_ball = new MiscItem("cast_ball",ItemGroup.TOOLS, itemList);
 		cast_blade = new MiscItem("cast_blade",ItemGroup.TOOLS, itemList);
@@ -298,39 +318,46 @@ public class ModItems {
 		cast_hoe_head = new MiscItem("cast_hoe_head", ItemGroup.TOOLS, itemList);
 		
 		new MiscItem("iron_blade",ItemGroup.TOOLS, itemList);
-		new MiscItem("iron_hilt",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_blade",ItemGroup.TOOLS, itemList);
-		new MiscItem("golden_hilt",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_blade",ItemGroup.TOOLS, itemList);
-		new MiscItem("diamond_hilt",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_blade",ItemGroup.TOOLS, itemList);
-		new MiscItem("cast_iron_hilt",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_blade",ItemGroup.TOOLS, itemList);
+		new MiscItem("silver_blade",ItemGroup.TOOLS, itemList);
+		
+		new MiscItem("iron_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("golden_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("diamond_hilt",ItemGroup.TOOLS, itemList);
+		new MiscItem("cast_iron_hilt",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_hilt",ItemGroup.TOOLS, itemList);
-
+		new MiscItem("silver_hilt",ItemGroup.TOOLS, itemList);
+		
 		new MiscItem("iron_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_pickaxe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_pickaxe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("silver_pickaxe_head",ItemGroup.TOOLS, itemList);
 
 		new MiscItem("iron_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_axe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_axe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("silver_axe_head",ItemGroup.TOOLS, itemList);
 
 		new MiscItem("iron_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_shovel_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_shovel_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("silver_shovel_head",ItemGroup.TOOLS, itemList);
 
 		new MiscItem("iron_hoe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("golden_hoe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("diamond_hoe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("cast_iron_hoe_head",ItemGroup.TOOLS, itemList);
 		new MiscItem("steel_hoe_head",ItemGroup.TOOLS, itemList);
+		new MiscItem("silver_hoe_head",ItemGroup.TOOLS, itemList);
 		
 		modItems = itemList.build();
 	}

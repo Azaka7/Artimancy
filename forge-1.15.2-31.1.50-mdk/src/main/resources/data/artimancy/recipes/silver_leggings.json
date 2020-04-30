@@ -2,14 +2,15 @@
   "type": "crafting_shaped",
   "pattern": [
     "XXX",
+    "X X",
     "X X"
   ],
   "key": {
     "X": {
-      "item": "artimancy:steel_plate"
+      "item": "artimancy:silver_plate"
     }
   },
   "result": {
-    "item": "artimancy:steel_helmet"
+    "item": "artimancy:silver_leggings"
   }
 }

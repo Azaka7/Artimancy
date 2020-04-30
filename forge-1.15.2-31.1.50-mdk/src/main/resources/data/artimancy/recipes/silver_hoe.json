@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "H ",
+    "S "
+  ],
+  "key": {
+    "H": {
+      "item": "artimancy:silver_hoe_head"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "artimancy:silver_hoe"
+  }
+}

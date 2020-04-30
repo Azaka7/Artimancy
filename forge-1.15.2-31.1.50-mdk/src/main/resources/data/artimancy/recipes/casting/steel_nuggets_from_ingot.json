@@ -1,0 +1,17 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:nuggets_from_ingot",
+  "ingredient": {
+    "item": "artimancy:steel_ingot",
+    "amount": 1
+  },
+  "cast": {
+    "item": "artimancy:cast_nugget"
+  },
+  "result": {
+    "item": "artimancy:steel_nugget",
+    "count": 9
+  },
+  "experience": 0.0,
+  "cookingtime": 100
+}

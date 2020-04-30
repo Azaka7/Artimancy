@@ -1,0 +1,18 @@
+{
+  "type": "artimancy:casting_recipe",
+  "group": "artimancy:hilts",
+  "ingredient": {
+    "item": "artimancy:silver_ingot",
+    "amount": 1
+  },
+  "ingredient2": {
+    "item": "minecraft:stick",
+    "amount": 1
+  },
+  "cast": {
+    "item": "artimancy:cast_hilt"
+  },
+  "result": "artimancy:silver_hilt",
+  "experience": 0.0,
+  "cookingtime": 100
+}

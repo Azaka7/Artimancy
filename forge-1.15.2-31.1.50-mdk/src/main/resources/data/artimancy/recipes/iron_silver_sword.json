@@ -1,0 +1,19 @@
+{
+  "type": "crafting_shaped",
+  "group": "artimancy:iron_sword",
+  "pattern": [
+    "B ",
+    "H "
+  ],
+  "key": {
+    "B": {
+      "item": "artimancy:iron_blade"
+    },
+    "H": {
+      "item": "artimancy:silver_hilt"
+    }
+  },
+  "result": {
+    "item": "artimancy:iron_silver_sword"
+  }
+}
