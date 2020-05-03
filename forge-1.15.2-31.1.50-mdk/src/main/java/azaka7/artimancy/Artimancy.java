@@ -6,19 +6,29 @@ import org.apache.logging.log4j.Logger;
 import azaka7.artimancy.client.ClientHandler;
 import azaka7.artimancy.common.CommonHandler;
 import azaka7.artimancy.common.ModBlocks;
+import azaka7.artimancy.common.item.SpellScrollItem;
+import azaka7.artimancy.common.item.StaffItem;
+import azaka7.artimancy.common.magic.AbstractSpell;
+import azaka7.artimancy.common.magic.Spells;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.item.PaintingType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -60,6 +70,28 @@ public class Artimancy
         server.getCommandManager().handleCommand(server.getCommandSource().withPermissionLevel(2), "datapack disable \"mod:artimancy\"");
     }
     
+    @SubscribeEvent
+    public void pearlDamage(EnderTeleportEvent event) {
+    	ItemStack held = event.getEntityLiving().getHeldItemMainhand();
+    	if(held != null && !held.isEmpty() && held.getItem() instanceof StaffItem) {
+    		event.setAttackDamage(event.getAttackDamage()*0.5F);
+    	}
+    }
+    
+    @SubscribeEvent
+    public void anvilCrafting(AnvilUpdateEvent event) {
+    	if(event.getLeft() == null || event.getLeft().isEmpty() || event.getRight() == null || event.getRight().isEmpty()) {return;}
+    	if(event.getLeft().getItem() instanceof StaffItem && event.getRight().getItem() instanceof SpellScrollItem) {
+    		AbstractSpell spell = ((SpellScrollItem)event.getRight().getItem()).getSpell();
+    		if(spell != null) {
+    			ItemStack output = event.getLeft().copy();
+    			Spells.applySpell(spell, output);
+    			event.setOutput(output);
+    			event.setCost(1);
+    		}
+    	}
+    }
+    
     @SuppressWarnings("unchecked")
 	public final void registeryEvents(RegistryEvent.Register<?> event){
     	
@@ -73,6 +105,10 @@ public class Artimancy
     		common_proxy.registerContainerTypes((Register<ContainerType<?>>) event);
     	} else if(event.getGenericType() == IRecipeSerializer.class) {
     		common_proxy.registerRecipeSerializers((Register<IRecipeSerializer<?>>) event);
+    	} else if(event.getGenericType() == PaintingType.class) {
+    		((RegistryEvent.Register<PaintingType>) event).getRegistry().register((new PaintingType(64,64)).setRegistryName(MODID, "alch_painting"));
+    	} else if(event.getGenericType() == Enchantment.class) {
+    		common_proxy.registerEnchants((Register<Enchantment>) event);
     	}
     }
     

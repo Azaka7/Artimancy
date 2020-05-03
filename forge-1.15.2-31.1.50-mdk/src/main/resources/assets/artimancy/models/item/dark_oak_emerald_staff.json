@@ -1,0 +1,103 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
+    "textures": {
+        "focus_material": "minecraft:block/emerald_block",
+        "staff_material": "minecraft:block/dark_oak_planks"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 60, 0 ],
+            "translation": [ 0, -2, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 270, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.75, 0.75, 0.75 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 90, 0 ],
+            "translation": [ 0, -5, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 345, 0 ],
+            "translation": [ 2, -2, 1 ],
+            "scale": [ 0.9, 0.9, 0.9 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, -6, 0.25 ],
+            "scale": [ 1.4, 1.4, 1.4 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Staff",
+            "from": [ 7.5, 0, 8 ], 
+            "to": [ 8.5, 20, 9 ], 
+            "faces": {
+                "north": { "texture": "#staff_material", "uv": [ 0, 0, 1, 16 ] },
+                "east": { "texture": "#staff_material", "uv": [ 0, 0, 1, 16 ] },
+                "south": { "texture": "#staff_material", "uv": [ 0, 0, 1, 16 ] },
+                "west": { "texture": "#staff_material", "uv": [ 0, 0, 1, 16 ] },
+                "down": { "texture": "#staff_material", "uv": [ 0, 0, 1, 2 ] }
+            }
+        },
+        {
+            "name": "Ornament",
+            "from": [ 7.5, 20, 6 ], 
+            "to": [ 8.5, 25, 11 ], 
+            "faces": {
+                "north": { "texture": "#staff_material", "uv": [ 0, 0, 1, 5 ] },
+                "east": { "texture": "#staff_material", "uv": [ 2, 2, 7, 7 ] },
+                "south": { "texture": "#staff_material", "uv": [ 2, 4, 5, 5 ] },
+                "west": { "texture": "#staff_material", "uv": [ 1, 1, 6, 6 ] },
+                "up": { "texture": "#staff_material", "uv": [ 3, 2, 4, 7 ] },
+                "down": { "texture": "#staff_material", "uv": [ 11, 11, 12, 16 ] }
+            }
+        },
+        {
+            "name": "Focus",
+            "from": [ 6.5, 21, 5.5 ], 
+            "to": [ 9.5, 24, 8.5 ], 
+            "faces": {
+                "north": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
+                "east": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
+                "south": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
+                "west": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
+                "up": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
+                "down": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] }
+            }
+        },
+        {
+            "name": "Binding",
+            "from": [ 7, 18.5, 8.5 ], 
+            "to": [ 9, 24.5, 9.5 ], 
+            "faces": {
+                "north": { "texture": "#staff_material", "uv": [ 0, 0, 2, 6 ] },
+                "east": { "texture": "#staff_material", "uv": [ 0, 0, 2, 5 ] },
+                "south": { "texture": "#staff_material", "uv": [ 0, 0, 2, 6 ] },
+                "west": { "texture": "#staff_material", "uv": [ 0, 0, 1, 6 ] },
+                "up": { "texture": "#staff_material", "uv": [ 0, 0, 2, 1 ] },
+                "down": { "texture": "#staff_material", "uv": [ 0, 0, 1, 2 ] }
+            }
+        },
+        {
+            "name": "Ornament2",
+            "from": [ 7.5, 18, 9 ], 
+            "to": [ 8.5, 20, 10 ], 
+            "faces": {
+                "east": { "texture": "#staff_material", "uv": [ 2, 2, 3, 4 ] },
+                "south": { "texture": "#staff_material", "uv": [ 2, 4, 5, 5 ] },
+                "west": { "texture": "#staff_material", "uv": [ 1, 1, 2, 3 ] },
+                "down": { "texture": "#staff_material", "uv": [ 11, 11, 12, 12 ] }
+            }
+        }
+    ]
+}

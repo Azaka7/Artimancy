@@ -11,7 +11,10 @@ import net.minecraft.item.ItemTier;
 import com.google.common.collect.ImmutableList;
 
 import azaka7.artimancy.common.item.SimpleArmorItem;
+import azaka7.artimancy.common.item.SpellScrollItem;
+import azaka7.artimancy.common.item.StaffItem;
 import azaka7.artimancy.common.item.ToolTier;
+import azaka7.artimancy.common.magic.Spells;
 import azaka7.artimancy.common.item.ArmorShieldItem;
 import azaka7.artimancy.common.item.ModSwordItem;
 import azaka7.artimancy.common.item.MiscItem;
@@ -279,6 +282,16 @@ public class ModItems {
 					itemList.add(new ModSwordItem(materials[i].toString().toLowerCase()+"_"+materials[j].toString().toLowerCase()+"_sword", materials[i], materials[j]));
 			}
 		}
+		
+		//Staffs
+		
+		itemList.add(new StaffItem("dark_oak_emerald_staff", ItemTier.WOOD, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		
+		//Spells
+
+		new SpellScrollItem("blank_spell_scroll", null, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("teleport_spell_scroll", Spells.TELEPORT, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("fireball_spell_scroll", Spells.FIREBALL, ItemGroup.BREWING, itemList);
 		
 		//Tools
 		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);

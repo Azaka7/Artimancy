@@ -10,11 +10,16 @@ import com.google.gson.JsonObject;
 import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.block.ICustomItemBlock;
 import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
+import azaka7.artimancy.common.enchantments.FocusEnchantment;
+import azaka7.artimancy.common.enchantments.VigorEnchantment;
+import azaka7.artimancy.common.item.StaffItem;
 import azaka7.artimancy.common.tileentity.CastFurnaceContainer;
 import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -46,6 +51,11 @@ public class CommonHandler {
     public final TileEntityType<CastFurnaceTileEntity> getCastFurnaceType() {return castFurnaceTEType;}
     private ContainerType<CastFurnaceContainer> castFurnaceContainerType;
     public final ContainerType<CastFurnaceContainer> getCastFurnaceContainerType() {return castFurnaceContainerType;}
+    
+    public final EnchantmentType STAFF_TYPE;
+    public final Enchantment FOCUS_ENCH;
+    public final Enchantment VIGOR_ENCH;
+    
     //TODO Control this with config
 	private static boolean removeVanillaRecipes = true;
 	
@@ -60,6 +70,9 @@ public class CommonHandler {
 		castFurnaceTEType = TileEntityType.Builder.create(CastFurnaceTileEntity::new, ModBlocks.instance().cast_furnace).build(null);
 		castFurnaceTEType.setRegistryName("castfurnace");
 		
+		STAFF_TYPE = EnchantmentType.create("artimancy.staff", (Item item) -> {return item!=null && item instanceof StaffItem;});
+		FOCUS_ENCH = new FocusEnchantment("artimancy:focus", STAFF_TYPE);
+		VIGOR_ENCH = new VigorEnchantment("artimancy:vigor", STAFF_TYPE);
 	}
 	
 	public final void registerBlocks(RegistryEvent.Register<Block> event){
@@ -136,6 +149,11 @@ public class CommonHandler {
 				event.getWorld().addEntity(new ItemEntity((World) event.getWorld(), x, y, z, new ItemStack(ModItems.instance().sulfur, 1)));
 			}
 		}
+	}
+	
+	public final void registerEnchants(RegistryEvent.Register<Enchantment> event){
+		event.getRegistry().register(FOCUS_ENCH);
+		event.getRegistry().register(VIGOR_ENCH);
 	}
 	
 	private static final class ToggleShapedSerializer extends ShapedRecipe.Serializer{

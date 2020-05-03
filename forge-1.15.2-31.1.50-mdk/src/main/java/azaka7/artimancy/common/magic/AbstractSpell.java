@@ -1,12 +1,10 @@
 package azaka7.artimancy.common.magic;
 
-import java.util.HashMap;
-
 import net.minecraft.entity.LivingEntity;
 
 public abstract class AbstractSpell {
 	
-	private static final HashMap<String, AbstractSpell> SPELLS = new HashMap<String,AbstractSpell>();
+	
 	protected final String spellID;
 	
 	/**
@@ -24,42 +22,26 @@ public abstract class AbstractSpell {
 	public final String getID() { return this.spellID; }
 	
 	/**
-	 * Determines if this instance of AbstractSpell has been registered.
-	 * @return True iff this instance is registered.
+	 * Determine if the entity is able to cast the spell.
+	 * @param caster The LivingEntity attempting to cast this spell
+	 * @return true if the spell should be cast
 	 */
-	public final boolean isRegistered() {
-		return SPELLS.containsKey(this.spellID);
-	}
-	
-	/**
-	 * Try to register the given instance of AbstractSpell. This will only register if the ID is unique.
-	 * @param spell An instance of AbstractSpell to be registered.
-	 * @return True iff the spell was registered.
-	 */
-	public static final boolean registerSpell(AbstractSpell spell) {
-		if(SPELLS.containsKey(spell.getID())) {
-			return false;
-		}
-		SPELLS.put(spell.getID(), spell);
-		return true;
-	}
-	
-	/**
-	 * Get a registered instance of AbstractSpell from a given String ID.
-	 * @param id The ID of the spell being searched for.
-	 * @return The registered instance of AbstractSpell, or null if there is no spell registered to the ID.
-	 */
-	public static final AbstractSpell getSpellFromID(String id) {
-		return SPELLS.containsKey(id) ? SPELLS.get(id) : null;
-	}
+	public abstract boolean canCastSpell(LivingEntity caster);
 	
 	/**
 	 * Make the spell do what it's supposed to do. Mana/material costs are handled after this method is called.
 	 * @param caster The LivingEntity attempting to cast this spell
 	 * @param power A linear scaling of how powerful the spell is. What this does is ambiguous and determined by each spell
-	 * @param luck A value representing the player's current luck. What this does is ambiguous and determined by each spell
+	 * @param focus A value representing the player's current luck. What this does is ambiguous and determined by each spell
 	 * @return true if costs should be handled, i.e. when the spell executes without errors.
 	 */
-	public abstract boolean castSpell(LivingEntity caster, int power, int luck);
+	public abstract boolean castSpell(LivingEntity caster, int power, int focus);
+	
+	/**
+	 * The basic amount of mana it costs to cast this spell. Enchantments are applied after this method.
+	 * @param caster The LivingEntity attempting to cast this spell
+	 * @return the basic mana cost for casting this spell
+	 */
+	public abstract int baseCost(LivingEntity caster);
 
 }
