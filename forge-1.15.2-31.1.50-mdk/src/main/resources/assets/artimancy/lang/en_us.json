@@ -1,8 +1,10 @@
 {
+  "artimancy:autophagy": "Mana Autophagy",
   "artimancy.no_spell": "No Spell",
   "artimancy.spell_label": "Spell",
   "artimancy:fireball": "Fireball",
   "artimancy:focus": "Focus",
+  "artimancy:healing": "Healing",
   "artimancy:lightning": "Lightning",
   "artimancy:teleport": "Teleport",
   "artimancy:vigor": "Vigor",
@@ -236,6 +238,7 @@
   "item.artimancy.golden_shovel_head": "Golden Shovel Head",
   "item.artimancy.golden_tower_shield": "Golden Tower Shield",
   "item.artimancy.graphite": "Graphite",
+  "item.artimancy.healing_spell_scroll": "Spell Scroll (Healing)",
   "item.artimancy.hematite": "Hematite",
   "item.artimancy.iron_axe_head": "Iron Axe Head",
   "item.artimancy.iron_blade": "Iron Sword Blade",

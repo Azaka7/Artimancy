@@ -64,8 +64,9 @@ public class StaffItem extends ToolItem{
 		if(spell != null) {
 			int focus = EnchantmentHelper.getEnchantmentLevel(Artimancy.instance().commonProxy().FOCUS_ENCH, itemstack);
 			int vigor = EnchantmentHelper.getEnchantmentLevel(Artimancy.instance().commonProxy().VIGOR_ENCH, itemstack);
+			boolean autophagy = EnchantmentHelper.getEnchantmentLevel(Artimancy.instance().commonProxy().AUTOP_ENCH, itemstack) > 0;
 			
-			int spellCost = Spells.calcSpellCost(spell, vigor, itemstack.getItemEnchantability());
+			int spellCost = Spells.calcSpellCost(spell, vigor, itemstack.getItemEnchantability(), autophagy);
 			int pxp = MCMathHelper.getXPFromLevelAndProgress(player.experienceLevel, player.experience);
 			
 			if(pxp >= spellCost || player.isCreative()) {
@@ -76,7 +77,7 @@ public class StaffItem extends ToolItem{
 					player.playSound(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 2.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.1F + 1.2F);
 					
 					if(!player.isCreative()) {
-						itemstack.damageItem(1, player, (entity) -> {
+						itemstack.damageItem(autophagy ? spellCost : 1, player, (entity) -> {
 		                  entity.sendBreakAnimation(handIn);
 		                  entity.giveExperiencePoints(7);
 						});
@@ -108,8 +109,9 @@ public class StaffItem extends ToolItem{
 		AbstractSpell spell = Spells.getSpell(stack);
 		if(spell != null) {
 			int vigor = EnchantmentHelper.getEnchantmentLevel(Artimancy.instance().commonProxy().VIGOR_ENCH, stack);
+			boolean autophagy = EnchantmentHelper.getEnchantmentLevel(Artimancy.instance().commonProxy().AUTOP_ENCH, stack) > 0;
 			tooltip.add(1, (new TranslationTextComponent("artimancy.spell_label")).appendSibling(new StringTextComponent(": ")).appendSibling(new TranslationTextComponent(spell.getID())));
-			tooltip.add(2, (new TranslationTextComponent("artimancy.XPCostLabel")).appendSibling(new StringTextComponent(": "+Spells.calcSpellCost(spell, vigor, stack.getItemEnchantability()))));
+			tooltip.add(2, (new TranslationTextComponent("artimancy.XPCostLabel")).appendSibling(new StringTextComponent(": "+Spells.calcSpellCost(spell, vigor, stack.getItemEnchantability(), autophagy))));
 		} else {
 			tooltip.add(1, new TranslationTextComponent("artimancy.no_spell"));
 		}
@@ -118,6 +120,7 @@ public class StaffItem extends ToolItem{
 	@Override
 	public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment)
 	{
+		if(enchantment == Enchantments.EFFICIENCY) return false;
 		return enchantment !=null && (enchantment.type.equals(EnchantmentType.BREAKABLE) || enchantment.type.equals(Artimancy.instance().commonProxy().STAFF_TYPE) || valid_enchants.contains(enchantment)) ? true : enchantment.type.canEnchantItem(stack.getItem());
 	}
 	

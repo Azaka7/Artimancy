@@ -10,6 +10,7 @@ import com.google.gson.JsonObject;
 import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.block.ICustomItemBlock;
 import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
+import azaka7.artimancy.common.enchantments.AutophagyEnchantment;
 import azaka7.artimancy.common.enchantments.FocusEnchantment;
 import azaka7.artimancy.common.enchantments.VigorEnchantment;
 import azaka7.artimancy.common.item.StaffItem;
@@ -55,6 +56,7 @@ public class CommonHandler {
     public final EnchantmentType STAFF_TYPE;
     public final Enchantment FOCUS_ENCH;
     public final Enchantment VIGOR_ENCH;
+    public final Enchantment AUTOP_ENCH;
     
     //TODO Control this with config
 	private static boolean removeVanillaRecipes = true;
@@ -73,6 +75,7 @@ public class CommonHandler {
 		STAFF_TYPE = EnchantmentType.create("artimancy.staff", (Item item) -> {return item!=null && item instanceof StaffItem;});
 		FOCUS_ENCH = new FocusEnchantment("artimancy:focus", STAFF_TYPE);
 		VIGOR_ENCH = new VigorEnchantment("artimancy:vigor", STAFF_TYPE);
+		AUTOP_ENCH = new AutophagyEnchantment("artimancy:autophagy", STAFF_TYPE);
 	}
 	
 	public final void registerBlocks(RegistryEvent.Register<Block> event){
@@ -154,6 +157,7 @@ public class CommonHandler {
 	public final void registerEnchants(RegistryEvent.Register<Enchantment> event){
 		event.getRegistry().register(FOCUS_ENCH);
 		event.getRegistry().register(VIGOR_ENCH);
+		event.getRegistry().register(AUTOP_ENCH);
 	}
 	
 	private static final class ToggleShapedSerializer extends ShapedRecipe.Serializer{

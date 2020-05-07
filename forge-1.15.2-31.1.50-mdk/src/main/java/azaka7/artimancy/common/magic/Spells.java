@@ -14,11 +14,13 @@ public class Spells {
 	public static final AbstractSpell TELEPORT = new TeleportSpell("artimancy:teleport");
 	public static final AbstractSpell FIREBALL = new FireballSpell("artimancy:fireball");
 	public static final AbstractSpell LIGHTNING = new LightningSpell("artimancy:lightning");
+	public static final AbstractSpell HEALING = new HealingSpell("artimancy:healing");
 	
 	static {
 		registerSpell(TELEPORT);
 		registerSpell(FIREBALL);
 		registerSpell(LIGHTNING);
+		registerSpell(HEALING);
 	}
 	
 	/**
@@ -39,8 +41,8 @@ public class Spells {
 	 * @param enchantability The enchantability of the item being used to cast the spell (Use 15 for no item)
 	 * @return The spell cost (in experience points)
 	 */
-	public static int calcSpellCost(AbstractSpell spell, int vigor, int enchantability) {
-		return (int) Math.round(spell.baseCost(null)*(1+(0.5*vigor))*15.0f/enchantability);
+	public static int calcSpellCost(AbstractSpell spell, int vigor, int enchantability, boolean autophagous) {
+		return (int) Math.round(spell.baseCost(null)*(1+(0.5*vigor))*15.0f/(enchantability * (autophagous ? 2 : 1)));
 	}
 	
 	/**
