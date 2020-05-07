@@ -13,10 +13,12 @@ public class Spells {
 
 	public static final AbstractSpell TELEPORT = new TeleportSpell("artimancy:teleport");
 	public static final AbstractSpell FIREBALL = new FireballSpell("artimancy:fireball");
+	public static final AbstractSpell LIGHTNING = new LightningSpell("artimancy:lightning");
 	
 	static {
 		registerSpell(TELEPORT);
 		registerSpell(FIREBALL);
+		registerSpell(LIGHTNING);
 	}
 	
 	/**
@@ -28,6 +30,17 @@ public class Spells {
 		if(spell == null || stack == null || stack.isEmpty()) {return;}
 		if(!stack.hasTag()) stack.setTag(new CompoundNBT());
 		stack.getTag().putString(SPELL_NBT, spell.getID());
+	}
+	
+	/**
+	 * Calculate the actual spell cost based on the spell's base cost and the Vigor enchantment level.
+	 * @param spell The spell to be cast
+	 * @param vigor The level of the Vigor enchantment being applied
+	 * @param enchantability The enchantability of the item being used to cast the spell (Use 15 for no item)
+	 * @return The spell cost (in experience points)
+	 */
+	public static int calcSpellCost(AbstractSpell spell, int vigor, int enchantability) {
+		return (int) Math.round(spell.baseCost(null)*(1+(0.5*vigor))*15.0f/enchantability);
 	}
 	
 	/**

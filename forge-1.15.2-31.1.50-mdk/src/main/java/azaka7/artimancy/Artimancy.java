@@ -5,14 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import azaka7.artimancy.client.ClientHandler;
 import azaka7.artimancy.common.CommonHandler;
-import azaka7.artimancy.common.ModBlocks;
 import azaka7.artimancy.common.item.SpellScrollItem;
 import azaka7.artimancy.common.item.StaffItem;
 import azaka7.artimancy.common.magic.AbstractSpell;
 import azaka7.artimancy.common.magic.Spells;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.inventory.container.ContainerType;
@@ -21,7 +18,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
@@ -41,7 +37,7 @@ public class Artimancy
 {
     public static final String MODID = "artimancy";
     public static final String NAME = "Artimancy";
-    public static final String VERSION = "0.2.0a";
+    public static final String VERSION = "0.2.1a";
 
     private static final Logger LOGGER = LogManager.getLogger();
     
@@ -58,9 +54,9 @@ public class Artimancy
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonInit);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::preInitClient);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registeryEvents);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(client_proxy::colorItemEvent);
 
         MinecraftForge.EVENT_BUS.register(this);
-    	
     }
     
     @SubscribeEvent
@@ -73,8 +69,12 @@ public class Artimancy
     @SubscribeEvent
     public void pearlDamage(EnderTeleportEvent event) {
     	ItemStack held = event.getEntityLiving().getHeldItemMainhand();
-    	if(held != null && !held.isEmpty() && held.getItem() instanceof StaffItem) {
-    		event.setAttackDamage(event.getAttackDamage()*0.5F);
+    	if(held != null && !held.isEmpty() && held.getItem() instanceof StaffItem && Spells.getSpell(held) == Spells.TELEPORT) {
+    		event.setAttackDamage(event.getAttackDamage()*0.1F);
+    		held.damageItem(1, event.getEntityLiving(), (entity) -> {
+                entity.sendBreakAnimation(event.getEntityLiving().getActiveHand());
+			});
+    		
     	}
     }
     
@@ -122,10 +122,10 @@ public class Artimancy
     {
     	LOGGER.debug("Artimancy Client Init");
     	client_proxy.registerClientUIs();
-		RenderTypeLookup.setRenderLayer(ModBlocks.instance().white_mushroom, RenderType.getCutout());
+    	client_proxy.setRenderLayers();
     	
     }
-
+	
 	public CommonHandler commonProxy() {
 		return INSTANCE.common_proxy;
 	}

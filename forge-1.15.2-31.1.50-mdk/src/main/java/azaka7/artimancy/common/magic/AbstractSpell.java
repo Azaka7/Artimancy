@@ -44,4 +44,10 @@ public abstract class AbstractSpell {
 	 */
 	public abstract int baseCost(LivingEntity caster);
 
+	/**
+	 * A staff with a spell will have its focus colored depending on the spell stored.
+	 * @return The color of the focus when this spell is store in a staff
+	 */
+	public abstract int getColor();
+
 }

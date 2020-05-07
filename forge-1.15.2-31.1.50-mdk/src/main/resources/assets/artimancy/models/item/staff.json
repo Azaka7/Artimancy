@@ -1,9 +1,4 @@
 {
-    "__comment": "Model generated using MrCrayfish's Model Creator (https://mrcrayfish.com/tools?id=mc)",
-    "textures": {
-        "focus_material": "minecraft:block/emerald_block",
-        "staff_material": "minecraft:block/dark_oak_planks"
-    },
     "display": {
         "gui": {
             "rotation": [ 30, 60, 0 ],
@@ -67,12 +62,12 @@
             "from": [ 6.5, 21, 5.5 ], 
             "to": [ 9.5, 24, 8.5 ], 
             "faces": {
-                "north": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
-                "east": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
-                "south": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
-                "west": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
-                "up": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] },
-                "down": { "texture": "#focus_material", "uv": [ 6, 6, 9, 9 ] }
+                "north": { "texture": "#focus_material", "uv": [ 1, 1, 4, 4 ], "tintindex": 0 },
+                "east": { "texture": "#focus_material", "uv": [ 1, 1, 4, 4 ], "rotation": 90, "tintindex": 0 },
+                "south": { "texture": "#focus_material", "uv": [ 1, 1, 4, 4 ], "rotation": 90, "tintindex": 0 },
+                "west": { "texture": "#focus_material", "uv": [ 1, 1, 4, 4 ], "tintindex": 0 },
+                "up": { "texture": "#focus_material", "uv": [ 1, 1, 4, 4 ], "rotation": 90, "tintindex": 0 },
+                "down": { "texture": "#focus_material", "uv": [ 0, 0, 3, 3 ], "tintindex": 0 }
             }
         },
         {

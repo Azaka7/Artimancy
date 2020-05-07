@@ -9,7 +9,14 @@ public enum ToolTier implements IItemTier{
 
 	STEEL(2, 1019, 7.0f, 2.5f, 12, "artimancy:steel_ingot"),
 	CAST_IRON(3, 121, 12.0f, 3.0f, 10, "artimancy:cast_iron_ingot"),
-	SILVER(1, 86, 10.0f, 1.0f, 18, "artimancy:silver_ingot");
+	SILVER(1, 86, 10.0f, 1.0f, 18, "artimancy:silver_ingot"),
+
+	OAK(0, 59, 2.0F, 0.0F, 15, "minecraft:oak_planks"),
+	DARK_OAK(0, 65, 1.9F, 0.25F, 18, "minecraft:dark_oak_planks"),
+	BIRCH(0, 55, 2.1F, 0.25F, 14, "minecraft:birch_planks"),
+	SPRUCE(0, 62, 2.0F, 0.0F, 18, "minecraft:spruce_planks"),
+	ACACIA(0, 49, 2.2F, 0.5F, 15, "minecraft:acacia_planks"),
+	JUNGLE(0, 69, 2.0F, 0.0F, 16, "minecraft:jungle_planks");
 	
 	private final int maxUses, harvestLevel, enchantability;
 	

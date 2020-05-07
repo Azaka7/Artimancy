@@ -1,0 +1,7 @@
+{
+	"parent": "artimancy:item/staff",
+    "textures": {
+        "focus_material": "artimancy:items/staff_focus",
+        "staff_material": "minecraft:block/oak_planks"
+    }
+}

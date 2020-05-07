@@ -20,7 +20,7 @@ public class TeleportSpell extends AbstractSpell {
 	public boolean castSpell(LivingEntity caster, int power, int focus) {
 		
 		World world = caster.getEntityWorld();
-		caster.playSound(SoundEvents.ENTITY_ENDER_PEARL_THROW, 1.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F + 1.0F);
+		caster.playSound(SoundEvents.ENTITY_ENDERMAN_TELEPORT, 1.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F + 1.0F);
 		
 		EnderPearlEntity pearl = new EnderPearlEntity(world, caster);
 		pearl.shoot(caster, caster.rotationPitch, caster.rotationYaw, 0.0F, (float)Math.pow(1.2F, 1+power), (float) Math.pow(20.0F, 1 - Math.sqrt(0.5F*focus)));
@@ -32,7 +32,12 @@ public class TeleportSpell extends AbstractSpell {
 
 	@Override
 	public int baseCost(LivingEntity caster) {
-		return 10;
+		return 5;
+	}
+
+	@Override
+	public int getColor() {
+		return 0x117766;
 	}
 
 }

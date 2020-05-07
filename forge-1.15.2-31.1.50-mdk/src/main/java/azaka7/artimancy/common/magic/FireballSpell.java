@@ -17,10 +17,10 @@ public class FireballSpell extends AbstractSpell{
 	public boolean castSpell(LivingEntity caster, int power, int focus) {
 		World world = caster.getEntityWorld();
 		Vec3d vec3d = caster.getLook(1.0F);
-		caster.playSound(SoundEvents.ITEM_FIRECHARGE_USE, 1.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F + 1.0F);
+		caster.playSound(SoundEvents.ENTITY_BLAZE_SHOOT, 1.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.2F + 0.0F);
 		
 		FireballEntity fireball = new FireballEntity(world, caster, vec3d.getX(), vec3d.getY(), vec3d.getZ());
-		fireball.explosionPower = power + 1;
+		fireball.explosionPower = power;
 		fireball.setPosition(fireball.getPosX(), caster.getPosYHeight(0.5D) + 0.5D, fireball.getPosZ());
 		double aX = vec3d.getX() + caster.world.rand.nextGaussian() * Math.pow(0.2D, 0.5*(focus+3));
 		double aY = vec3d.getY() + caster.world.rand.nextGaussian() * Math.pow(0.2D, 0.5*(focus+3));
@@ -36,13 +36,17 @@ public class FireballSpell extends AbstractSpell{
 
 	@Override
 	public boolean canCastSpell(LivingEntity caster) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public int baseCost(LivingEntity caster) {
 		return 10;
+	}
+
+	@Override
+	public int getColor() {
+		return 0xcf3213;
 	}
 
 }

@@ -8,6 +8,8 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemTier;
 
+import java.util.ArrayList;
+
 import com.google.common.collect.ImmutableList;
 
 import azaka7.artimancy.common.item.SimpleArmorItem;
@@ -63,6 +65,10 @@ public class ModItems {
 	public final ModAxeItem steel_axe, cast_iron_axe, silver_axe;
 	public final ModShovelItem steel_shovel, cast_iron_shovel, silver_shovel;
 	public final ModHoeItem steel_hoe, cast_iron_hoe, silver_hoe;
+
+	public final ArrayList<StaffItem> staffs = new ArrayList<StaffItem>(8);
+	public final StaffItem acacia_staff, birch_staff,dark_oak_staff, jungle_staff, oak_staff, spruce_staff;
+	public final StaffItem silver_staff, gold_staff;
 	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
@@ -284,14 +290,25 @@ public class ModItems {
 		}
 		
 		//Staffs
+
+		staffs.add(acacia_staff = new StaffItem("acacia_staff", ToolTier.ACACIA, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(birch_staff = new StaffItem("birch_staff", ToolTier.BIRCH, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(dark_oak_staff = new StaffItem("dark_oak_staff", ToolTier.DARK_OAK, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(jungle_staff = new StaffItem("jungle_staff", ToolTier.JUNGLE, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(oak_staff = new StaffItem("oak_staff", ToolTier.OAK, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(spruce_staff = new StaffItem("spruce_staff", ToolTier.SPRUCE, (new Item.Properties()).group(ItemGroup.COMBAT)));
 		
-		itemList.add(new StaffItem("dark_oak_emerald_staff", ItemTier.WOOD, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(silver_staff = new StaffItem("silver_staff", ToolTier.SILVER, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		staffs.add(gold_staff = new StaffItem("gold_staff", ItemTier.GOLD, (new Item.Properties()).group(ItemGroup.COMBAT)));
+		
+		itemList.addAll(staffs);
 		
 		//Spells
 
 		new SpellScrollItem("blank_spell_scroll", null, ItemGroup.BREWING, itemList);
 		new SpellScrollItem("teleport_spell_scroll", Spells.TELEPORT, ItemGroup.BREWING, itemList);
 		new SpellScrollItem("fireball_spell_scroll", Spells.FIREBALL, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("lightning_spell_scroll", Spells.LIGHTNING, ItemGroup.BREWING, itemList);
 		
 		//Tools
 		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
