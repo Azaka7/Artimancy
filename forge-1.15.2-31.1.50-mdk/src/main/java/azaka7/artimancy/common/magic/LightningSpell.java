@@ -62,7 +62,7 @@ public class LightningSpell extends AbstractSpell{
 					if(world instanceof ServerWorld) { ((ServerWorld)world).addLightningBolt(lightning); } else { world.addEntity(lightning); }
 					
 					for(Entity entity : world.getEntitiesInAABBexcluding(caster, new AxisAlignedBB(new BlockPos(x-1,y-1,z-1), new BlockPos(x+1,y+2,z+1)), e -> !e.isSpectator())) {
-						entity.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 3.0f * power);
+						entity.attackEntityFrom(DamageSource.LIGHTNING_BOLT, 4.0f * power);
 					}
 					
 				}}, 333);

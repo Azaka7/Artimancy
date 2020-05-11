@@ -15,12 +15,20 @@ public class Spells {
 	public static final AbstractSpell FIREBALL = new FireballSpell("artimancy:fireball");
 	public static final AbstractSpell LIGHTNING = new LightningSpell("artimancy:lightning");
 	public static final AbstractSpell HEALING = new HealingSpell("artimancy:healing");
+	public static final AbstractSpell LIGHT = new LightSpell("artimancy:light");
+	public static final AbstractSpell MINING = new MiningSpell("artimancy:mining");
+	public static final AbstractSpell LEVITATE = new LevitateSpell("artimancy:levitate");
+	public static final AbstractSpell FREEZE = new FreezeSpell("artimancy:freeze");
 	
 	static {
 		registerSpell(TELEPORT);
 		registerSpell(FIREBALL);
 		registerSpell(LIGHTNING);
 		registerSpell(HEALING);
+		registerSpell(LIGHT);
+		registerSpell(MINING);
+		registerSpell(LEVITATE);
+		registerSpell(FREEZE);
 	}
 	
 	/**

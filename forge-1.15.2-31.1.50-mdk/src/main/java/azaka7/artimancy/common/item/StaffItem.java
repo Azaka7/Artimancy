@@ -56,6 +56,11 @@ public class StaffItem extends ToolItem{
 		return material;
 	}
 	
+	@Override
+	public int getHarvestLevel(ItemStack stack, net.minecraftforge.common.ToolType tool, @Nullable PlayerEntity player, @Nullable BlockState blockState) {
+		return tool == null ? getItemTier().getHarvestLevel() : super.getHarvestLevel(stack, tool, player, blockState);
+	}
+	
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
 		ItemStack itemstack = player.getHeldItem(handIn);
 		
@@ -74,7 +79,7 @@ public class StaffItem extends ToolItem{
 				player.setActiveHand(handIn);
 				
 				if(spell.castSpell(player, vigor, focus)) {
-					player.playSound(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 2.0F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.1F + 1.2F);
+					player.playSound(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 0.5F, (world.getRandom().nextFloat() - world.getRandom().nextFloat()) * 0.1F + 1.2F);
 					
 					if(!player.isCreative()) {
 						itemstack.damageItem(autophagy ? spellCost : 1, player, (entity) -> {

@@ -37,12 +37,12 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class BlockCastFurnace extends ContainerBlock{
+public class CastFurnaceBlock extends ContainerBlock{
 	
 	public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
 	public static final BooleanProperty LIT = BooleanProperty.create("lit");
 	
-	public BlockCastFurnace(String name, Properties prop){
+	public CastFurnaceBlock(String name, Properties prop){
 		super(prop);
 		this.setRegistryName(Artimancy.MODID+":"+name);
 		this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH).with(LIT, false));

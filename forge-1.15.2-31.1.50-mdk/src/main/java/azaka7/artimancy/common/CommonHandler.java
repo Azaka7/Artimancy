@@ -68,6 +68,8 @@ public class CommonHandler {
 				 return CastFurnaceContainer.createNew(windowId, playerInv, extraData);
 			 }
 		};
+		ModBlocks.instance();
+		
 		castFurnaceContainerType.setRegistryName("castfurnace");
 		castFurnaceTEType = TileEntityType.Builder.create(CastFurnaceTileEntity::new, ModBlocks.instance().cast_furnace).build(null);
 		castFurnaceTEType.setRegistryName("castfurnace");

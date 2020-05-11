@@ -310,6 +310,10 @@ public class ModItems {
 		new SpellScrollItem("fireball_spell_scroll", Spells.FIREBALL, ItemGroup.BREWING, itemList);
 		new SpellScrollItem("lightning_spell_scroll", Spells.LIGHTNING, ItemGroup.BREWING, itemList);
 		new SpellScrollItem("healing_spell_scroll", Spells.HEALING, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("light_spell_scroll", Spells.LIGHT, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("mining_spell_scroll", Spells.MINING, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("levitate_spell_scroll", Spells.LEVITATE, ItemGroup.BREWING, itemList);
+		new SpellScrollItem("freeze_spell_scroll", Spells.FREEZE, ItemGroup.BREWING, itemList);
 		
 		//Tools
 		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);

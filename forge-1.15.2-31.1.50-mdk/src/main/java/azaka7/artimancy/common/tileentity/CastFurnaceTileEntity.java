@@ -5,7 +5,7 @@ import java.util.Optional;
 import javax.annotation.Nullable;
 
 import azaka7.artimancy.Artimancy;
-import azaka7.artimancy.common.block.BlockCastFurnace;
+import azaka7.artimancy.common.block.CastFurnaceBlock;
 import azaka7.artimancy.common.crafting.CastingRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -256,7 +256,7 @@ public class CastFurnaceTileEntity extends LockableTileEntity implements ITickab
                 timing.setCookTime(MathHelper.clamp(timing.getCookTime() - 2, 0, timing.getItemCookTime()));
             }
             
-            world.setBlockState(pos, getBlockState().with(BlockCastFurnace.LIT, this.isBurning()));
+            world.setBlockState(pos, getBlockState().with(CastFurnaceBlock.LIT, this.isBurning()));
         }
 
         if (toMarkDirty)

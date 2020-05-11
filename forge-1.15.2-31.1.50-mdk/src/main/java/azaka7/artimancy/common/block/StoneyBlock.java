@@ -6,11 +6,11 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BlockStoney extends BlockMisc {
+public class StoneyBlock extends MiscBlock {
 	
 	private final Block dropped;
 
-	public BlockStoney(String name, Block drop, Properties props) {
+	public StoneyBlock(String name, Block drop, Properties props) {
 		super(name, props);
 		dropped = drop;
 	}

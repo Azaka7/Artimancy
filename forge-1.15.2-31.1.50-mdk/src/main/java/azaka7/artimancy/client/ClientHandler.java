@@ -45,6 +45,7 @@ public class ClientHandler{
 
 	public void setRenderLayers() {
 		RenderTypeLookup.setRenderLayer(ModBlocks.instance().white_mushroom, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.instance().lumin_block, RenderType.getTranslucent());
 	}
 	
 }

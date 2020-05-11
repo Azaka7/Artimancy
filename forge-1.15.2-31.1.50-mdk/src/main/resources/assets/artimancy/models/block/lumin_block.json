@@ -1,0 +1,53 @@
+{
+    "textures": {
+	    "particle": "artimancy:block/lumin_block",
+        "core": "artimancy:block/lumin_block"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Cube",
+            "from": [ 7, 7, 7 ], 
+            "to": [ 9, 9, 9 ], 
+            "faces": {
+                "north": { "texture": "#core", "uv": [ 3, 3, 13, 13 ] },
+                "east": { "texture": "#core", "uv": [ 3, 3, 13, 13 ] },
+                "south": { "texture": "#core", "uv": [ 3, 3, 13, 13 ] },
+                "west": { "texture": "#core", "uv": [ 3, 3, 13, 13 ] },
+                "up": { "texture": "#core", "uv": [ 3, 3, 13, 13 ] },
+                "down": { "texture": "#core", "uv": [ 3, 3, 13, 13 ] }
+            }
+        }
+    ]
+}
