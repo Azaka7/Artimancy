@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -34,23 +35,18 @@ public class ShockwaveSpell extends AbstractSpell{
 		RayTraceResult blocktarget = caster.isShiftKeyDown() ? caster.pick(range, 1.0f, true) : caster.pick(range, 1.0f, false);
         Vec3d pos = null;
 
-		System.out.println("casting");
         if(blocktarget != null && blocktarget.getType() != RayTraceResult.Type.MISS) pos = blocktarget.getHitVec();
 		if(pos != null) {
 
-			System.out.println("casting 2");
 			BlockPos bpos = new BlockPos(pos.x,pos.y,pos.z);
 			if(!isValidPos(world, bpos.down())) return false;
-			System.out.println("casting 3");
 			
 			boolean worked = false;
 			for(int x = -2; x <= 2; x++) {
-				for(int z = -1; z <= 2; z++) {
-					System.out.println("casting 4");
-					if(x*x + z*z <= 4) {
+				for(int z = -2; z <= 2; z++) {
+					if(x*x + z*z <= 4.1) {
 						BlockPos here = bpos.add(x, -1, z);
 						BlockState state = world.getBlockState(here);
-						System.out.println(state.getBlock());
 						if(isValidPos(world,here)) {
 							ItemStack held = caster.getHeldItem(caster.getActiveHand());
 							if(world instanceof ServerWorld && caster instanceof PlayerEntity && state.getHarvestLevel() <= held.getHarvestLevel(null, (PlayerEntity) caster, state)) {
@@ -71,6 +67,8 @@ public class ShockwaveSpell extends AbstractSpell{
 								falling.setMotion(0, (0.6+(0.2 * (power)))/Math.sqrt((x*x + z*z)+1) + 0.2*world.getRandom().nextDouble(), 0);
 								world.addEntity(falling);
 								worked = true;
+							} else if(state.getHarvestLevel() <= held.getHarvestLevel(null, (PlayerEntity) caster, state)){
+								worked = true;
 							}
 						}
 					}
@@ -78,10 +76,12 @@ public class ShockwaveSpell extends AbstractSpell{
 			}
 			
 			if(worked) {
-				for(Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.subtract(3, 1, 3), pos.add(3, 1, 3)))) {
+				for(Entity e : world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.subtract(3, 1, 3), pos.add(3, 2, 3)))) {
 					double dist = (new Vec3d(e.getPosX(), pos.getY(), e.getPosZ())).distanceTo(pos);
 					if(dist <= 2.5D && !(e instanceof FallingBlockEntity) ) {
-						e.setMotion(0, (0.9+(0.2 * (power)))/Math.sqrt(dist+1), 0);
+						Vec3d mot = e.getMotion();
+						e.setMotion(mot.x, mot.y+((0.6+(0.25 * (power)))/Math.sqrt(dist+1)), mot.z);
+						e.fallDistance = 0;
 					}
 				}
 				
@@ -95,7 +95,8 @@ public class ShockwaveSpell extends AbstractSpell{
 	}
 	
 	private boolean isValidPos(World world, BlockPos pos) {
-		return world.getBlockState(pos).isSolid() && world.getBlockState(pos.up()).getMaterial().isReplaceable();//? false :  world.getBlockState(pos.up()).getMaterial() == Material.AIR || world.getBlockState(pos.up()).getMaterial() == Material.WATER;
+		BlockState state = world.getBlockState(pos);
+		return state.isSolid() && state.getBlockHardness(world, pos) >= 0 && state.getMaterial().getPushReaction() != PushReaction.BLOCK && world.getBlockState(pos.up()).getMaterial().isReplaceable() && world.getTileEntity(pos) == null;
 	}
 
 	@Override
@@ -110,7 +111,7 @@ public class ShockwaveSpell extends AbstractSpell{
 
 	@Override
 	public int getColor() {
-		return 0x14dc2c;
+		return 0x624c2c;
 	}
 
 }
