@@ -11,6 +11,8 @@ import azaka7.artimancy.common.magic.AbstractSpell;
 import azaka7.artimancy.common.magic.Spells;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
@@ -31,6 +33,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 
 @Mod(Artimancy.MODID)
 public class Artimancy
@@ -54,7 +57,10 @@ public class Artimancy
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonInit);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::preInitClient);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registeryEvents);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(client_proxy::colorItemEvent);
+        
+        if(FMLEnvironment.dist == Dist.CLIENT) {
+        	FMLJavaModLoadingContext.get().getModEventBus().addListener(client_proxy::colorItemEvent);
+        }
 
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -109,6 +115,8 @@ public class Artimancy
     		((RegistryEvent.Register<PaintingType>) event).getRegistry().register((new PaintingType(64,64)).setRegistryName(MODID, "alch_painting"));
     	} else if(event.getGenericType() == Enchantment.class) {
     		common_proxy.registerEnchants((Register<Enchantment>) event);
+    	} else if(event.getGenericType() == EntityType.class) {
+    		common_proxy.registerEntityTypes((Register<EntityType<? extends Entity>>) event);
     	}
     }
     
@@ -123,7 +131,7 @@ public class Artimancy
     	LOGGER.debug("Artimancy Client Init");
     	client_proxy.registerClientUIs();
     	client_proxy.setRenderLayers();
-    	
+    	client_proxy.registerEntityRenderers();
     }
 	
 	public CommonHandler commonProxy() {

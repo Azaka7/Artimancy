@@ -13,6 +13,7 @@ import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
 import azaka7.artimancy.common.enchantments.AutophagyEnchantment;
 import azaka7.artimancy.common.enchantments.FocusEnchantment;
 import azaka7.artimancy.common.enchantments.VigorEnchantment;
+import azaka7.artimancy.common.entity.ModEntityTypes;
 import azaka7.artimancy.common.item.StaffItem;
 import azaka7.artimancy.common.tileentity.CastFurnaceContainer;
 import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
@@ -22,6 +23,8 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
@@ -197,6 +200,12 @@ public class CommonHandler {
 			}
 			return main;
 	      }
+	}
+
+	public void registerEntityTypes(Register<EntityType<? extends Entity>> event) {
+		for(EntityType<? extends Entity> type : ModEntityTypes.getEntityTypesForRegister()){
+			event.getRegistry().register(type);
+		}
 	}
 
 }

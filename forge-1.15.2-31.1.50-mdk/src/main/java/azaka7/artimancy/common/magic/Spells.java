@@ -19,6 +19,10 @@ public class Spells {
 	public static final AbstractSpell MINING = new MiningSpell("artimancy:mining");
 	public static final AbstractSpell LEVITATE = new LevitateSpell("artimancy:levitate");
 	public static final AbstractSpell FREEZE = new FreezeSpell("artimancy:freeze");
+	public static final AbstractSpell EVOKE_FANGS = new EvokeFangsSpell("artimancy:evoke_fangs");
+	public static final AbstractSpell MAGIC_MISSILE = new MagicMissileSpell("artimancy:magic_missile");
+	public static final AbstractSpell FIREBREATH = new FirebreathSpell("artimancy:firebreath");
+	public static final AbstractSpell SHOCKWAVE = new ShockwaveSpell("artimancy:shockwave");
 	
 	static {
 		registerSpell(TELEPORT);
@@ -29,6 +33,10 @@ public class Spells {
 		registerSpell(MINING);
 		registerSpell(LEVITATE);
 		registerSpell(FREEZE);
+		registerSpell(EVOKE_FANGS);
+		registerSpell(MAGIC_MISSILE);
+		registerSpell(FIREBREATH);
+		registerSpell(SHOCKWAVE);
 	}
 	
 	/**
