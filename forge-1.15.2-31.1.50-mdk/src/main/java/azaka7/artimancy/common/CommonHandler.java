@@ -202,7 +202,7 @@ public class CommonHandler {
 	      }
 	}
 
-	public void registerEntityTypes(Register<EntityType<? extends Entity>> event) {
+	public void registerEntityTypes(Register<EntityType<?>> event) {
 		for(EntityType<? extends Entity> type : ModEntityTypes.getEntityTypesForRegister()){
 			event.getRegistry().register(type);
 		}
