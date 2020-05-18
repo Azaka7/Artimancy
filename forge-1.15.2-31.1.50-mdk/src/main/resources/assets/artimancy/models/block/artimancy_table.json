@@ -1,0 +1,64 @@
+{
+    "textures": {
+        "artimancy_table_top": "artimancy:block/artimancy_table_top",
+        "obsidian": "minecraft:block/obsidian",
+        "artimancy_table_holo": "artimancy:block/artimancy_table_holo",
+        "artimancy_table_side": "artimancy:block/artimancy_table_side"
+    },
+    "display": {
+        "gui": {
+            "rotation": [ 30, 45, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 0.625, 0.625, 0.625 ]
+        },
+        "ground": {
+            "rotation": [ 0, 0, 0 ],
+            "translation": [ 0, 3, 0 ],
+            "scale": [ 0.25, 0.25, 0.25 ]
+        },
+        "fixed": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "head": {
+            "rotation": [ 0, 180, 0 ],
+            "translation": [ 0, 0, 0 ],
+            "scale": [ 1, 1, 1 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ 0, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.4, 0.4, 0.4 ]
+        },
+        "thirdperson_righthand": {
+            "rotation": [ 75, 315, 0 ],
+            "translation": [ 0, 2.5, 0 ],
+            "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    },
+    "elements": [
+        {
+            "name": "Table",
+            "from": [ 0, 0, 0 ], 
+            "to": [ 16, 12, 16 ], 
+            "faces": {
+                "north": { "texture": "#artimancy_table_side", "uv": [ 0, 4, 16, 16 ] },
+                "east": { "texture": "#artimancy_table_side", "uv": [ 0, 4, 16, 16 ] },
+                "south": { "texture": "#artimancy_table_side", "uv": [ 0, 4, 16, 16 ] },
+                "west": { "texture": "#artimancy_table_side", "uv": [ 0, 4, 16, 16 ] },
+                "up": { "texture": "#artimancy_table_top", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#obsidian", "uv": [ 0, 0, 16, 16 ] }
+            }
+        },
+        {
+            "name": "Holo",
+            "from": [ 0, 14, 0 ], 
+            "to": [ 16, 14, 16 ], 
+            "faces": {
+                "up": { "texture": "#artimancy_table_holo", "uv": [ 0, 0, 16, 16 ] },
+                "down": { "texture": "#artimancy_table_holo", "uv": [ 0, 0, 16, 16 ], "rotation": 180 }
+            }
+        }
+    ]
+}

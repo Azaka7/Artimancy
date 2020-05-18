@@ -51,15 +51,17 @@ public class Artimancy
     public Artimancy() {
     	INSTANCE = this;
     	common_proxy = new CommonHandler(LOGGER);
-    	client_proxy = new ClientHandler();
     	
     	LOGGER.info("Instantiating Artimancy...");
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonInit);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::preInitClient);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::registeryEvents);
         
         if(FMLEnvironment.dist == Dist.CLIENT) {
+        	client_proxy = new ClientHandler();
+        	FMLJavaModLoadingContext.get().getModEventBus().addListener(this::preInitClient);
         	FMLJavaModLoadingContext.get().getModEventBus().addListener(client_proxy::colorItemEvent);
+        } else {
+        	client_proxy = null;
         }
 
         MinecraftForge.EVENT_BUS.register(this);
