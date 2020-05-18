@@ -11,7 +11,6 @@ import azaka7.artimancy.common.magic.AbstractSpell;
 import azaka7.artimancy.common.magic.Spells;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.PaintingType;
 import net.minecraft.inventory.container.ContainerType;
@@ -118,7 +117,7 @@ public class Artimancy
     	} else if(event.getGenericType() == Enchantment.class) {
     		common_proxy.registerEnchants((Register<Enchantment>) event);
     	} else if(event.getGenericType() == EntityType.class) {
-    		common_proxy.registerEntityTypes((Register<EntityType<? extends Entity>>) event);
+    		common_proxy.registerEntityTypes((Register<EntityType<?>>) event);
     	}
     }
     
