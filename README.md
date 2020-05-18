@@ -3,4 +3,4 @@ Minecraft mod adding new materials, realism-inspired crafting, and magic. Implem
 
 For Minecraft Version: 1.15.2
 
-Mod Version: (alpha) 1.1.0a
+Mod Version: (alpha) 0.2.1.0a

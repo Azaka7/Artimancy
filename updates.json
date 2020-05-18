@@ -1,13 +1,12 @@
 {
   "homepage": "https://github.com/Azaka7/Artimancy",
   "1.15.2": {
-    "0.1.3a": "All vanilla tool types completed for current materials (Steel, Cast Iron).", 
-    // List all versions of your mod for the given Minecraft version, along with their changelogs
+    "0.1.3a": "All vanilla tool types completed for current materials (Steel, Cast Iron).",
+    "0.2.0a": "Update to forge-31.1.50",
+    "0.2.1a": "Finished adding spells and spell scrolls"
   },
   "promos": {
-    "1.15.2-latest": "0.1.3a",
-    // Declare the latest "bleeding-edge" version of your mod for the given Minecraft version
-    "1.15.2-recommended": "0.1.3a",
-    // Declare the latest "stable" version of your mod for the given Minecraft version
+    "1.15.2-latest": "0.2.1a",
+    "1.15.2-recommended": "0.2.1a"
   }
 }
