@@ -21,7 +21,7 @@ public class LightSpell extends AbstractSpell{
 		World world = caster.getEntityWorld();
 		
 		double range = 20.0D * (focus + 1);
-        RayTraceResult blocktarget = caster.isShiftKeyDown() ? caster.pick(range, 1.0f, true) : caster.pick(range, 1.0f, false);
+        RayTraceResult blocktarget = caster.isSneaking() ? caster.pick(range, 1.0f, true) : caster.pick(range, 1.0f, false);
         Vec3d pos = null;
         
         if(blocktarget != null && blocktarget.getType() != RayTraceResult.Type.MISS) pos = blocktarget.getHitVec();
@@ -47,7 +47,7 @@ public class LightSpell extends AbstractSpell{
 	}
 	
 	private boolean isValidPos(World world, BlockPos pos, LivingEntity caster) {
-		if(caster.isShiftKeyDown()) {
+		if(caster.isSneaking()) {
 			return world.getBlockState(pos).getMaterial() == Material.AIR;
 		} else {
 			return world.getBlockState(pos).getMaterial() == Material.AIR || world.getBlockState(pos).getMaterial() == Material.WATER;

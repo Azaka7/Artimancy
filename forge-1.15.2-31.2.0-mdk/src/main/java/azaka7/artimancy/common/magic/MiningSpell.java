@@ -31,7 +31,7 @@ public class MiningSpell extends AbstractSpell{
 		World world = caster.getEntityWorld();
 		
 		double range = 20.0D * (focus + 1);
-		RayTraceResult blocktarget = caster.isShiftKeyDown() ? caster.pick(range, 1.0f, true) : caster.pick(range, 1.0f, false);
+		RayTraceResult blocktarget = caster.isSneaking() ? caster.pick(range, 1.0f, true) : caster.pick(range, 1.0f, false);
         Vec3d pos = null;
         
         if(blocktarget != null && blocktarget.getType() != RayTraceResult.Type.MISS) pos = blocktarget.getHitVec();
