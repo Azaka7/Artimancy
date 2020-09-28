@@ -12,12 +12,14 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 public class CastingRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<CastingRecipe> {
 
-	public static final CastingRecipeSerializer INSTANCE = new CastingRecipeSerializer();
+	private static final CastingRecipeSerializer INSTANCE = new CastingRecipeSerializer();
+	public static final CastingRecipeSerializer instance() { return INSTANCE; }
 	
 	//lists used for faster search for item transfer in container. default sizes are to allocate sufficient memory ahead of populating
 	private final List<Ingredient> valid_casts = new ArrayList<Ingredient>(16);
@@ -113,15 +115,15 @@ public class CastingRecipeSerializer extends net.minecraftforge.registries.Forge
 
 	@Override
 	public void write(PacketBuffer buffer, CastingRecipe recipe) {
-		//TODO use getters instead of direct variable references (change variables to private so package-mates can't do direct references, even if they are final)
 		buffer.writeString(recipe.getGroup());
-		AmountedIngredient.Serializer.INSTANCE.write(buffer, recipe.ingredient);
-		AmountedIngredient.Serializer.INSTANCE.write(buffer, recipe.ingredient2);
-		recipe.cast.write(buffer);
-		buffer.writeItemStack(recipe.result);
-		buffer.writeItemStack(recipe.result2);
-		buffer.writeFloat(recipe.experience);
-		buffer.writeVarInt(recipe.cookTime);
+		NonNullList<AmountedIngredient> ingreds = recipe.getAmountedIngredients();
+		AmountedIngredient.Serializer.INSTANCE.write(buffer, ingreds.get(0));
+		AmountedIngredient.Serializer.INSTANCE.write(buffer, ingreds.get(1));
+		recipe.getCast().write(buffer);
+		buffer.writeItemStack(recipe.getRecipeOutput());
+		buffer.writeItemStack(recipe.getRecipeBonus());
+		buffer.writeFloat(recipe.getExp());
+		buffer.writeVarInt(recipe.getCookTime());
 	}
 
 }

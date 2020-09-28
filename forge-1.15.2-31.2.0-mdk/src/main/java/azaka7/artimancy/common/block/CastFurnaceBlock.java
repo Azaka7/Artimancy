@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 
 import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.tileentity.FurnaceTiming;
-import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
+import azaka7.artimancy.common.tileentity.CastFurnaceTE;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -52,22 +52,23 @@ public class CastFurnaceBlock extends ContainerBlock{
 	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
-		if (tileentity instanceof CastFurnaceTileEntity)
+		if (tileentity instanceof CastFurnaceTE)
         {
-			if(player instanceof ServerPlayerEntity)
-				NetworkHooks.openGui((ServerPlayerEntity) player,(CastFurnaceTileEntity) tileentity, new Consumer<PacketBuffer>() {
+			if(player instanceof ServerPlayerEntity) {
+				NetworkHooks.openGui((ServerPlayerEntity) player,(CastFurnaceTE) tileentity, new Consumer<PacketBuffer>() {
 
 					@Override
 					public void accept(PacketBuffer t) {
 						t.writeBlockPos(pos);
-						FurnaceTiming timing = ((CastFurnaceTileEntity) tileentity).getTiming();
+						FurnaceTiming timing = ((CastFurnaceTE) tileentity).getTiming();
 						t.writeInt(timing.getBurnTime());
 						t.writeInt(timing.getItemBurnTime());
 						t.writeInt(timing.getCookTime());
 						t.writeInt(timing.getItemCookTime());
 					}
 					
-				});
+					});
+				}
         }
 		return ActionResultType.SUCCESS;
     }
@@ -93,9 +94,9 @@ public class CastFurnaceBlock extends ContainerBlock{
         {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof CastFurnaceTileEntity)
+            if (tileentity instanceof CastFurnaceTE)
             {
-                ((CastFurnaceTileEntity)tileentity).setCustomInventoryName(stack.getDisplayName().getFormattedText());
+                ((CastFurnaceTE)tileentity).setCustomInventoryName(stack.getDisplayName().getFormattedText());
             }
         }
     }
@@ -106,8 +107,8 @@ public class CastFurnaceBlock extends ContainerBlock{
     {
     	if (state.getBlock() != newState.getBlock()) {
             TileEntity tileentity = worldIn.getTileEntity(pos);
-            if (tileentity instanceof CastFurnaceTileEntity) {
-               InventoryHelper.dropInventoryItems(worldIn, pos, (CastFurnaceTileEntity)tileentity);
+            if (tileentity instanceof CastFurnaceTE) {
+               InventoryHelper.dropInventoryItems(worldIn, pos, (CastFurnaceTE)tileentity);
                worldIn.updateComparatorOutputLevel(pos, this);
             }
 
@@ -118,7 +119,7 @@ public class CastFurnaceBlock extends ContainerBlock{
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(FACING, context.getPlacementHorizontalFacing().getOpposite());
-     }
+	}
     
     public boolean hasComparatorInputOverride(BlockState state)
     {
@@ -132,7 +133,7 @@ public class CastFurnaceBlock extends ContainerBlock{
 
 	@Override
 	public TileEntity createNewTileEntity(IBlockReader worldIn) {
-		return new CastFurnaceTileEntity();
+		return new CastFurnaceTE();
 	}
 	
 	@Override

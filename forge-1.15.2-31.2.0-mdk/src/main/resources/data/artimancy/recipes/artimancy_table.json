@@ -1,0 +1,22 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    " D ",
+    "SOS",
+    "OOO"
+  ],
+  "key": {
+    "D": {
+      "item": "artimancy:artifice_dust"
+    },
+    "S": {
+      "item": "artimancy:silver_ingot"
+    },
+    "O": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "artimancy:artimancy_table"
+  }
+}

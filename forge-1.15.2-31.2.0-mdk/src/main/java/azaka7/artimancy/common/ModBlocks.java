@@ -2,6 +2,7 @@ package azaka7.artimancy.common;
 
 import com.google.common.collect.ImmutableMap;
 
+import azaka7.artimancy.common.block.ArtimancyTableBlock;
 import azaka7.artimancy.common.block.CastFurnaceBlock;
 import azaka7.artimancy.common.block.LuminBlock;
 import azaka7.artimancy.common.block.MiscBlock;
@@ -42,7 +43,7 @@ public class ModBlocks {
 						netherrack_geode, obsidian_geode, permafrost_geode, quartzite_geode, red_quartzite_geode, sandstone_geode, stone_geode, terracotta_geode;
 	public final Block jade_block, jade_brick, jade_circle_brick, jade_cobblestone, jade_pent_brick, jade_square_brick, jade_stone;
 	public final Block jade_pillar, jade_tile_pillar;
-	public final Block cast_furnace;
+	public final Block cast_furnace, artimancy_table;
 	
 	public final Block jade_stone_slab, jade_cobblestone_slab, jade_brick_slab, jade_tile_slab, jade_pentbrick_slab, jade_slab;
 	public final Block jade_stone_stairs, jade_cobblestone_stairs, jade_brick_stairs, jade_tile_stairs, jade_pentbrick_stairs, jade_stairs;
@@ -426,6 +427,9 @@ public class ModBlocks {
 		
 		cast_furnace = (new CastFurnaceBlock("cast_furnace", (Properties.create(Material.ROCK, MaterialColor.RED_TERRACOTTA)).hardnessAndResistance(3.5F, 5.0F)));
 		blockMap.put(cast_furnace, ItemGroup.DECORATIONS);
+		
+		artimancy_table = new ArtimancyTableBlock("artimancy_table", (Properties.create(Material.ROCK, MaterialColor.OBSIDIAN)).hardnessAndResistance(3.5F, 5.0F));
+		blockMap.put(artimancy_table, ItemGroup.DECORATIONS);
 		
 		slag_block = (new MiscBlock("slag_block", (Properties.create(Material.EARTH, MaterialColor.GRAY)).harvestTool(ToolType.SHOVEL).hardnessAndResistance(0.5F, 10.0F).sound(SoundType.GROUND)));
 		blockMap.put(slag_block, ItemGroup.BUILDING_BLOCKS);

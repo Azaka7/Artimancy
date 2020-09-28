@@ -26,7 +26,7 @@
       "entries": [
 	    {
 		  "type": "minecraft:item",
-          "weight": 4,
+          "weight": 7,
           "functions": [
             {
               "function": "minecraft:apply_bonus",
@@ -37,7 +37,7 @@
           "name": "minecraft:quartz"
 	    },{
 		  "type": "minecraft:item",
-          "weight": 2,
+          "weight": 3,
           "functions": [
             {
               "function": "minecraft:apply_bonus",
@@ -48,7 +48,7 @@
           "name": "minecraft:sand"
 	    },{
 		  "type": "minecraft:item",
-          "weight": 2,
+          "weight": 4,
           "functions": [
             {
               "function": "minecraft:apply_bonus",
@@ -59,7 +59,7 @@
           "name": "minecraft:lapis_lazuli"
 	    },{
 		  "type": "minecraft:item",
-          "weight": 1,
+          "weight": 2,
           "functions": [
             {
               "function": "minecraft:apply_bonus",
@@ -68,6 +68,28 @@
             }
           ],
           "name": "artimancy:gold_ore_chunk"
+	    },{
+		  "type": "minecraft:item",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ],
+          "name": "artimancy:opal"
+	    },{
+		  "type": "minecraft:item",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "minecraft:apply_bonus",
+              "enchantment": "minecraft:fortune",
+              "formula": "minecraft:ore_drops"
+            }
+          ],
+          "name": "artimancy:cinnabar"
 	    }
       ]
 	},

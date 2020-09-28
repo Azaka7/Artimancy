@@ -1,0 +1,14 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mercury"
+  },
+  "elemental": {
+    "item": "minecraft:snowball"
+  },
+  "input": {
+	"tag": "artimancy:staffs"
+  },
+  "spell": "artimancy:magic_missile"
+  
+}

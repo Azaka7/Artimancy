@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "artimancy:artimancy_table"
+    ]
+  },
+  "criteria": {
+    "has_obsidian": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:obsidian"
+          }
+        ]
+      }
+    },
+    "has_dust": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "artimancy:artifice_dust"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "artimancy:artimancy_table"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_obsidian",
+      "has_dust",
+      "has_the_recipe"
+    ]
+  ]
+}

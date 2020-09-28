@@ -1,7 +1,7 @@
 package azaka7.artimancy.common.crafting;
 
 import azaka7.artimancy.common.ModBlocks;
-import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
+import azaka7.artimancy.common.tileentity.CastFurnaceTE;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -18,13 +18,13 @@ public class CastingRecipe implements IRecipe<IInventory> {
 	public static final int width_key = -663941167; //"azaka7" base 36 to base 10, made negative to prevent vanilla crafting recipes
 	public static final int height_key = -573869;   //"cast"   base 36 to base 10, made negative to prevent vanilla crafting recipes
 	
-	protected final ResourceLocation id;
-	protected final String group;
-	protected final AmountedIngredient ingredient, ingredient2;
-	protected final Ingredient cast;
-	protected final ItemStack result, result2;
-	protected final float experience;
-	protected final int cookTime;
+	private final ResourceLocation id;
+	private final String group;
+	private final AmountedIngredient ingredient, ingredient2;
+	private final Ingredient cast;
+	private final ItemStack result, result2;
+	private final float experience;
+	private final int cookTime;
 	
 	public CastingRecipe(ResourceLocation id, String group, AmountedIngredient ingredient, AmountedIngredient ingredient2, Ingredient cast, ItemStack result, ItemStack result2, float experience, int cookTime) {
 		this.id = id;
@@ -45,8 +45,8 @@ public class CastingRecipe implements IRecipe<IInventory> {
 	
 	@Override
 	public boolean matches(IInventory inv, World worldIn) {
-		if(!(inv instanceof CastFurnaceTileEntity)) {return false;}
-		CastFurnaceTileEntity tecf = (CastFurnaceTileEntity) inv;
+		if(!(inv instanceof CastFurnaceTE)) {return false;}
+		CastFurnaceTE tecf = (CastFurnaceTE) inv;
 		ItemStack input1 = tecf.getStackInSlot(0);
 		ItemStack input2 = tecf.getStackInSlot(1);
 		ItemStack inCast = tecf.getStackInSlot(2);
@@ -123,12 +123,12 @@ public class CastingRecipe implements IRecipe<IInventory> {
 
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		return CastingRecipeSerializer.INSTANCE;
+		return CastingRecipeSerializer.instance();
 	}
 
 	@Override
 	public IRecipeType<?> getType() {
-		return CastFurnaceTileEntity.CAST_RECIPE_TYPE;
+		return CastFurnaceTE.CAST_RECIPE_TYPE;
 	}
 
 	public int getCookTime() {
@@ -137,6 +137,10 @@ public class CastingRecipe implements IRecipe<IInventory> {
 
 	public ItemStack getRecipeBonus() {
 		return this.result2;
+	}
+	
+	public float getExp() {
+		return this.experience;
 	}
 
 }

@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "artimancy:acacia_staff",
+    "artimancy:birch_staff",
+    "artimancy:dark_oak_staff",
+    "artimancy:jungle_staff",
+    "artimancy:oak_staff",
+    "artimancy:spruce_staff",
+    "artimancy:silver_staff",
+    "artimancy:gold_staff"
+  ]
+}

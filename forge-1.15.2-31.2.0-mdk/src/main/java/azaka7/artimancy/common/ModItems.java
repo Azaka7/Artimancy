@@ -18,6 +18,7 @@ import azaka7.artimancy.common.item.StaffItem;
 import azaka7.artimancy.common.item.ToolTier;
 import azaka7.artimancy.common.magic.Spells;
 import azaka7.artimancy.common.item.ArmorShieldItem;
+import azaka7.artimancy.common.item.CraftingToolItem;
 import azaka7.artimancy.common.item.ModSwordItem;
 import azaka7.artimancy.common.item.MiscItem;
 import azaka7.artimancy.common.item.ModArmorMaterial;
@@ -33,11 +34,12 @@ public class ModItems {
 	private static final ModItems INSTANCE = new ModItems();
 	public static final ModItems instance(){ return INSTANCE; }
 	
+	public final Item artifice_dust;
 	public final Item ore_chunk_iron, ore_chunk_gold, ore_chunk_silver, ore_chunk_copper, ore_chunk_nickel, 
 		ore_chunk_platinum, ore_chunk_lead, ore_chunk_chromite, ore_chunk_cobalt, ore_chunk_tin, ore_chunk_titanium, ore_chunk_zinc;
 	public final Item ore_chunk_uranium;
 	public final Item slag;
-	public final Item sulfur, saltpetre, graphite, stibnite;
+	public final Item sulfur, saltpetre, graphite, stibnite, cinnabar, mercury; //TODO add cinnabar and mercury. 
 	public final Item ceramic_tile;
 	public final Item cast_arrow, cast_axe, cast_ball, cast_blade, cast_ingot, cast_nugget, cast_plate, cast_rod, cast_hilt, cast_pickaxe_head, cast_shovel_head, cast_hoe_head;
 	public final Item cast_iron_plate, gold_plate, iron_plate, steel_plate, silver_plate;
@@ -70,17 +72,24 @@ public class ModItems {
 	public final StaffItem acacia_staff, birch_staff,dark_oak_staff, jungle_staff, oak_staff, spruce_staff;
 	public final StaffItem silver_staff, gold_staff;
 	
+	public final CraftingToolItem mortar_and_pestle;
+	
 	//note: coal burns at 1200C (charcoal) - 1927C (perfect)
 	
 	private ModItems(){
 		ImmutableList.Builder<Item> itemList = new ImmutableList.Builder<Item>();
 
+		artifice_dust = new MiscItem("artifice_dust",ItemGroup.MATERIALS, itemList);
 		sulfur = new MiscItem("mineral_sulfur",ItemGroup.MATERIALS, itemList);
 		saltpetre = new MiscItem("mineral_saltpetre",ItemGroup.MATERIALS, itemList);
 		graphite = new MiscItem("graphite",ItemGroup.MATERIALS, itemList);
 
 		//Stibnite - used for glitter/sparkles/pewter; used to make philosophic mercury; unstable, brings great change, amplify 
 		stibnite = new MiscItem("stibnite",ItemGroup.MATERIALS, itemList);
+		
+		//Cinnabar and mercury - cinnabar smelts into mercury and sulfur; mercury is used in alchemy/artimancy
+		cinnabar = new MiscItem("cinnabar", ItemGroup.MATERIALS, itemList);
+		mercury = new MiscItem("mercury", ItemGroup.MATERIALS, itemList);
 		
 		//Gold Ore, Silver Ore; no native gems
 		ore_chunk_gold = new MiscItem("gold_ore_chunk",ItemGroup.MATERIALS, itemList);
@@ -199,12 +208,12 @@ public class ModItems {
 		
 		//TODO add following as recipes to cast furnace (No need for an alloy furnace!):
 		/* Recipes:
-		 * *Blast Furnace or w.iron + w.iron = 2 Steel + Slag
+		 * *Blast Furnace or w.iron + w.iron = 2 Steel + slag
 		 * *Normal Furnace or w.iron + charcoal = Cast Iron (durability-, protection ++)
 		 * 3 w.iron + 1 tungsten ore (wolfram) = 3 Lycan Steel (durability+, magic resist ++, looks epic) + slag
 		 * 3 steel + 1 cobalt = 4 Cerulian Steel (durability+, magic resist +, looks cool) + slag
-		 * 3 steel + 1 chromium = 4 Viridian Steel (durability+, magic conduct +, magic resist +, looks envious)
-		 * 3 steel + 1 cinnabar = 4 Sanguine Steel (durability+, magic conduct +, looks hot) + slag
+		 * 3 steel + 1 chromium = 4 Verdant Steel (durability+, magic conduct +, magic resist +, looks envious)
+		 * 3 steel + 1 cinnabar = 4 Crimson Steel (durability+, magic conduct +, looks hot) + slag
 		 * 2 w.iron + 3 obsidian shard = 2 Obstinite Steel (durability--, protection-, magic resist +++, toughness +, looks dark) + black slag (both slag and black dye)
 		 * 2 w.iron + 1 nickel = 3 Invar (protection +, magic resist +) + slag
 		 * 
@@ -298,6 +307,7 @@ public class ModItems {
 		staffs.add(oak_staff = new StaffItem("oak_staff", ToolTier.OAK, (new Item.Properties()).group(ItemGroup.COMBAT)));
 		staffs.add(spruce_staff = new StaffItem("spruce_staff", ToolTier.SPRUCE, (new Item.Properties()).group(ItemGroup.COMBAT)));
 		
+		//TODO add crafting for metal staffs
 		staffs.add(silver_staff = new StaffItem("silver_staff", ToolTier.SILVER, (new Item.Properties()).group(ItemGroup.COMBAT)));
 		staffs.add(gold_staff = new StaffItem("gold_staff", ItemTier.GOLD, (new Item.Properties()).group(ItemGroup.COMBAT)));
 		
@@ -320,6 +330,8 @@ public class ModItems {
 		new SpellScrollItem("shockwave_spell_scroll", Spells.SHOCKWAVE, ItemGroup.BREWING, itemList);
 		
 		//Tools
+		mortar_and_pestle = new CraftingToolItem("mortar_and_pestle", ItemGroup.TOOLS, itemList, 1179);
+		
 		cast_iron_shovel = new ModShovelItem("cast_iron_shovel", ToolTier.CAST_IRON, 1.5F, -3.0F, ItemGroup.TOOLS, itemList);
 		cast_iron_pickaxe = new ModPickaxeItem("cast_iron_pickaxe", ToolTier.CAST_IRON, 1, -2.8F, ItemGroup.TOOLS, itemList);
 		cast_iron_axe = new ModAxeItem("cast_iron_axe", ToolTier.CAST_IRON, 5, -3.0F, ItemGroup.TOOLS, itemList);

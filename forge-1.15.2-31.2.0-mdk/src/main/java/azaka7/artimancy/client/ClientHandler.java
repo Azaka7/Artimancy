@@ -8,6 +8,7 @@ import azaka7.artimancy.common.entity.ModEntityTypes;
 import azaka7.artimancy.common.entity.projectile.MagicMissileEntity;
 import azaka7.artimancy.common.magic.AbstractSpell;
 import azaka7.artimancy.common.magic.Spells;
+import azaka7.artimancy.common.tileentity.ArtimancyTableContainer;
 import azaka7.artimancy.common.tileentity.CastFurnaceContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
@@ -47,6 +48,15 @@ public class ClientHandler{
 			}
 			
 		});
+		ScreenManager.registerFactory(Artimancy.instance().commonProxy().getArtimancyTableContainerType(), new IScreenFactory<ArtimancyTableContainer, ArtimancyTableScreen>() {
+			
+			@Override
+			public ArtimancyTableScreen create(ArtimancyTableContainer container, PlayerInventory inventory, ITextComponent title) {
+				if(container == null || inventory == null) { return null; }
+				return new ArtimancyTableScreen(container, inventory, title);
+			}
+			
+		});
 	}
 	
 	protected ModelResourceLocation asModResource(String in){
@@ -55,6 +65,7 @@ public class ClientHandler{
 
 	public void setRenderLayers() {
 		RenderTypeLookup.setRenderLayer(ModBlocks.instance().white_mushroom, RenderType.getCutout());
+		RenderTypeLookup.setRenderLayer(ModBlocks.instance().artimancy_table, RenderType.getTranslucent());
 		RenderTypeLookup.setRenderLayer(ModBlocks.instance().lumin_block, RenderType.getTranslucent());
 	}
 

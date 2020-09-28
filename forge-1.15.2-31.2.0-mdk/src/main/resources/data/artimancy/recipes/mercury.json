@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "artimancy:cinnabar"
+  },
+  "result": "artimancy:mercury",
+  "experience": 0.1,
+  "cookingtime": 100
+}

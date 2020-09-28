@@ -17,7 +17,6 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -30,7 +29,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
@@ -64,13 +62,6 @@ public class Artimancy
         }
 
         MinecraftForge.EVENT_BUS.register(this);
-    }
-    
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
-        LOGGER.info("Artimancy is unregistering it's own data pack so that Forge will reload it and override every other datapack.");
-    	MinecraftServer server = event.getServer();
-        server.getCommandManager().handleCommand(server.getCommandSource().withPermissionLevel(2), "datapack disable \"mod:artimancy\"");
     }
     
     @SubscribeEvent

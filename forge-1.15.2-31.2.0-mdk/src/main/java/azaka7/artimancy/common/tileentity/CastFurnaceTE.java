@@ -29,12 +29,12 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class CastFurnaceTileEntity extends LockableTileEntity implements ITickableTileEntity, ISidedInventory, IRecipeHelperPopulator
+public class CastFurnaceTE extends LockableTileEntity implements ITickableTileEntity, ISidedInventory, IRecipeHelperPopulator
 {
 
 	public static final IRecipeType<CastingRecipe> CAST_RECIPE_TYPE = IRecipeType.register(Artimancy.MODID+"_casting");
 	
-	public CastFurnaceTileEntity() {
+	public CastFurnaceTE() {
 		super(Artimancy.instance().getCastFurnaceType());
 		timing = new FurnaceTiming(0, 0, 0, 0);
 	}

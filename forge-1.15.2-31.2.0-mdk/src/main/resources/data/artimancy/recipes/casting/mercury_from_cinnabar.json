@@ -1,0 +1,17 @@
+{
+  "type": "artimancy:casting_recipe",
+  "ingredient": {
+    "item": "artimancy:cinnabar",
+    "amount": 2
+  },
+  "cast": {
+    "item": "artimancy:cast_ball"
+  },
+  "result": {
+    "item": "artimancy:mercury",
+    "count": 2
+  },
+  "bonus": "artimancy:mineral_sulfur",
+  "experience": 0.2,
+  "cookingtime": 100
+}

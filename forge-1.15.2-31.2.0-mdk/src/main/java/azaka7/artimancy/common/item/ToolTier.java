@@ -1,9 +1,15 @@
 package azaka7.artimancy.common.item;
 
+import com.google.gson.JsonSyntaxException;
+
 import azaka7.artimancy.common.ModItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 
 public enum ToolTier implements IItemTier{
 
@@ -62,9 +68,13 @@ public enum ToolTier implements IItemTier{
 	@Override
 	public Ingredient getRepairMaterial() {
 		if(repairItem == null){
-			Item rep = ModItems.instance().getItem(repairID);
-			if(rep != null) {
-				repairItem =  Ingredient.fromItems(rep);
+			ResourceLocation resourcelocation1 = new ResourceLocation(repairID);
+	        @SuppressWarnings("deprecation")
+			Item item = Registry.ITEM.getValue(resourcelocation1).orElseThrow(() -> {
+	           return new JsonSyntaxException("Unknown item '" + resourcelocation1 + "'");
+	        });
+			if(item != null) {
+				repairItem =  Ingredient.fromItems(item);
 			}
 		}
 		return repairItem;

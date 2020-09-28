@@ -9,14 +9,17 @@ import com.google.gson.JsonObject;
 
 import azaka7.artimancy.Artimancy;
 import azaka7.artimancy.common.block.ICustomItemBlock;
+import azaka7.artimancy.common.crafting.ArtificeRecipeSerializer;
 import azaka7.artimancy.common.crafting.CastingRecipeSerializer;
 import azaka7.artimancy.common.enchantments.AutophagyEnchantment;
 import azaka7.artimancy.common.enchantments.FocusEnchantment;
 import azaka7.artimancy.common.enchantments.VigorEnchantment;
 import azaka7.artimancy.common.entity.ModEntityTypes;
 import azaka7.artimancy.common.item.StaffItem;
+import azaka7.artimancy.common.tileentity.ArtimancyTableContainer;
+import azaka7.artimancy.common.tileentity.ArtimancyTableTE;
 import azaka7.artimancy.common.tileentity.CastFurnaceContainer;
-import azaka7.artimancy.common.tileentity.CastFurnaceTileEntity;
+import azaka7.artimancy.common.tileentity.CastFurnaceTE;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.Enchantment;
@@ -51,10 +54,14 @@ public class CommonHandler {
 	
 	private static final ToggleShapedSerializer TOGGLE_SHAPED_SERIALIZER = new ToggleShapedSerializer();
 	
-	private TileEntityType<CastFurnaceTileEntity> castFurnaceTEType;
-    public final TileEntityType<CastFurnaceTileEntity> getCastFurnaceType() {return castFurnaceTEType;}
+	private TileEntityType<CastFurnaceTE> castFurnaceTEType;
+    public final TileEntityType<CastFurnaceTE> getCastFurnaceType() {return castFurnaceTEType;}
+	private TileEntityType<ArtimancyTableTE> artimancyTableTEType;
+    public final TileEntityType<ArtimancyTableTE> getArtimancyTableType() {return artimancyTableTEType;}
     private ContainerType<CastFurnaceContainer> castFurnaceContainerType;
     public final ContainerType<CastFurnaceContainer> getCastFurnaceContainerType() {return castFurnaceContainerType;}
+    private ContainerType<ArtimancyTableContainer> artimancyTableContainerType;
+    public final ContainerType<ArtimancyTableContainer> getArtimancyTableContainerType() {return artimancyTableContainerType;}
     
     public final EnchantmentType STAFF_TYPE;
     public final Enchantment FOCUS_ENCH;
@@ -71,11 +78,19 @@ public class CommonHandler {
 				 return CastFurnaceContainer.createNew(windowId, playerInv, extraData);
 			 }
 		};
+		artimancyTableContainerType = new ContainerType<ArtimancyTableContainer>(ArtimancyTableContainer::new) {
+			 public ArtimancyTableContainer create(int windowId, PlayerInventory playerInv, net.minecraft.network.PacketBuffer extraData) {
+				 return ArtimancyTableContainer.createNew(windowId, playerInv, extraData);
+			 }
+		};
 		ModBlocks.instance();
-		
+
 		castFurnaceContainerType.setRegistryName("castfurnace");
-		castFurnaceTEType = TileEntityType.Builder.create(CastFurnaceTileEntity::new, ModBlocks.instance().cast_furnace).build(null);
+		artimancyTableContainerType.setRegistryName("artimancytable");
+		castFurnaceTEType = TileEntityType.Builder.create(CastFurnaceTE::new, ModBlocks.instance().cast_furnace).build(null);
 		castFurnaceTEType.setRegistryName("castfurnace");
+		artimancyTableTEType = TileEntityType.Builder.create(ArtimancyTableTE::new, ModBlocks.instance().artimancy_table).build(null);
+		artimancyTableTEType.setRegistryName("artimancytable");
 		
 		STAFF_TYPE = EnchantmentType.create("artimancy.staff", (Item item) -> {return item!=null && item instanceof StaffItem;});
 		FOCUS_ENCH = new FocusEnchantment("artimancy:focus", STAFF_TYPE);
@@ -132,16 +147,18 @@ public class CommonHandler {
 	public final void registerContainers(Register<TileEntityType<?>> event) {
 		LOGGER.debug("Registering Mod TileEntityTypes...");
         event.getRegistry().register(castFurnaceTEType);
+        event.getRegistry().register(artimancyTableTEType);
 	}
 	
 	public final void registerContainerTypes(RegistryEvent.Register<ContainerType<?>> event){
 		event.getRegistry().register(getCastFurnaceContainerType());
-		
+		event.getRegistry().register(getArtimancyTableContainerType());
 	}
 
 	public void registerRecipeSerializers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
 		IRecipeSerializer.register(Artimancy.MODID+":toggle_shaped_recipe", TOGGLE_SHAPED_SERIALIZER);
-		IRecipeSerializer.register(Artimancy.MODID+":casting_recipe", CastingRecipeSerializer.INSTANCE);
+		IRecipeSerializer.register(Artimancy.MODID+":casting_recipe", CastingRecipeSerializer.instance());
+		IRecipeSerializer.register(Artimancy.MODID+":artifice_recipe", ArtificeRecipeSerializer.instance());
 	}
 	
 	public void blockDrops(BlockEvent.BreakEvent event){

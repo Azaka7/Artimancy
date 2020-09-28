@@ -111,19 +111,19 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
         return this.tileFurnace.isUsableByPlayer(playerIn);
     }
 
-    /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
-     */
-    public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
-    {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
+	/**
+	 * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
+	 * inventory and the other inventory(s).
+	 */
+	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index)
+	{
+		ItemStack itemstack = ItemStack.EMPTY;
+		Slot slot = this.inventorySlots.get(index);
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
+		if (slot != null && slot.getHasStack())
+		{
+			ItemStack itemstack1 = slot.getStack();
+			itemstack = itemstack1.copy();
 
             if (index >= 0 && index <=5)
             {
@@ -134,21 +134,21 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 
                 slot.onSlotChange(itemstack1, itemstack);
             } else {
-                if (CastingRecipeSerializer.INSTANCE.isValidInput(itemstack1))//!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
+                if (CastingRecipeSerializer.instance().isValidInput(itemstack1))//!FurnaceRecipes.instance().getSmeltingResult(itemstack1).isEmpty())
                 {
                     if (!this.mergeItemStack(itemstack1, 0, 2, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (CastFurnaceTileEntity.isItemFuel(itemstack1))
+                else if (CastFurnaceTE.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 3, 4, false))
                     {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (!itemstack1.isEmpty() && CastingRecipeSerializer.INSTANCE.isValidCast(itemstack1))//itemstack1.getItem() == ModItems.instance().cast)
+                else if (!itemstack1.isEmpty() && CastingRecipeSerializer.instance().isValidCast(itemstack1))//itemstack1.getItem() == ModItems.instance().cast)
                 {
                     if (!this.mergeItemStack(itemstack1, 2, 3, false))
                     {
@@ -190,7 +190,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 
 	@Override
 	public boolean isFuel(ItemStack stack) {
-		return CastFurnaceTileEntity.isItemFuel(stack);
+		return CastFurnaceTE.isItemFuel(stack);
 	}
 
 	@Override
@@ -203,7 +203,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 		BlockPos pos = data.readBlockPos();
 		TileEntity te = inv.player.world.getTileEntity(pos);
 		IInventory inventory = null;
-		if(te instanceof CastFurnaceTileEntity) {
+		if(te instanceof CastFurnaceTE) {
 			inventory = (IInventory) te;
 		} else {return create(windowId, inv);}
 		FurnaceTiming timing = new FurnaceTiming(data.readInt(),data.readInt(),data.readInt(),data.readInt());
@@ -214,7 +214,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 		BlockPos pos = data.readBlockPos();
 		TileEntity te = inv.player.world.getTileEntity(pos);
 		IInventory inventory = null;
-		if(te instanceof CastFurnaceTileEntity) {
+		if(te instanceof CastFurnaceTE) {
 			inventory = (IInventory) te;
 		} else {return new CastFurnaceContainer(windowId, inv);}
 		FurnaceTiming timing = new FurnaceTiming(data.readInt(),data.readInt(),data.readInt(),data.readInt());
@@ -240,7 +240,7 @@ public class CastFurnaceContainer extends AbstractBurnContainer implements ICont
 
 	@Override
 	public boolean matches(IRecipe<? super IInventory> recipeIn) {
-		if(recipeIn.getType() != CastFurnaceTileEntity.CAST_RECIPE_TYPE){ return false; }
+		if(recipeIn.getType() != CastFurnaceTE.CAST_RECIPE_TYPE){ return false; }
 		return recipeIn.matches(this.tileFurnace, this.world);
 	}
 

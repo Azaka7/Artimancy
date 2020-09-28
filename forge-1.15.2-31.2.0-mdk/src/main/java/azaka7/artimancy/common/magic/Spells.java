@@ -2,6 +2,8 @@ package azaka7.artimancy.common.magic;
 
 import java.util.HashMap;
 
+import javax.annotation.Nullable;
+
 import azaka7.artimancy.Artimancy;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -10,6 +12,7 @@ public class Spells {
 	
 	private static final HashMap<String, AbstractSpell> SPELLS = new HashMap<String,AbstractSpell>();
 	private static final String SPELL_NBT = Artimancy.MODID+".spell";
+	private static final String NULL_ID = "$NULL";
 
 	public static final AbstractSpell TELEPORT = new TeleportSpell("artimancy:teleport");
 	public static final AbstractSpell FIREBALL = new FireballSpell("artimancy:fireball");
@@ -79,7 +82,7 @@ public class Spells {
 	 * @return True iff the spell was registered.
 	 */
 	public static final boolean registerSpell(AbstractSpell spell) {
-		if(SPELLS.containsKey(spell.getID())) {
+		if(spell == null || NULL_ID.equals(spell.getID()) || SPELLS.containsKey(spell.getID())) {
 			return false;
 		}
 		SPELLS.put(spell.getID(), spell);
@@ -92,11 +95,26 @@ public class Spells {
 	 * @return The registered instance of AbstractSpell, or null if there is no spell registered to the ID.
 	 */
 	public static final AbstractSpell getSpellFromID(String id) {
+		if(NULL_ID.equals(id)) {return null;}
 		return SPELLS.containsKey(id) ? SPELLS.get(id) : null;
 	}
 	
+	/**
+	 * Safely check if the AbstractSpell has been registered.
+	 * @param spell The AbstractSpell to check for.
+	 * @return True if the spell has been registered, or if the spell's ID represents a null spell (to help prevent spells from trying to be registered under that ID)
+	 */
 	public static final boolean isSpellRegistered(AbstractSpell spell) {
-		return SPELLS.containsKey(spell.getID());
+		return spell == null || SPELLS.containsKey(spell.getID());
+	}
+	
+	/**
+	 * Safely obtain the ID of a spell. The AbstractSpell may be null.
+	 * @param spell The AbstractSpell to get the ID of.
+	 * @return Spells.NULL_ID if null, otherwise spell.getID()
+	 */
+	public static String getSpellID(@Nullable AbstractSpell spell) {
+		return spell == null ? NULL_ID : spell.getID();
 	}
 	
 }

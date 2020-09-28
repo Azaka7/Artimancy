@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "artimancy:wooden_staff",
+  "pattern": [
+    " BP",
+    " SD",
+    "S  "
+  ],
+  "key": {
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "P": {
+      "item": "minecraft:jungle_planks"
+    },
+    "S": {
+      "tag": "forge:rods/wooden"
+    },
+    "D": {
+      "item": "artimancy:artifice_dust"
+    }
+  },
+  "result": {
+    "item": "artimancy:jungle_staff"
+  }
+}
