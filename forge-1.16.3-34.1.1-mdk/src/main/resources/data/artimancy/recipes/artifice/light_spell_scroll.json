@@ -1,0 +1,15 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mercury"
+  },
+  "elemental": {
+    "item": "minecraft:fire_charge"
+  },
+  "input": {
+	"item": "minecraft:paper"
+  },
+  "result": {
+	"item": "artimancy:light_spell_scroll"
+  }
+}

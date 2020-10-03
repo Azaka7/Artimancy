@@ -1,0 +1,15 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mineral_sulfur"
+  },
+  "elemental": {
+    "item": "minecraft:snowball"
+  },
+  "input": {
+	"item": "minecraft:paper"
+  },
+  "result": {
+	"item": "artimancy:healing_spell_scroll"
+  }
+}

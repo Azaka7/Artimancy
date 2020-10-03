@@ -1,0 +1,15 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mercury"
+  },
+  "elemental": {
+    "item": "minecraft:snowball"
+  },
+  "input": {
+	"item": "minecraft:paper"
+  },
+  "result": {
+	"item": "artimancy:magic_missile_spell_scroll"
+  }
+}

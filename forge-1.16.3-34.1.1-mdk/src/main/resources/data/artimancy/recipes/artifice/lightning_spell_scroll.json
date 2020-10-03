@@ -1,0 +1,15 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mineral_sulfur"
+  },
+  "elemental": {
+    "item": "minecraft:ender_pearl"
+  },
+  "input": {
+	"item": "minecraft:paper"
+  },
+  "result": {
+	"item": "artimancy:lightning_spell_scroll"
+  }
+}

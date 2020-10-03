@@ -1,0 +1,15 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mineral_saltpetre"
+  },
+  "elemental": {
+    "item": "minecraft:fire_charge"
+  },
+  "input": {
+	"item": "minecraft:paper"
+  },
+  "result": {
+	"item": "artimancy:fireball_spell_scroll"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "artimancy:artifice_recipe",
+  "sophic": {
+    "item": "artimancy:mercury"
+  },
+  "elemental": {
+    "item": "minecraft:slime_ball"
+  },
+  "input": {
+	"item": "minecraft:paper"
+  },
+  "result": {
+	"item": "artimancy:shockwave_spell_scroll"
+  }
+}
