@@ -48,7 +48,7 @@ public class ModBlocks {
 	public final Block jade_stone_slab, jade_cobblestone_slab, jade_brick_slab, jade_tile_slab, jade_pentbrick_slab, jade_slab;
 	public final Block jade_stone_stairs, jade_cobblestone_stairs, jade_brick_stairs, jade_tile_stairs, jade_pentbrick_stairs, jade_stairs;
 	
-	public final Block basalt, dunite, gabbro, komatiite, limestone, marble, mudstone, quartzite, red_quartzite, schist, shale;
+	public final Block dunite, gabbro, komatiite, limestone, marble, mudstone, quartzite, red_quartzite, schist, shale;
 	public final Block dunite_netherrack, marble_pillar, marble_brick;
 	public final Block polished_basalt, polished_dunite, polished_gabbro, polished_komatiite, polished_marble, polished_mudstone, polished_schist;
 	
@@ -96,9 +96,6 @@ public class ModBlocks {
 		
 		andesite_zircon_ore = (new MiscBlock("andesite_zircon_ore", (AbstractBlock.Properties.create(Material.ROCK, MaterialColor.STONE)).hardnessAndResistance(1.5F, 6.0F)));
 		blockMap.put(andesite_zircon_ore, ItemGroup.BUILDING_BLOCKS);
-		
-		basalt = (new RotatedBlock("basalt", (AbstractBlock.Properties.create(Material.ROCK, MaterialColor.GRAY_TERRACOTTA)).hardnessAndResistance(1.5F, 6.0F)));
-		blockMap.put(basalt, ItemGroup.BUILDING_BLOCKS);
 		
 		polished_basalt = (new MiscBlock("polished_basalt", (AbstractBlock.Properties.create(Material.ROCK, MaterialColor.GRAY_TERRACOTTA)).hardnessAndResistance(1.5F, 6.0F)));
 		blockMap.put(polished_basalt, ItemGroup.BUILDING_BLOCKS);

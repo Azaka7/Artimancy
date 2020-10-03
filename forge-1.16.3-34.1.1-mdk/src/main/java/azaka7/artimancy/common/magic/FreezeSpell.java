@@ -1,6 +1,5 @@
 package azaka7.artimancy.common.magic;
 
-import azaka7.artimancy.common.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.FlowingFluidBlock;
@@ -44,11 +43,11 @@ public class FreezeSpell extends AbstractSpell{
 								if(state.getBlock() == Blocks.WATER && state.get(FlowingFluidBlock.LEVEL) == 0) {
 									world.setBlockState(curPos, (Math.sqrt(x*x+z*z)+2 < radius && y > -2) ? Blocks.ICE.getDefaultState() : Blocks.FROSTED_ICE.getDefaultState());
 								} else if(state.getBlock() == Blocks.LAVA && state.get(FlowingFluidBlock.LEVEL) == 0) {
-									world.setBlockState(curPos, (Math.sqrt(x*x+z*z)+2 < radius && y > -2) ? Blocks.OBSIDIAN.getDefaultState() : Blocks.MAGMA_BLOCK.getDefaultState());
+									world.setBlockState(curPos, (Math.sqrt(x*x+z*z)+2 < radius && y > -2) ? (dimensionIsHot(world) ? Blocks.field_235406_np_.getDefaultState() : Blocks.OBSIDIAN.getDefaultState()) : Blocks.MAGMA_BLOCK.getDefaultState());
 								} else if(state.getBlock() == Blocks.LAVA) {
-									world.setBlockState(curPos, ModBlocks.instance().basalt.getDefaultState());
+									world.setBlockState(curPos, Blocks.field_235337_cO_.getDefaultState()); //Basalt
 								} else if(state.getBlock() == Blocks.MAGMA_BLOCK) {
-									world.setBlockState(curPos, Blocks.OBSIDIAN.getDefaultState());
+									world.setBlockState(curPos, Blocks.field_235406_np_.getDefaultState()); //Black stone
 								} else if(state.getBlock() == Blocks.AIR && world.getBlockState(curPos.down()).isTopSolid(world, curPos.down(), caster, Direction.UP) && !dimensionIsHot(world)) {
 									world.setBlockState(curPos, Blocks.SNOW.getDefaultState());
 								} else if(state.getBlock() == Blocks.FIRE) {
